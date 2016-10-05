@@ -27,6 +27,8 @@ var palletSize = 50;
 var gridLogs = [];
 
 var currentColor= black;
+var current_id = 1;
+
 var fillColor = white;
 var lineColor = "#ccc"; // "black";
 
@@ -37,13 +39,14 @@ bleep.src = 'javascript/click_real_short.mp3';
 // =======================================================================================
 function pickColor(id) {
 
-    if(id==1) {
+    current_id = id;
+    /*if(id==1) {
         currentColor = document.getElementById('stampColor').value;
         return currentColor;
     } else {
         currentColor = white;
         return currentColor;
-    }
+    }*/
 }
 // =======================================================================================
 function updateGrid(){
@@ -164,6 +167,11 @@ function vitruviaOnClick(e) {
     var column = cell.column;
 
     bleep.play();
+
+    if(current_id == 1)
+        currentColor = document.getElementById('stampColor').value;
+    else
+        currentColor = white;
     
     fillColor  = currentColor;
     
