@@ -24,14 +24,33 @@ var blueviolet = "#8A2BE2";
 
 var palletSize = 50;
 
+var gridLogs = [];
+
 var fillColor = white;
 var lineColor = "#ccc"; // "black";
 
 var bleep = new Audio();
-bleep.src = 'click_real_short.mp3';
+bleep.src = 'javascript/click_real_short.mp3';
 
 // =======================================================================================
 // =======================================================================================
+function undo(){
+    if(gridLogs.length!=0){
+        gridLogs.pop();
+        drawBoard();
+        for(i=0;i<gridLogs.length;i++){
+            gDrawingContext.fillStyle = gridLogs[i].color;
+            gDrawingContext.fillRect(gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
+        }
+    }
+}
+//========================================================================================
+function GridLog(row,column,color){
+    this.row = row;
+    this.column = column;
+    this.color=color;
+}
+//========================================================================================
 function Cell(row, column) {
     this.row = row;
     this.column = column;
@@ -89,21 +108,7 @@ function vitruviaOnClick(e) {
     
     fillColor  = document.getElementById('stampColor').value;
     
-   
-/*    
-    // check if new color selection
-    if (row > kBoardWidth) {    
-        if ( 0 <= column                  && column <= kStep              ) { fillColor = red;        }
-        if ( kStep + kStep/2 <= column    && column <= 2*kStep + kStep/2  ) { fillColor = green;      }
-        if ( 3*kStep <= column            && column <= 4*kStep            ) { fillColor = blue;       }
-        if ( 4*kStep  + kStep/2 <= column && column <= 5*kStep  + kStep/2 ) { fillColor = yellow;     }
-        if ( 6*kStep <= column            && column <= 7*kStep            ) { fillColor = white;      }        
-        if ( 7*kStep + kStep/2 <= column  && column <= 8*kStep + kStep/2  ) { fillColor = black;      }
-        if ( 9*kStep <= column            && column <= 10*kStep           ) { fillColor = blueviolet; }
-    }
-    
-   else {
-*/       
+
        if ((column < xEnd - 1) && (row < yEnd - 1) ) {
            var x = Math.floor(column/kStep) * kStep;
            var y = Math.floor(row/kStep) * kStep;
@@ -116,12 +121,7 @@ function vitruviaOnClick(e) {
 
              gDrawingContext.fillRect(x+1, y+1, kStep-1, kStep-1); // box lines don't get redrawn with empty color
 
-            
-            // redraws the box border
-           // gDrawingContext.strokeStyle = "#ccc";
-           // gDrawingContext.stroke();
-            
-            //gDrawingContext.closePath();	
+           gridLogs.push(new GridLog(x+1,y+1,fillColor));
         }
 //    }
 }
@@ -170,24 +170,7 @@ function drawBoard() {
     gDrawingContext.fill();
 
     drawLines(lineColor);
- //   
- //   /* vertical lines */
- //   for (var x = 0; x <= xEnd; x += kStep) { 
- //       gDrawingContext.moveTo(0.5 + x, 0);
- //       gDrawingContext.lineTo(0.5 + x, yEnd);
- //   }
- //   
- //   /* horizontal lines */
- //   for (var y = 0; y <= yEnd; y += kStep) {
- //       gDrawingContext.moveTo(0    , 0.5 + y);
- //       gDrawingContext.lineTo(xEnd, 0.5 +  y);
- //   }
- //   
- //   /* draw it! */
- //   //gDrawingContext.strokeStyle = "#ccc";
- //   gDrawingContext.strokeStyle = lineColor;
- //   gDrawingContext.stroke();        
-    
+
     gDrawingContext.closePath();
 }
 
@@ -282,10 +265,10 @@ function initGame() {
 
     // set canvasImg image src to dataURL
     // so it can be saved as an image
-    document.getElementById('vitruvia_canvas').src = dataURL;    
+    //document.getElementById('vitruvia_canvas').src = dataURL;
     
     // makes save canvas possible
-    saveCanvas();
+    //saveCanvas();
 }
 
 // =======================================================================================
