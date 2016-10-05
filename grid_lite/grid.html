@@ -69,7 +69,7 @@ body {
         </tr>
         <tr>
             <td>
-                <input type="color" id="stampColor" size="4">                 
+                <input type="color" id="stampColor" size="4" onclick="pickColor(1)">
             </td>
             <td>
                 <span class="dropt" title="Clear Grid">
@@ -89,7 +89,10 @@ body {
             </td>            
         </tr>
             <tr>
-                <td colspan="2">
+                <td >
+                    <input type="button" value="Erase" onclick="pickColor(2);"/>
+                </td>
+                <td >
                     <input type="button" value="Undo" onclick="undo();"/>
                 </td>
             </tr>

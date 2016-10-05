@@ -26,6 +26,7 @@ var palletSize = 50;
 
 var gridLogs = [];
 
+var currentColor= black;
 var fillColor = white;
 var lineColor = "#ccc"; // "black";
 
@@ -33,6 +34,17 @@ var bleep = new Audio();
 bleep.src = 'javascript/click_real_short.mp3';
 
 // =======================================================================================
+// =======================================================================================
+function pickColor(id) {
+
+    if(id==1) {
+        currentColor = document.getElementById('stampColor').value;
+        return currentColor;
+    } else {
+        currentColor = white;
+        return currentColor;
+    }
+}
 // =======================================================================================
 function updateGrid(){
     var v              = document.getElementById('size').value;
@@ -153,18 +165,14 @@ function vitruviaOnClick(e) {
 
     bleep.play();
     
-    fillColor  = document.getElementById('stampColor').value;
+    fillColor  = currentColor;
     
 
        if ((column < xEnd - 1) && (row < yEnd - 1) ) {
            var x = Math.floor(column/kStep) * kStep;
            var y = Math.floor(row/kStep) * kStep;
-
-           // gDrawingContext.beginPath();
             
             gDrawingContext.fillStyle = fillColor;
-           // gDrawingContext.rect(x, y, kStep, kStep); // redraws entire canvas?
-           // gDrawingContext.fill();
 
              gDrawingContext.fillRect(x+1, y+1, kStep-1, kStep-1); // box lines don't get redrawn with empty color
 
