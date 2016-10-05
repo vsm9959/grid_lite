@@ -34,6 +34,75 @@ bleep.src = 'javascript/click_real_short.mp3';
 
 // =======================================================================================
 // =======================================================================================
+function updateGrid(){
+    var v              = document.getElementById('size').value;
+
+    // squares per side
+    if (v < 1) {
+        alert('Smallest size is 2');
+        side = 2;
+    }
+
+    if (64 < v) {
+        alert('Largest size is 64');
+        side = 64;
+    }
+    else { side = v; }
+
+
+
+
+    //var boardSize  = 500;
+    var boardSize;
+    var delta = 0.3;
+
+    if (window.innerWidth < window.innerHeight)
+    {
+        boardSize = window.innerWidth - delta * window.innerWidth ;
+    }
+    else
+    {
+        boardSize = window.innerHeight - delta * window.innerHeight;
+    }
+
+    if(gridLogs.length!=0) {
+        for (i = 0; i < gridLogs.length; i++) {
+            gridLogs[i].row = (gridLogs[i].row-1)/kStep;
+            gridLogs[i].column = (gridLogs[i].column-1)/kStep;
+        }
+    }
+
+    kStep = Math.floor(boardSize / side);
+
+    if(gridLogs.length!=0) {
+        for (i = 0; i < gridLogs.length; i++) {
+            gridLogs[i].row = gridLogs[i].row*kStep + 1;
+            gridLogs[i].column = gridLogs[i].column*kStep + 1;
+        }
+    }
+
+
+    //size of canvas we want to use
+    kPixelWidth  = kStep * side + 1;
+    kPixelHeight = kStep * side + 1;
+
+    kBoardWidth  = kPixelWidth;
+    kBoardHeight = kPixelHeight;
+
+    gCanvasElement.width  = kPixelWidth ;  // + 2*kStep // the kSteps make room for the pallet
+    gCanvasElement.height = kPixelHeight;
+
+    drawBoard();
+
+    if(gridLogs.length!=0){
+        drawBoard();
+        for(i=0;i<gridLogs.length;i++){
+            gDrawingContext.fillStyle = gridLogs[i].color;
+            gDrawingContext.fillRect(gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
+        }
+    }
+}
+//========================================================================================
 function undo(){
     if(gridLogs.length!=0){
         gridLogs.pop();
@@ -55,28 +124,6 @@ function Cell(row, column) {
     this.row = row;
     this.column = column;
 }
-
-// =======================================================================================
-function getCursorPosition(e) {
-    /* returns Cell with .row and .column properties */
-    var x;
-    var y;
-    if (e.pageX != undefined && e.pageY != undefined) {
-        x = e.pageX;
-        y = e.pageY;
-    }
-    else {
-        x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-    }
-    x -= gCanvasElement.offsetLeft;
-    y -= gCanvasElement.offsetTop;
-    x = Math.min(x, kBoardWidth * kStep);
-    y = Math.min(y, kBoardHeight * kStep);
-    var cell = new Cell(Math.floor(y/kStep), Math.floor(x/kStep));
-    return cell;
-}
-
 // =======================================================================================
 function getCursorPalletPosition(e) {
     /* returns Cell with .row and .column properties */
@@ -240,7 +287,7 @@ function initGame() {
     }
 
   
-    kStep = Math.floor(boardSize / side)            
+    kStep = Math.floor(boardSize / side);
                
     
     //size of canvas we want to use
@@ -252,8 +299,8 @@ function initGame() {
     
  
     gCanvasElement        = canvasElement;
-    gCanvasElement.width  = kPixelWidth   // + 2*kStep // the kSteps make room for the pallet
-    gCanvasElement.height = kPixelHeight // + 2*kStep
+    gCanvasElement.width  = kPixelWidth ;  // + 2*kStep // the kSteps make room for the pallet
+    gCanvasElement.height = kPixelHeight ;// + 2*kStep
     gCanvasElement.addEventListener("click", vitruviaOnClick, false);
     gDrawingContext       = gCanvasElement.getContext("2d");
 
