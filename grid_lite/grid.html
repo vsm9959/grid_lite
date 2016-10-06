@@ -16,7 +16,7 @@ body {
     text-align:center;
     line-height:20px;
     background-color:#e0e0e0;
-    height:280px;
+    height:320px;
     width:140px;
     float: left;
     padding:5px; 
@@ -38,8 +38,13 @@ body {
   left: 0;
   position: absolute;
   top: 0;
-  width: 100%; 
-}    
+  width: 100%;
+}
+
+    .used{
+        height:20px;
+        width:20px;
+    }
 </style>
 <!-- ---------------------------------------------------------------------------- -->
 
@@ -90,16 +95,28 @@ body {
         </tr>
             <tr>
                 <td >
-                    <input type="button" value="Erase" onclick="pickColor(2);"/>
-                </td>
-                <td >
                     <input type="button" value="Undo" onclick="undo();"/>
                 </td>
             </tr>
+            <table>
+
+                <tr>
+                    <td>
+                        <p>Most used:
+                            <button id ="b0" style = "background: white" class ="used"  onclick="pickColor(2);"></button>
+                            <button id ="b1" style = "background: blue" class ="used"  onclick="pickColor(3);"></button>
+                            <button id ="b2" style = "background: red" class ="used"  onclick="pickColor(4);"></button>
+                            <button id ="b3" style = "background: green" class ="used"  onclick="pickColor(5);"></button>
+                            <button id ="b4" style = "background: gray" class ="used"  onclick="pickColor(6);"></button>
+                            <button id ="b5" style = "background: yellow" class ="used"  onclick="pickColor(7);"></button>
+
+                        </p>
+                    </td>
+                </tr>
+            </table>
         
         </table>
 </div>
-
 <div id="vCanvas" align="center">
     <canvas id="vitruvia_canvas">  
     <img src="" id="mirror" class="canvas__mirror" /> 

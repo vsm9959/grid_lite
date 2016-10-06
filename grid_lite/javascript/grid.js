@@ -38,15 +38,7 @@ bleep.src = 'javascript/click_real_short.mp3';
 // =======================================================================================
 // =======================================================================================
 function pickColor(id) {
-
     current_id = id;
-    /*if(id==1) {
-        currentColor = document.getElementById('stampColor').value;
-        return currentColor;
-    } else {
-        currentColor = white;
-        return currentColor;
-    }*/
 }
 // =======================================================================================
 function updateGrid(){
@@ -168,10 +160,33 @@ function vitruviaOnClick(e) {
 
     bleep.play();
 
-    if(current_id == 1)
+    /*if(current_id == 1)
         currentColor = document.getElementById('stampColor').value;
     else
-        currentColor = white;
+        currentColor = white;*/
+    switch(current_id){
+        case 1:
+            currentColor  = document.getElementById('stampColor').value;
+            break;
+        case 2:
+            currentColor  = document.getElementById('b0').style.backgroundColor;
+            break;
+        case 3:
+            currentColor  = document.getElementById('b1').style.backgroundColor;
+            break;
+        case 4:
+            currentColor  = document.getElementById('b2').style.backgroundColor;
+            break;
+        case 5:
+            currentColor  = document.getElementById('b3').style.backgroundColor;
+            break;
+        case 6:
+            currentColor  = document.getElementById('b4').style.backgroundColor;
+            break;
+        case 7:
+            currentColor  = document.getElementById('b5').style.backgroundColor;
+            break;
+    }
     
     fillColor  = currentColor;
     
@@ -261,6 +276,7 @@ var canvas = document.getElementById('vitruvia_canvas'),
 
 // =======================================================================================
 function clearGrid() {
+    gridLogs = [];
     drawBoard();
 }
 
@@ -322,7 +338,9 @@ function initGame() {
 
 //    drawPallet();
     drawBoard();
-    
+
+    if(document.readyState === "Complete")
+    document.getElementById(b1).style.backgroundColor = red;
    // save canvas image as data url (png format by default)
     //var dataURL = canvas.toDataURL();
 
