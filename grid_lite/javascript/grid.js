@@ -69,6 +69,10 @@ function pickColor(id) {
 function updateGrid(){
     var v              = document.getElementById('size').value;
 
+    var d;
+
+        d = v - side;
+
     // squares per side
     if (v < 1) {
         alert('Smallest size is 2');
@@ -99,8 +103,8 @@ function updateGrid(){
 
     if(gridLogs.length!=0) {
         for (i = 0; i < gridLogs.length; i++) {
-            gridLogs[i].row = (gridLogs[i].row-1)/kStep;
-            gridLogs[i].column = (gridLogs[i].column-1)/kStep;
+            gridLogs[i].row = (gridLogs[i].row-1)/kStep ;
+            gridLogs[i].column = (gridLogs[i].column-1)/kStep + d;
         }
     }
 
