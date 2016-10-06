@@ -22,6 +22,8 @@ var white      = "#FFFFFF"; // "#F2F2F2";
 var black      = "#000000";
 var blueviolet = "#8A2BE2";
 
+var colorPointer = 3;
+
 var palletSize = 50;
 
 var gridLogs = [];
@@ -39,6 +41,29 @@ bleep.src = 'javascript/click_real_short.mp3';
 // =======================================================================================
 function pickColor(id) {
     current_id = id;
+    if(id==1){
+        if(colorPointer >= 7 ){
+            colorPointer = 3;
+        }
+        switch (colorPointer){
+            case 3:
+                document.getElementById('b1').style.backgroundColor = document.getElementById('stampColor').value;
+                break;
+            case 4:
+                document.getElementById('b2').style.backgroundColor = document.getElementById('stampColor').value;
+                break;
+            case 5:
+                document.getElementById('b3').style.backgroundColor = document.getElementById('stampColor').value;
+                break;
+            case 6:
+                document.getElementById('b4').style.backgroundColor = document.getElementById('stampColor').value;
+                break;
+            case 7:
+                document.getElementById('b5').style.backgroundColor = document.getElementById('stampColor').value;
+                break;
+        }
+        colorPointer++;
+    }
 }
 // =======================================================================================
 function updateGrid(){
