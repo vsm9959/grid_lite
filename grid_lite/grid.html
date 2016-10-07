@@ -16,7 +16,7 @@ body {
     text-align:center;
     line-height:20px;
     background-color:#e0e0e0;
-    height:320px;
+    height:420px;
     width:140px;
     float: left;
     padding:5px; 
@@ -74,7 +74,7 @@ body {
         </tr>
         <tr>
             <td>
-                <input type="color" id="stampColor" size="4" onclick="pickColor(1)">
+                <input type="color" id="stampColor" size="4" onchange = "pickColor(1)">
             </td>
             <td>
                 <span class="dropt" title="Clear Grid">
@@ -102,14 +102,32 @@ body {
 
                 <tr>
                     <td>
-                        <p>Most used:
-                            <button id ="b0" style = "background: white" class ="used"  onclick="pickColor(2);"></button>
-                            <button id ="b1" style = "background: blue" class ="used"  onclick="pickColor(3);"></button>
-                            <button id ="b2" style = "background: red" class ="used"  onclick="pickColor(4);"></button>
-                            <button id ="b3" style = "background: green" class ="used"  onclick="pickColor(5);"></button>
-                            <button id ="b4" style = "background: gray" class ="used"  onclick="pickColor(6);"></button>
-                            <button id ="b5" style = "background: yellow" class ="used"  onclick="pickColor(7);"></button>
+                        <p>Basic:
+                            <button id ="f0" style = "background: white"  class ="used"  onclick="pickColor(2);"></button>
+                            <button id ="f1" style = "background: blue"   class ="used"  onclick="pickColor(3);"></button>
+                            <button id ="f2" style = "background: red"    class ="used"  onclick="pickColor(4);"></button>
+                            <button id ="f3" style = "background: green"  class ="used"  onclick="pickColor(5);"></button>
+                            <button id ="f4" style = "background: gray"   class ="used"  onclick="pickColor(6);"></button>
+                            <button id ="f5" style = "background: yellow" class ="used"  onclick="pickColor(7);"></button>
 
+                        </p>
+                    </td>
+                </tr>
+            </table>
+
+            <table>
+
+                <tr>
+                    <td>
+                        <p>Recent:
+                            <button id ="b0" style = "background: white"  class ="used"  onclick="pickColor(8);"></button>
+                            <button id ="b1" style = "background: blue"   class ="used"  onclick="pickColor(9);"></button>
+                            <button id ="b2" style = "background: red"    class ="used"  onclick="pickColor(10);"></button>
+                            <button id ="b3" style = "background: green"  class ="used"  onclick="pickColor(11);"></button>
+                            <button id ="b4" style = "background: gray"   class ="used"  onclick="pickColor(12);"></button>
+                            <button id ="b5" style = "background: yellow" class ="used"  onclick="pickColor(13);"></button>
+                            <button id ="b6" style = "background: black"   class ="used"  onclick="pickColor(14);"></button>
+                            <button id ="b7" style = "background: lightgreen" class ="used"  onclick="pickColor(15);"></button>
                         </p>
                     </td>
                 </tr>

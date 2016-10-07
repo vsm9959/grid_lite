@@ -22,7 +22,9 @@ var white      = "#FFFFFF"; // "#F2F2F2";
 var black      = "#000000";
 var blueviolet = "#8A2BE2";
 
-var colorPointer = 3;
+var recentColors = [];
+
+var colorPointer = 1;
 
 var palletSize = 50;
 
@@ -39,31 +41,95 @@ bleep.src = 'javascript/click_real_short.mp3';
 
 // =======================================================================================
 // =======================================================================================
-function pickColor(id) {
-    current_id = id;
-    if(id==1){
+function setCurrentColor(){
+
+    switch(current_id){
+        case 1:
+            currentColor  = document.getElementById('stampColor').value;
+            break;
+        case 2:
+            currentColor  = document.getElementById('f0').style.backgroundColor;
+            break;
+        case 3:
+            currentColor  = document.getElementById('f1').style.backgroundColor;
+            break;
+        case 4:
+            currentColor  = document.getElementById('f2').style.backgroundColor;
+            break;
+        case 5:
+            currentColor  = document.getElementById('f3').style.backgroundColor;
+            break;
+        case 6:
+            currentColor  = document.getElementById('f4').style.backgroundColor;
+            break;
+        case 7:
+            currentColor  = document.getElementById('f5').style.backgroundColor;
+            break;
+        case 8:
+            currentColor  = document.getElementById('b0').style.backgroundColor;
+            break;
+        case 9:
+            currentColor  = document.getElementById('b1').style.backgroundColor;
+            break;
+        case 10:
+            currentColor  = document.getElementById('b2').style.backgroundColor;
+            break;
+        case 11:
+            currentColor  = document.getElementById('b3').style.backgroundColor;
+            break;
+        case 12:
+            currentColor  = document.getElementById('b4').style.backgroundColor;
+            break;
+        case 13:
+            currentColor  = document.getElementById('b5').style.backgroundColor;
+            break;
+        case 14:
+            currentColor  = document.getElementById('b6').style.backgroundColor;
+            break;
+        case 15:
+            currentColor  = document.getElementById('b7').style.backgroundColor;
+            break;
+    }
+}
+//========================================================================================
+function updateRecent(){
+    if(current_id == 1){
         if(colorPointer >= 7 ){
-            colorPointer = 3;
+            colorPointer = 1;
         }
         switch (colorPointer){
-            case 3:
+            case 1:
+                document.getElementById('b0').style.backgroundColor = document.getElementById('stampColor').value;
+                break;
+            case 2:
                 document.getElementById('b1').style.backgroundColor = document.getElementById('stampColor').value;
                 break;
-            case 4:
+            case 3:
                 document.getElementById('b2').style.backgroundColor = document.getElementById('stampColor').value;
                 break;
-            case 5:
+            case 4:
                 document.getElementById('b3').style.backgroundColor = document.getElementById('stampColor').value;
                 break;
-            case 6:
+            case 5:
                 document.getElementById('b4').style.backgroundColor = document.getElementById('stampColor').value;
                 break;
-            case 7:
+            case 6:
                 document.getElementById('b5').style.backgroundColor = document.getElementById('stampColor').value;
+                break;
+            case 7:
+                document.getElementById('b6').style.backgroundColor = document.getElementById('stampColor').value;
+                break;
+            case 8:
+                document.getElementById('b7').style.backgroundColor = document.getElementById('stampColor').value;
                 break;
         }
         colorPointer++;
     }
+}
+// =======================================================================================
+function pickColor(id) {
+    current_id = id;
+    updateRecent();
 }
 // =======================================================================================
 function updateGrid(){
@@ -189,34 +255,8 @@ function vitruviaOnClick(e) {
 
     bleep.play();
 
-    /*if(current_id == 1)
-        currentColor = document.getElementById('stampColor').value;
-    else
-        currentColor = white;*/
-    switch(current_id){
-        case 1:
-            currentColor  = document.getElementById('stampColor').value;
-            break;
-        case 2:
-            currentColor  = document.getElementById('b0').style.backgroundColor;
-            break;
-        case 3:
-            currentColor  = document.getElementById('b1').style.backgroundColor;
-            break;
-        case 4:
-            currentColor  = document.getElementById('b2').style.backgroundColor;
-            break;
-        case 5:
-            currentColor  = document.getElementById('b3').style.backgroundColor;
-            break;
-        case 6:
-            currentColor  = document.getElementById('b4').style.backgroundColor;
-            break;
-        case 7:
-            currentColor  = document.getElementById('b5').style.backgroundColor;
-            break;
-    }
-    
+    setCurrentColor();
+
     fillColor  = currentColor;
     
 
