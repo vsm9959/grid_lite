@@ -41,6 +41,15 @@ bleep.src = 'javascript/click_real_short.mp3';
 
 // =======================================================================================
 // =======================================================================================
+function colorOccupied(){
+    for(j=0;j<recentColors.length;j++){
+        if(document.getElementById('stampColor').value == recentColors[j]){
+            return true;
+        }
+    }
+    return false;
+}
+// =======================================================================================
 function setCurrentColor(){
 
     switch(current_id){
@@ -93,11 +102,13 @@ function setCurrentColor(){
 }
 //========================================================================================
 function updateRecent(){
-    if(current_id == 1){
+    if(current_id == 1 && !(colorOccupied())){
         if(colorPointer >= 7 ){
             colorPointer = 1;
         }
+        recentColors.push(document.getElementById('stampColor').value);
         switch (colorPointer){
+
             case 1:
                 document.getElementById('b0').style.backgroundColor = document.getElementById('stampColor').value;
                 break;
