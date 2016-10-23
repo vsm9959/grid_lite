@@ -30,6 +30,8 @@ var palletSize = 50;
 
 var gridLogs = [];
 
+var gridRedoLogs=[];
+
 var currentColor= black;
 var current_id = 1;
 
@@ -218,7 +220,18 @@ function updateGrid(){
 //========================================================================================
 function undo(){
     if(gridLogs.length!=0){
-        gridLogs.pop();
+        gridRedoLogs.push(gridLogs.pop());
+        drawBoard();
+        for(i=0;i<gridLogs.length;i++){
+            gDrawingContext.fillStyle = gridLogs[i].color;
+            gDrawingContext.fillRect(gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
+        }
+    }
+}
+// =======================================================================================
+function redo(){
+    if (gridRedoLogs.length!=0){
+        gridLogs.push(gridRedoLogs.pop());
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
             gDrawingContext.fillStyle = gridLogs[i].color;
