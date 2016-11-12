@@ -40,6 +40,11 @@ body {
   top: 0;
   width: 100%;
 }
+.LEGO{
+    width: 30px;
+    height: 30px;
+    float:left;
+}
 
     .used{
         height:20px;
@@ -53,8 +58,50 @@ body {
 </head>
 
 
-<body onload="initGame()" onresize="initGame()">
+<body onload="initGame()" onresize="updateGrid();">
 
+<img class = "LEGO" src="bricklayercolors/aqua_02.png"           onclick="pickLEGO(aqua);">
+<img class = "LEGO" src="bricklayercolors/armygreen_02.png"      onclick="pickLEGO(armygreen);">
+<img class = "LEGO" src="bricklayercolors/black_02.png"          onclick="pickLEGO(black);">
+<img class = "LEGO" src="bricklayercolors/blue_02.png"           onclick="pickLEGO(blue);">
+<img class = "LEGO" src="bricklayercolors/brightgreen_02.png"    onclick="pickLEGO(brightgreen);">
+<img class = "LEGO" src="bricklayercolors/brown_02.png"          onclick="pickLEGO(brown);">
+<img class = "LEGO" src="bricklayercolors/coolyellow_02.png"     onclick="pickLEGO(coolyellow);">
+<img class = "LEGO" src="bricklayercolors/darkbrown_02.png"      onclick="pickLEGO(darkbrown);">
+<img class = "LEGO" src="bricklayercolors/darkgreen_02.png"      onclick="pickLEGO(darkgreen);">
+<img class = "LEGO" src="bricklayercolors/darklavender_02.png"   onclick="pickLEGO(darklavender);">
+<img class = "LEGO" src="bricklayercolors/darkred_02.png"        onclick="pickLEGO(darkred);">
+<img class = "LEGO" src="bricklayercolors/gray_02.png"           onclick="pickLEGO(gray);">
+<img class = "LEGO" src="bricklayercolors/grayblue_02.png"       onclick="pickLEGO(grayblue);">
+<img class = "LEGO" src="bricklayercolors/green_02.png"          onclick="pickLEGO(green);">
+<img class = "LEGO" src="bricklayercolors/indigo_02.png"         onclick="pickLEGO(indigo);">
+<img class = "LEGO" src="bricklayercolors/lavender_02.png"       onclick="pickLEGO(lavender);">
+<img class = "LEGO" src="bricklayercolors/lightaqua_02.png"      onclick="pickLEGO(lightaqua);">
+<img class = "LEGO" src="bricklayercolors/lightblue_02.png"      onclick="pickLEGO(lightblue);">
+<img class = "LEGO" src="bricklayercolors/lightbrown_02.png"     onclick="pickLEGO(lightbrown);">
+<img class = "LEGO" src="bricklayercolors/lightgray_02.png"      onclick="pickLEGO(lightgray);">
+<img class = "LEGO" src="bricklayercolors/lightgreen_02.png"     onclick="pickLEGO(lightgreen);">
+<img class = "LEGO" src="bricklayercolors/lightnougat_02.png"    onclick="pickLEGO(lightnougat);">
+<img class = "LEGO" src="bricklayercolors/lightpink_02.png"      onclick="pickLEGO(lightpink);">
+<img class = "LEGO" src="bricklayercolors/lightroyalblue_02.png" onclick="pickLEGO(lightroyalblue);">
+<img class = "LEGO" src="bricklayercolors/mediumnougat_02.png"   onclick="pickLEGO(mediumnougat);">
+<img class = "LEGO" src="bricklayercolors/nougat_02.png"         onclick="pickLEGO(nougat);">
+<img class = "LEGO" src="bricklayercolors/olive_02.png"          onclick="pickLEGO(olive);">
+<img class = "LEGO" src="bricklayercolors/orange_02.png"         onclick="pickLEGO(orange);">
+<img class = "LEGO" src="bricklayercolors/pink_02.png"           onclick="pickLEGO(pink);">
+<img class = "LEGO" src="bricklayercolors/red_02.png"            onclick="pickLEGO(red);">
+<img class = "LEGO" src="bricklayercolors/reddishviolet_02.png"  onclick="pickLEGO(reddishviolet);">
+<img class = "LEGO" src="bricklayercolors/silver_02.png"         onclick="pickLEGO(silver);">
+<img class = "LEGO" src="bricklayercolors/spring_02.png"         onclick="pickLEGO(spring);">
+<img class = "LEGO" src="bricklayercolors/stonegray_02.png"      onclick="pickLEGO(stonegray);">
+<img class = "LEGO" src="bricklayercolors/titanium_02.png"       onclick="pickLEGO(titanium);">
+<img class = "LEGO" src="bricklayercolors/violet_02.png"         onclick="pickLEGO(violet);">
+<img class = "LEGO" src="bricklayercolors/warmgold_02.png"       onclick="pickLEGO(warmgold);">
+<img class = "LEGO" src="bricklayercolors/white_02.png"          onclick="pickLEGO(white);">
+<img class = "LEGO" src="bricklayercolors/whiteglow_02.png"      onclick="pickLEGO(whiteglow);">
+<img class = "LEGO" src="bricklayercolors/yellow_02.png"         onclick="pickLEGO(yellow);">
+
+<br><br>
 <div id="nav">
 <br>
 <br>
@@ -73,9 +120,7 @@ body {
             </td>
         </tr>
         <tr>
-            <td>
-                <input type="color" id="stampColor" size="4" onchange = "pickColor(1)">
-            </td>
+
             <td>
                 <span class="dropt" title="Clear Grid">
                 <img src="images/Fotolia_wiper.jpg" alt="Clear" class="va-middle" onclick="clearGrid();"/> 
@@ -101,41 +146,7 @@ body {
                     <input type="button" value="Redo" onclick="redo();"/>
                 </td>
             </tr>
-            <table>
 
-                <tr>
-                    <td>
-                        <p>Basic:
-                            <button id ="f0" style = "background: white"  class ="used"  onclick="pickColor(2);"></button>
-                            <button id ="f1" style = "background: blue"   class ="used"  onclick="pickColor(3);"></button>
-                            <button id ="f2" style = "background: red"    class ="used"  onclick="pickColor(4);"></button>
-                            <button id ="f3" style = "background: green"  class ="used"  onclick="pickColor(5);"></button>
-                            <button id ="f4" style = "background: gray"   class ="used"  onclick="pickColor(6);"></button>
-                            <button id ="f5" style = "background: yellow" class ="used"  onclick="pickColor(7);"></button>
-
-                        </p>
-                    </td>
-                </tr>
-            </table>
-
-            <table>
-
-                <tr>
-                    <td>
-                        <p>Recent:
-                            <button id ="b0" style = "background: white"  class ="used"  onclick="pickColor(8);"></button>
-                            <button id ="b1" style = "background: blue"   class ="used"  onclick="pickColor(9);"></button>
-                            <button id ="b2" style = "background: red"    class ="used"  onclick="pickColor(10);"></button>
-                            <button id ="b3" style = "background: green"  class ="used"  onclick="pickColor(11);"></button>
-                            <button id ="b4" style = "background: gray"   class ="used"  onclick="pickColor(12);"></button>
-                            <button id ="b5" style = "background: yellow" class ="used"  onclick="pickColor(13);"></button>
-                            <button id ="b6" style = "background: black"   class ="used"  onclick="pickColor(14);"></button>
-                            <button id ="b7" style = "background: lightgreen" class ="used"  onclick="pickColor(15);"></button>
-                        </p>
-                    </td>
-                </tr>
-            </table>
-        
         </table>
 </div>
 <div id="vCanvas" align="center">

@@ -14,19 +14,90 @@ var xEnd;
 var gCanvasElement;
 var gDrawingContext;
 
-var red        = "#B40404";
-var green      = "#04B404";
-var blue       = "#2E64FE";
-var yellow     = "#D7DF01";
-var white      = "#FFFFFF"; // "#F2F2F2";
-var black      = "#000000";
-var blueviolet = "#8A2BE2";
+var empty      = "#FFFFFF"; // "#F2F2F2";
 
-var recentColors = [];
 
-var colorPointer = 1;
+var aqua = new Image();
+aqua.src = 'bricklayercolors/aqua_02.png';
+var armygreen = new Image();
+armygreen.src = 'bricklayercolors/armygreen_02.png';
+var black = new Image();
+black.src = 'bricklayercolors/black_02.png';
+var blue = new Image();
+blue.src = 'bricklayercolors/blue_02.png';
+var brightgreen = new Image();
+brightgreen.src = 'bricklayercolors/brightgreen_02.png';
+var brown = new Image();
+brown.src = 'bricklayercolors/brown_02.png';
+var coolyellow = new Image();
+coolyellow.src = 'bricklayercolors/coolyellow_02.png';
+var darkbrown = new Image();
+darkbrown.src = 'bricklayercolors/darkbrown_02.png';
+var darkgreen = new Image();
+darkgreen.src = 'bricklayercolors/darkgreen_02.png';
+var darklavender = new Image();
+darklavender.src = 'bricklayercolors/darklavender_02.png';
+var darkred = new Image();
+darkred.src = 'bricklayercolors/darkred_02.png';
+var gray = new Image();
+gray.src = 'bricklayercolors/gray_02.png';
+var grayblue = new Image();
+grayblue.src = 'bricklayercolors/grayblue_02.png';
+var green = new Image();
+green.src = 'bricklayercolors/green_02.png';
+var indigo = new Image();
+indigo.src = 'bricklayercolors/indigo_02.png';
+var lavender = new Image();
+lavender.src = 'bricklayercolors/lavender_02.png';
+var lightaqua = new Image();
+lightaqua.src = 'bricklayercolors/lightaqua_02.png';
+var lightblue = new Image();
+lightblue.src = 'bricklayercolors/lightblue_02.png';
+var lightbrown = new Image();
+lightbrown.src = 'bricklayercolors/lightbrown_02.png';
+var lightgray = new Image();
+lightgray.src = 'bricklayercolors/lightgray_02.png';
+var lightgreen = new Image();
+lightgreen.src = 'bricklayercolors/lightgreen_02.png';
+var lightnougat = new Image();
+lightnougat.src = 'bricklayercolors/lightnougat_02.png';
+var lightpink = new Image();
+lightpink.src = 'bricklayercolors/lightpink_02.png';
+var lightroyalblue = new Image();
+lightroyalblue.src = 'bricklayercolors/lightroyalblue_02.png';
+var mediumnougat = new Image();
+mediumnougat.src = 'bricklayercolors/mediumnougat_02.png';
+var nougat = new Image();
+nougat.src = 'bricklayercolors/nougat_02.png';
+var olive = new Image();
+olive.src = 'bricklayercolors/olive_02.png';
+var orange = new Image();
+orange.src = 'bricklayercolors/orange_02.png';
+var pink = new Image();
+pink.src = 'bricklayercolors/pink_02.png';
+var red = new Image();
+red.src = 'bricklayercolors/red_02.png';
+var reddishviolet = new Image();
+reddishviolet.src = 'bricklayercolors/reddishviolet_02.png';
+var silver = new Image();
+silver.src = 'bricklayercolors/silver_02.png';
+var spring = new Image();
+spring.src = 'bricklayercolors/spring_02.png';
+var stonegray = new Image();
+stonegray.src = 'bricklayercolors/stonegray_02.png';
+var titanium = new Image();
+titanium.src = 'bricklayercolors/titanium_02.png';
+var violet = new Image();
+violet.src = 'bricklayercolors/violet_02.png';
+var warmgold = new Image();
+warmgold.src = 'bricklayercolors/warmgold_02.png';
+var white = new Image();
+white.src = 'bricklayercolors/white_02.png';
+var whiteglow = new Image();
+whiteglow.src = 'bricklayercolors/whiteglow_02.png';
+var yellow = new Image();
+yellow.src = 'bricklayercolors/yellow_02.png';
 
-var palletSize = 50;
 
 var gridLogs = [];
 
@@ -35,114 +106,15 @@ var gridRedoLogs=[];
 var currentColor= black;
 var current_id = 1;
 
-var fillColor = white;
+var fillColor = empty;
 var lineColor = "#ccc"; // "black";
 
 var bleep = new Audio();
 bleep.src = 'javascript/click_real_short.mp3';
 
 // =======================================================================================
-// =======================================================================================
-function colorOccupied(){
-    for(j=0;j<recentColors.length;j++){
-        if(document.getElementById('stampColor').value == recentColors[j]){
-            return true;
-        }
-    }
-    return false;
-}
-// =======================================================================================
-function setCurrentColor(){
-
-    switch(current_id){
-        case 1:
-            currentColor  = document.getElementById('stampColor').value;
-            break;
-        case 2:
-            currentColor  = document.getElementById('f0').style.backgroundColor;
-            break;
-        case 3:
-            currentColor  = document.getElementById('f1').style.backgroundColor;
-            break;
-        case 4:
-            currentColor  = document.getElementById('f2').style.backgroundColor;
-            break;
-        case 5:
-            currentColor  = document.getElementById('f3').style.backgroundColor;
-            break;
-        case 6:
-            currentColor  = document.getElementById('f4').style.backgroundColor;
-            break;
-        case 7:
-            currentColor  = document.getElementById('f5').style.backgroundColor;
-            break;
-        case 8:
-            currentColor  = document.getElementById('b0').style.backgroundColor;
-            break;
-        case 9:
-            currentColor  = document.getElementById('b1').style.backgroundColor;
-            break;
-        case 10:
-            currentColor  = document.getElementById('b2').style.backgroundColor;
-            break;
-        case 11:
-            currentColor  = document.getElementById('b3').style.backgroundColor;
-            break;
-        case 12:
-            currentColor  = document.getElementById('b4').style.backgroundColor;
-            break;
-        case 13:
-            currentColor  = document.getElementById('b5').style.backgroundColor;
-            break;
-        case 14:
-            currentColor  = document.getElementById('b6').style.backgroundColor;
-            break;
-        case 15:
-            currentColor  = document.getElementById('b7').style.backgroundColor;
-            break;
-    }
-}
-//========================================================================================
-function updateRecent(){
-    if(current_id == 1 && !(colorOccupied())){
-        if(colorPointer >= 7 ){
-            colorPointer = 1;
-        }
-        recentColors.push(document.getElementById('stampColor').value);
-        switch (colorPointer){
-
-            case 1:
-                document.getElementById('b0').style.backgroundColor = document.getElementById('stampColor').value;
-                break;
-            case 2:
-                document.getElementById('b1').style.backgroundColor = document.getElementById('stampColor').value;
-                break;
-            case 3:
-                document.getElementById('b2').style.backgroundColor = document.getElementById('stampColor').value;
-                break;
-            case 4:
-                document.getElementById('b3').style.backgroundColor = document.getElementById('stampColor').value;
-                break;
-            case 5:
-                document.getElementById('b4').style.backgroundColor = document.getElementById('stampColor').value;
-                break;
-            case 6:
-                document.getElementById('b5').style.backgroundColor = document.getElementById('stampColor').value;
-                break;
-            case 7:
-                document.getElementById('b6').style.backgroundColor = document.getElementById('stampColor').value;
-                break;
-            case 8:
-                document.getElementById('b7').style.backgroundColor = document.getElementById('stampColor').value;
-                break;
-        }
-        colorPointer++;
-    }
-}
-// =======================================================================================
-function pickColor(id) {
-    current_id = id;
-    updateRecent();
+function pickLEGO(lego) {
+    currentColor = lego;
 }
 // =======================================================================================
 function updateGrid(){
@@ -212,8 +184,7 @@ function updateGrid(){
     if(gridLogs.length!=0){
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
-            gDrawingContext.fillStyle = gridLogs[i].color;
-            gDrawingContext.fillRect(gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
+            gDrawingContext.drawImage(gridLogs[i].color,gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
         }
     }
 }
@@ -223,8 +194,7 @@ function undo(){
         gridRedoLogs.push(gridLogs.pop());
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
-            gDrawingContext.fillStyle = gridLogs[i].color;
-            gDrawingContext.fillRect(gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
+            gDrawingContext.drawImage(gridLogs[i].color,gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
         }
     }
 }
@@ -234,8 +204,7 @@ function redo(){
         gridLogs.push(gridRedoLogs.pop());
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
-            gDrawingContext.fillStyle = gridLogs[i].color;
-            gDrawingContext.fillRect(gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
+            gDrawingContext.drawImage(gridLogs[i].color, gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
         }
     }
 }
@@ -279,22 +248,14 @@ function vitruviaOnClick(e) {
 
     bleep.play();
 
-    setCurrentColor();
-
-    fillColor  = currentColor;
-    
-
        if ((column < xEnd - 1) && (row < yEnd - 1) ) {
            var x = Math.floor(column/kStep) * kStep;
            var y = Math.floor(row/kStep) * kStep;
-            
-            gDrawingContext.fillStyle = fillColor;
 
-             gDrawingContext.fillRect(x+1, y+1, kStep-1, kStep-1); // box lines don't get redrawn with empty color
+             gDrawingContext.drawImage(currentColor,x+1, y+1, kStep-1, kStep-1); // box lines don't get redrawn with empty color
 
-           gridLogs.push(new GridLog(x+1,y+1,fillColor));
+           gridLogs.push(new GridLog(x+1,y+1,currentColor));
         }
-//    }
 }
 
 // =======================================================================================
@@ -336,7 +297,7 @@ function drawBoard() {
     gDrawingContext.beginPath();
 
     // Canvas base color
-    gDrawingContext.fillStyle = white;    
+    gDrawingContext.fillStyle = empty;
     gDrawingContext.rect(0, 0, xEnd, yEnd);
     gDrawingContext.fill();
 
@@ -446,7 +407,9 @@ function initGame() {
 }
 
 // =======================================================================================
+function resizeGrid() {
 
+}
 
 
 
