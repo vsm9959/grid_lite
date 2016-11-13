@@ -3,7 +3,7 @@ var kBoardWidth;
 var kBoardHeight;
 
 var kStep;
-var side;
+var side = 8;
 
 var kPixelWidth;
 var kPixelHeight;
@@ -113,16 +113,47 @@ var bleep = new Audio();
 bleep.src = 'javascript/click_real_short.mp3';
 
 // =======================================================================================
+function incrementGrid() {
+    side++;
+
+    if (side < 2) {
+        alert('Smallest size is 2');
+        side = 2;
+    }
+
+    if (side > 64) {
+        alert('Largest size is 64');
+        side = 64;
+    }
+    document.getElementById("size").innerHTML= side;
+    updateGrid(1);
+}
+// =======================================================================================
+function decrementGrid() {
+    side--;
+    if (side < 2) {
+        alert('Smallest size is 2');
+        side = 2;
+    }
+
+    if (side >64) {
+        alert('Largest size is 64');
+        side = 64;
+    }
+    document.getElementById("size").innerHTML= side;
+    updateGrid(-1);
+}
+// =======================================================================================
 function pickLEGO(lego) {
     currentColor = lego;
 }
 // =======================================================================================
-function updateGrid(){
-    var v              = document.getElementById('size').value;
+function updateGrid(d){
+    var v              = side;
 
-    var d;
+    //var d=1;
 
-        d = v - side;
+        //d = v - side;
 
     // squares per side
     if (v < 1) {
@@ -332,7 +363,7 @@ function hideGridLines(color) {
 // =======================================================================================
 function initGame() {
     var canvasElement  = document.getElementById("vitruvia_canvas"); 
-    var v              = document.getElementById('size').value;
+    var v              = side;
     
     // squares per side
     if (v < 1) { 
