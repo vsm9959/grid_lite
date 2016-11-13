@@ -111,8 +111,32 @@ var lineColor = "#ccc"; // "black";
 
 var bleep = new Audio();
 bleep.src = 'javascript/click_real_short.mp3';
-
 // =======================================================================================
+function loadGridJSON() {
+        var files = document.getElementById('selectFiles').files;
+        if (files.length <= 0) {
+            return false;
+        }
+
+        var fr = new FileReader();
+
+        fr.onload = function(e) {
+            gridLogs = JSON.parse(e.target.result);
+            updateGrid(0);
+        };
+
+        fr.readAsText(files.item(0));
+}
+// =======================================================================================
+function createPixelArtJSON() {
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gridLogs));
+
+    var a = document.createElement('a');
+    a.setAttribute("href",     dataStr     );
+    a.setAttribute("download", "grid.json");
+    a.click();
+}
+// ==========================================================================================
 function incrementGrid() {
     side++;
 
@@ -150,7 +174,7 @@ function pickLEGO(lego) {
 // =======================================================================================
 function updateGrid(d){
     var v              = side;
-
+    var temp = new Image();
     //var d=1;
 
         //d = v - side;
@@ -185,8 +209,8 @@ function updateGrid(d){
 
     if(gridLogs.length!=0) {
         for (i = 0; i < gridLogs.length; i++) {
-            gridLogs[i].row = (gridLogs[i].row-1)/kStep ;
-            gridLogs[i].column = (gridLogs[i].column-1)/kStep + d;
+            gridLogs[i].row = Math.floor((gridLogs[i].row-1)/kStep) ;
+            gridLogs[i].column = Math.floor((gridLogs[i].column-1)/kStep) + d;
         }
     }
 
@@ -194,8 +218,8 @@ function updateGrid(d){
 
     if(gridLogs.length!=0) {
         for (i = 0; i < gridLogs.length; i++) {
-            gridLogs[i].row = gridLogs[i].row*kStep + 1;
-            gridLogs[i].column = gridLogs[i].column*kStep + 1;
+            gridLogs[i].row = Math.floor(gridLogs[i].row*kStep) + 1;
+            gridLogs[i].column = Math.floor(gridLogs[i].column*kStep) + 1;
         }
     }
 
@@ -215,27 +239,32 @@ function updateGrid(d){
     if(gridLogs.length!=0){
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
-            gDrawingContext.drawImage(gridLogs[i].color,gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
+            temp.src= gridLogs[i].color;
+            gDrawingContext.drawImage(temp,gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
         }
     }
 }
 //========================================================================================
 function undo(){
+    var temp = new Image();
     if(gridLogs.length!=0){
         gridRedoLogs.push(gridLogs.pop());
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
-            gDrawingContext.drawImage(gridLogs[i].color,gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
+            temp.src = gridLogs[i].color;
+            gDrawingContext.drawImage(temp,gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
         }
     }
 }
 // =======================================================================================
 function redo(){
+    var temp = new Image();
     if (gridRedoLogs.length!=0){
         gridLogs.push(gridRedoLogs.pop());
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
-            gDrawingContext.drawImage(gridLogs[i].color, gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
+            temp.src = gridLogs[i].color;
+            gDrawingContext.drawImage(temp, gridLogs[i].row,gridLogs[i].column,kStep-1,kStep-1);
         }
     }
 }
@@ -285,7 +314,7 @@ function vitruviaOnClick(e) {
 
              gDrawingContext.drawImage(currentColor,x+1, y+1, kStep-1, kStep-1); // box lines don't get redrawn with empty color
 
-           gridLogs.push(new GridLog(x+1,y+1,currentColor));
+           gridLogs.push(new GridLog(x+1,y+1,currentColor.src));
         }
 }
 
@@ -413,22 +442,6 @@ function initGame() {
 
 //    drawPallet();
     drawBoard();
-
-    //if(document.readyState === "Complete")
-    //document.getElementById(b1).style.backgroundColor = red;
-   // save canvas image as data url (png format by default)
-    //var dataURL = canvas.toDataURL();
-
-    // set canvasImg image src to dataURL
-    // so it can be saved as an image
-    //document.getElementById('vitruvia_canvas').src = dataURL;
-    
-    // makes save canvas possible
-    //saveCanvas();
-}
-
-// =======================================================================================
-function resizeGrid() {
 
 }
 

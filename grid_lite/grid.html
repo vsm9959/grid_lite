@@ -37,7 +37,7 @@ body {
 </head>
 
 
-<body onload="initGame()" onresize="updateGrid();">
+<body onload="initGame()" onresize="updateGrid(0);">
 
 
 
@@ -90,7 +90,6 @@ body {
 <input type="button" value="+"           onclick="incrementGrid();">
 <var id="size">8</var>
 <input type="button" value="-"           onclick="decrementGrid();">
-<input type="button" value="Save"        onclick="saveCanvas();">
 <input type="button" value="Clear"       onclick="clearGrid();"/>
 <input type="button" value="Hide Lines"  onclick="hideGridLines(empty);"/>
 <input type="button" value="Show Lines"  onclick="hideGridLines(lineColor);"/>
@@ -101,8 +100,9 @@ body {
     <canvas id="vitruvia_canvas">  
     <img src="" id="mirror" class="canvas__mirror" /> 
     </canvas>
-
-
+<input type="button" value="Save as Image"        onclick="saveCanvas();">
+<input type="button" value="Save your work"        onclick="createPixelArtJSON();">
+<input type="file" id="selectFiles" value="Import" onchange="loadGridJSON();" /><br />
 
 </body>
 </html>
