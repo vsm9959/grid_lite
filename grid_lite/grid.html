@@ -21,23 +21,18 @@ body {
     float: left;
     padding:5px; 
 }
-#vCanvas { 
-    float:left;
-    background-color:#000000;    
+#vCanvas {
     padding:5px; 
 }
 
-#vitruvia_canvas:
+#vitruvia_canvas
     {
-        margin: 0px;
-        display: block;
+    display: block;
     }
     
 .canvas__mirror {
   height: 100%;
-  left: 0;
   position: absolute;
-  top: 0;
   width: 100%;
 }
 .LEGO{
@@ -46,10 +41,8 @@ body {
     float:left;
     border-color: red;
 }
-
-    .used{
-        height:20px;
-        width:20px;
+    #controls{
+        float: left;
     }
 </style>
 <!-- ---------------------------------------------------------------------------- -->
@@ -81,6 +74,7 @@ body {
 <input type="image" class = "LEGO" src="bricklayercolors/lightblue_02.png"      onclick="pickLEGO(lightblue);">
 <input type="image" class = "LEGO" src="bricklayercolors/lightbrown_02.png"     onclick="pickLEGO(lightbrown);">
 <input type="image" class = "LEGO" src="bricklayercolors/lightgray_02.png"      onclick="pickLEGO(lightgray);">
+<br><br>
 <input type="image" class = "LEGO" src="bricklayercolors/lightgreen_02.png"     onclick="pickLEGO(lightgreen);">
 <input type="image" class = "LEGO" src="bricklayercolors/lightnougat_02.png"    onclick="pickLEGO(lightnougat);">
 <input type="image" class = "LEGO" src="bricklayercolors/lightpink_02.png"      onclick="pickLEGO(lightpink);">
@@ -103,59 +97,21 @@ body {
 <input type="image" class = "LEGO" src="bricklayercolors/yellow_02.png"         onclick="pickLEGO(yellow);">
 
 <br><br>
-<div id="nav">
-<br>
-<br>
 
-        <table cellpadding="4">
-        <tr>
-            <td colspan="2">
-                <input type="text" name="enter" class="enter" value="8" size="2" id="size"/>
-                <input type="button" value="Enter" onclick="updateGrid();"/>
-            
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="#" class="button" id="btn-download" download="bricklayer-grid.png">Save</a> 
-            </td>
-        </tr>
-        <tr>
+<input type="text"   name="enter" class="enter" value="8" size="2" id="size"/>
+<input type="button" value="Enter" onclick="updateGrid();"/>
+<input type="button" value="Save" onclick="saveCanvas();">
+<input type="button" value="Clear" onclick="clearGrid();"/>
+<input type="button" value="Hide Lines" onclick="hideGridLines(empty);"/>
+<input type="button" value="Show Lines" onclick="hideGridLines(lineColor);"/>
+<input type="button" value="Undo" onclick="undo();"/>
+<input type="button" value="Redo" onclick="redo();"/>
 
-            <td>
-                <span class="dropt" title="Clear Grid">
-                <img src="images/Fotolia_wiper.jpg" alt="Clear" class="va-middle" onclick="clearGrid();"/> 
-                </span>                       
-            </td>
-        </tr>        
-        <tr>
-            <td colspan="2">
-                <input type="button" value="Hide Grid Lines" onclick="hideGridLines(white);"/>
-            
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <input type="button" value="Restore Grid Lines" onclick="hideGridLines(lineColor);"/>            
-            </td>            
-        </tr>
-            <tr>
-                <td >
-                <input type="button" value="Undo" onclick="undo();"/>
-                </td>
-                <td >
-                    <input type="button" value="Redo" onclick="redo();"/>
-                </td>
-            </tr>
-
-        </table>
-</div>
-<div id="vCanvas" align="center">
     <canvas id="vitruvia_canvas">  
     <img src="" id="mirror" class="canvas__mirror" /> 
     </canvas>
 
-</div>
+
 
 </body>
 </html>

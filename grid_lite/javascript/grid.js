@@ -308,23 +308,13 @@ function drawBoard() {
 
 // =======================================================================================
 function saveCanvas() {
-    
-    
-// http://weworkweplay.com/play/saving-html5-canvas-as-image/    
-    
-var canvas = document.getElementById('vitruvia_canvas'),
-    ctx    = canvas.getContext('2d'),
-    mirror = document.getElementById('mirror');
 
-
-    canvas.width = mirror.width = window.innerWidth;
-    canvas.height = mirror.height = window.innerHeight;
-
-    var button = document.getElementById('btn-download');
-    button.addEventListener('click', function (e) {
-        var dataURL = canvas.toDataURL('image/png');
-        button.href = dataURL;
-    });  
+    var canvas = document.getElementById('vitruvia_canvas');
+    var a = document.createElement('a');
+    // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
+    a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+    a.download = 'pixelArt.jpg';
+    a.click();
 }
 
 
@@ -393,8 +383,8 @@ function initGame() {
 //    drawPallet();
     drawBoard();
 
-    if(document.readyState === "Complete")
-    document.getElementById(b1).style.backgroundColor = red;
+    //if(document.readyState === "Complete")
+    //document.getElementById(b1).style.backgroundColor = red;
    // save canvas image as data url (png format by default)
     //var dataURL = canvas.toDataURL();
 
