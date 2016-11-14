@@ -111,7 +111,20 @@ var lineColor = "#ccc"; // "black";
 
 var bleep = new Audio();
 bleep.src = 'javascript/click_real_short.mp3';
+// ==========================================================================================
+function loadBL() {
+
+}
 // =======================================================================================
+function createBL() {
+    var blFile = loadBL();
+
+    var a = document.createElement('a');
+    a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(blFile);
+    a.setAttribute("download", "grid.bl");
+    a.click();
+}
+// =========================================================================================
 function loadGridJSON() {
         var files = document.getElementById('selectFiles').files;
         if (files.length <= 0) {
@@ -143,14 +156,13 @@ function incrementGrid() {
     if (side < 2) {
         alert('Smallest size is 2');
         side = 2;
-    }
-
-    if (side > 64) {
+    }else if (side > 64) {
         alert('Largest size is 64');
         side = 64;
+    }else {
+        document.getElementById("size").innerHTML = side;
+        updateGrid(1);
     }
-    document.getElementById("size").innerHTML= side;
-    updateGrid(1);
 }
 // =======================================================================================
 function decrementGrid() {
@@ -158,14 +170,13 @@ function decrementGrid() {
     if (side < 2) {
         alert('Smallest size is 2');
         side = 2;
-    }
-
-    if (side >64) {
+    }else if (side >64) {
         alert('Largest size is 64');
         side = 64;
+    }else {
+        document.getElementById("size").innerHTML = side;
+        updateGrid(-1);
     }
-    document.getElementById("size").innerHTML= side;
-    updateGrid(-1);
 }
 // =======================================================================================
 function pickLEGO(lego) {

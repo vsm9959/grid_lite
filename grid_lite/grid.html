@@ -96,13 +96,16 @@ body {
 <input type="button" value="Undo"        onclick="undo();"/>
 <input type="button" value="Redo"        onclick="redo();"/>
 
-
     <canvas id="vitruvia_canvas">  
     <img src="" id="mirror" class="canvas__mirror" /> 
     </canvas>
+
+<br>
 <input type="button" value="Save as Image"        onclick="saveCanvas();">
 <input type="button" value="Save your work"        onclick="createPixelArtJSON();">
 <input type="file" id="selectFiles" value="Import" onchange="loadGridJSON();" /><br />
+
+<!-- <button  id="download_bl"  onclick="createBL();">Download BL</button> -->
 
 </body>
 </html>
