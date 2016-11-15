@@ -113,12 +113,32 @@ var bleep = new Audio();
 bleep.src = 'javascript/click_real_short.mp3';
 // ==========================================================================================
 function loadBL() {
-
+    var count = 0;
+    var blData=" ";
+    if (side > 4){
+        alert("Grid size should be four or less for downloading bl files");
+        return 100;
+    } else {
+        for (i=(gridLogs.length-1);i>=0;i--){
+            if (gridLogs[i].row < gCanvasElement.width) {
+                if (gridLogs[i].column < gCanvasElement.height) {
+                    if (gridLogs[i].column > 0) {
+                        if (gridLogs[i].row > 0) {
+                            blData += Math.floor((gridLogs[i].row + 1) / kStep) + "  --  " + Math.floor((gridLogs[i].column + 1) / kStep) + " ";
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return blData;
 }
 // =======================================================================================
 function createBL() {
     var blFile = loadBL();
-
+    if (blFile == 100){
+        return;
+    }
     var a = document.createElement('a');
     a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(blFile);
     a.setAttribute("download", "grid.bl");
