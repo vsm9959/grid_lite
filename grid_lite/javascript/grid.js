@@ -111,6 +111,173 @@ var lineColor = "#ccc"; // "black";
 
 var bleep = new Audio();
 bleep.src = 'javascript/click_real_short.mp3';
+
+// ============================================================================================
+function pickBlColor(pth){
+    switch (pth){
+        case aqua.src:{
+            return "AQUA";
+        }
+        break;
+        case armygreen.src:{
+            return "ARMYGREEN";
+        }
+            break;
+        case black.src:{
+            return "BLACK";
+        }
+            break;
+        case blue.src:{
+            return "BLUE";
+        }
+            break;
+        case brightgreen.src:{
+            return "BRIGHTGREEN";
+        }
+            break;
+        case brown.src:{
+            return "BROWN";
+        }
+            break;
+        case coolyellow.src:{
+            return "COOLYELLOW";
+        }
+            break;
+        case darkbrown.src:{
+            return "DARKBROWN";
+        }
+            break;
+        case darkgreen.src:{
+            return "DARKGREEN";
+        }
+            break;
+        case darklavender.src:{
+            return "DARKLAVENDER";
+        }
+            break;
+        case darkred.src:{
+            return "DARKRED";
+        }
+            break;
+        case gray.src:{
+            return "GRAY";
+        }
+            break;
+        case grayblue.src:{
+            return "GRAYBLUE";
+        }
+            break;
+        case green.src:{
+            return "GREEN";
+        }
+            break;
+        case indigo.src:{
+            return "INDIGO";
+        }
+            break;
+        case lavender.src:{
+            return "LAVENDER";
+        }
+            break;
+        case lightaqua.src:{
+            return "LIGHTAQUA";
+        }
+            break;
+        case lightblue.src:{
+            return "LIGHTBLUE";
+        }
+            break;
+        case lightbrown.src:{
+            return "LIGHTBROWN";
+        }
+            break;
+        case lightgray.src:{
+            return "LIGHTGRAY";
+        }
+            break;
+        case lightgreen.src:{
+            return "LIGHTGREEN";
+        }
+            break;
+        case lightnougat.src:{
+            return "LIGHTNOUGAT";
+        }
+            break;
+        case lightpink.src:{
+            return "LIGHTPINK";
+        }
+            break;
+        case lightroyalblue.src:{
+            return "LIGHTROYALBLUE";
+        }
+            break;
+        case mediumnougat.src:{
+            return "MEDIUMNOUGAT";
+        }
+            break;
+        case nougat.src:{
+            return "NOUGAT";
+        }
+            break;
+        case olive.src:{
+            return "OLIVE";
+        }
+            break;
+        case orange.src:{
+            return "ORANGE";
+        }
+            break;
+        case pink.src:{
+            return "PINK";
+        }
+            break;
+        case red.src:{
+            return "RED";
+        }
+            break;
+        case reddishviolet.src:{
+            return "REDDISHVIOLET";
+        }
+            break;
+        case silver.src:{
+            return "SILVER";
+        }
+            break;
+        case spring.src:{
+            return "SPRING";
+        }
+            break;
+        case stonegray.src:{
+            return "STONEGRAY";
+        }
+            break;
+        case titanium.src:{
+            return "TITANIUM";
+        }
+            break;
+        case violet.src:{
+            return "VIOLET";
+        }
+            break;
+        case warmgold.src:{
+            return "WARMGOLD";
+        }
+            break;
+        case white.src:{
+            return "WHITE";
+        }
+            break;
+        case whiteglow.src:{
+            return "WHITEGLOW";
+        }
+            break;
+        case yellow.src:{
+            return "YELLOW";
+        }
+            break;
+    }
+    return "EMPTY";
+}
 // ==========================================================================================
 function loadBL() {
     var count = 0;
@@ -119,18 +286,27 @@ function loadBL() {
         alert("Grid size should be four or less for downloading bl files");
         return 100;
     } else {
+        blData+= "open Level_3;";
+        blData+= "\r\n";
+        blData+= "build2D (32,32);";
+        blData+= "\r\n";
         for (i=(gridLogs.length-1);i>=0;i--){
             if (gridLogs[i].row < gCanvasElement.width) {
                 if (gridLogs[i].column < gCanvasElement.height) {
                     if (gridLogs[i].column > 0) {
                         if (gridLogs[i].row > 0) {
-                            blData += Math.floor((gridLogs[i].row + 1) / kStep) + "  --  " + Math.floor((gridLogs[i].column + 1) / kStep) + " ";
+                            blData += "put2D ";
+                            blData += "(1,1) ";
+                            blData += pickBlColor(gridLogs[i].color)+ " ";
+                            blData +="("+ Math.floor((gridLogs[i].row + 1) / kStep) + "," + Math.floor(side - ((gridLogs[i].column + 1) / kStep)) + ")";
+                            blData +=";"+"\r\n";
                         }
                     }
                 }
             }
         }
     }
+    blData+= 'show2D "mybl"; ';
     return blData;
 }
 // =======================================================================================
