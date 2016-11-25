@@ -14,6 +14,8 @@ var xEnd;
 var gCanvasElement;
 var gDrawingContext;
 
+var blDataPoints = [];
+
 var empty      = "#FFFFFF"; // "#F2F2F2";
 
 
@@ -278,35 +280,65 @@ function pickBlColor(pth){
     }
     return "EMPTY";
 }
+// ===========================================================================================
+function BlDataPoint(x,y){
+    this.x = x;
+    this.y = y;
+}
+// =============================================================================================
+function isBlPointOccupied(xb,yb) {
+    if(blDataPoints.length!=0) {
+        for (var k = 0; k < blDataPoints.length; k++) {
+            if (xb == blDataPoints[k].x) {
+                if (yb == blDataPoints[k].y) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
 // ==========================================================================================
 function loadBL() {
-    var count = 0;
-    var blData=" ";
+    var blData="";
+    var a;
+    var b;
+
     if (side > 4){
         alert("Grid size should be four or less for downloading bl files");
         return 100;
     } else {
         blData+= "open Level_3;";
         blData+= "\r\n";
+        blData+= "\r\n";
         blData+= "build2D (32,32);";
         blData+= "\r\n";
-        for (i=(gridLogs.length-1);i>=0;i--){
+        blData+= "\r\n";
+        for (var i=(gridLogs.length-1);i>=0;i--){
             if (gridLogs[i].row < gCanvasElement.width) {
                 if (gridLogs[i].column < gCanvasElement.height) {
                     if (gridLogs[i].column > 0) {
                         if (gridLogs[i].row > 0) {
-                            blData += "put2D ";
-                            blData += "(1,1) ";
-                            blData += pickBlColor(gridLogs[i].color)+ " ";
-                            blData +="("+ Math.floor((gridLogs[i].row + 1) / kStep) + "," + Math.floor(side - ((gridLogs[i].column + 1) / kStep)) + ")";
-                            blData +=";"+"\r\n";
+                            a = Math.floor((gridLogs[i].row + 1) / kStep) ;
+                            b = Math.floor(side - ((gridLogs[i].column + 1) / kStep));
+                            if(isBlPointOccupied(a,b)){
+                                blData += "put2D ";
+                                blData += "(1,1) ";
+                                blData += pickBlColor(gridLogs[i].color) + " ";
+                                blData += "(" + a + "," ;
+                                blData += b + ")";
+                                blData += ";" + "\r\n";
+                                blDataPoints.push(new BlDataPoint(a,b));
+                            }
                         }
                     }
                 }
             }
         }
     }
+    blData+= "\r\n";
     blData+= 'show2D "mybl"; ';
+    blDataPoints = [];
     return blData;
 }
 // =======================================================================================
