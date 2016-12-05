@@ -101,6 +101,8 @@ var yellow = new Image();
 yellow.src = 'bricklayercolors/yellow_02.png';
 
 
+
+
 var gridLogs = [];
 
 var gridRedoLogs=[];
@@ -113,7 +115,171 @@ var lineColor = "#ccc"; // "black";
 
 var bleep = new Audio();
 bleep.src = 'javascript/click_real_short.mp3';
-
+// =============================================================================================
+function pickBlColorHex(pth){
+    switch(pth){
+        case aqua.src:{
+            return '#36aebf';
+        }
+            break;
+        case armygreen.src:{
+            return '#789081';
+        }
+            break;
+        case black.src:{
+            return '#000000';
+        }
+            break;
+        case blue.src:{
+            return '#0d69ab';
+        }
+            break;
+        case brightgreen.src:{
+            return '#4b974a';
+        }
+            break;
+        case brown.src:{
+            return '#a05f34';
+        }
+            break;
+        case coolyellow.src:{
+            return '#fdf38c';
+        }
+            break;
+        case darkbrown.src:{
+            return '#694027';
+        }
+            break;
+        case darkgreen.src:{
+            return '#27462c';
+        }
+            break;
+        case darklavender.src:{
+            return '#ac78ba';
+        }
+            break;
+        case darkred.src:{
+            return '#7b2e2f';
+        }
+            break;
+        case gray.src:{
+            return '#635f61';
+        }
+            break;
+        case grayblue.src:{
+            return '#74869c';
+        }
+            break;
+        case green.src:{
+            return '#287f46';
+        }
+            break;
+        case indigo.src:{
+            return '#203a56';
+        }
+            break;
+        case lavender.src:{
+            return '#e1d5ed';
+        }
+            break;
+        case lightaqua.src:{
+            return '#adc3c0';
+        }
+            break;
+        case lightblue.src:{
+            return '#6e99c9';
+        }
+            break;
+        case lightbrown.src:{
+            return '#d7c599';
+        }
+            break;
+        case lightgray.src:{
+            return '#a3a2a4';
+        }
+            break;
+        case lightgreen.src:{
+            return '#a4bd46';
+        }
+            break;
+        case lightnougat.src:{
+            return '#f6d7b3';
+        }
+            break;
+        case lightpink.src:{
+            return '#e4adc8';
+        }
+            break;
+        case lightroyalblue.src:{
+            return '#9fc3e9';
+        }
+            break;
+        case mediumnougat.src:{
+            return '#cc702a';
+        }
+            break;
+        case nougat.src:{
+            return '#cc8e68';
+        }
+            break;
+        case olive.src:{
+            return '#6b8e23';
+        }
+            break;
+        case orange.src:{
+            return '#da8540';
+        }
+            break;
+        case pink.src:{
+            return '#cd6298';
+        }
+            break;
+        case red.src:{
+            return '#cc0000';
+        }
+            break;
+        case reddishviolet.src:{
+            return '#923978';
+        }
+            break;
+        case silver.src:{
+            return '#898788';
+        }
+            break;
+        case spring.src:{
+            return '#9b9afa';
+        }
+            break;
+        case stonegray.src:{
+            return '#e5e4de';
+        }
+            break;
+        case titanium.src:{
+            return '#575857';
+        }
+            break;
+        case violet.src:{
+            return '#342b75';
+        }
+            break;
+        case warmgold.src:{
+            return '#aa7f2e';
+        }
+            break;
+        case white.src:{
+            return '#ffffff';
+        }
+            break;
+        case whiteglow.src:{
+            return '#d9d9d9';
+        }
+            break;
+        case yellow.src:{
+            return '#f5cd2f';
+        }
+            break;
+    }
+}
 // ============================================================================================
 function pickBlColor(pth){
     switch (pth){
@@ -340,6 +506,129 @@ function loadBL() {
     blData+= 'show2D "mybl"; ';
     blDataPoints = [];
     return blData;
+}
+// ================================================================================================================
+function loadBlLite() {
+    var blData="";
+    var a;
+    var b;
+    var count = 0;
+
+    if (side > 4){
+        alert("Grid size should be four or less for downloading bl files");
+        return 100;
+    } else {
+        blData+= '<xml xmlns="http://www.w3.org/1999/xhtml">';
+        blData+= "\r\n";
+        blData+= '<block type="openLevel3" x="33" y="17">';
+        blData+= "\r\n";
+
+        blData+= '<value name="semi_or_epsilon">';
+        blData+= "\r\n";
+        blData+= '<block type="bwhat"></block>';
+        blData+= "\r\n";
+        blData+= '</value>';
+        blData+= "\r\n";
+        blData+= "<next>";
+        blData+= "\r\n";
+
+        blData+= '<block type="bbuild">';
+        blData+= "\r\n";
+        blData+= '<field name="size">(4,4)</field>';
+        blData+= "\r\n";
+        blData+= '<value name="semi_or_epsilon">';
+        blData+= "\r\n";
+        blData+= '<block type="bwhat"></block>';
+        blData+= "\r\n";
+        blData+= '</value>';
+        blData+= "\r\n";
+        blData+= "<next>";
+
+        blData+= "\r\n";
+        blData+= "\r\n";
+        for (var i=(gridLogs.length-1);i>=0;i--){
+            if (gridLogs[i].row < gCanvasElement.width) {
+                if (gridLogs[i].column < gCanvasElement.height) {
+                    if (gridLogs[i].column > 0) {
+                        if (gridLogs[i].row > 0) {
+                            a = Math.floor((gridLogs[i].row + 1) / kStep) ;
+                            b = Math.floor(side - ((gridLogs[i].column + 1) / kStep));
+                            if(isBlPointOccupied(a,b)){
+                                blData += '<block type="put2D">';
+                                blData+= "\r\n";
+                                blData += '<field name="xSize">1</field>';
+                                blData+= "\r\n";
+                                blData += '<field name="zSize">1</field>';
+                                blData+= "\r\n";
+                                blData += '<field name="brick">';
+                                blData += pickBlColorHex(gridLogs[i].color);
+                                blData += '</field>';
+                                blData+= "\r\n";
+                                blData += '<field name="xArg">' + a + "</field>" ;
+                                blData+= "\r\n";
+                                blData += '<field name="zArg">' + b + "</field>" ;
+                                blData+= "\r\n";
+                                blDataPoints.push(new BlDataPoint(a,b));
+                                blData+= '<value name="semi_or_epsilon">';
+                                blData+= "\r\n";
+                                blData+= '<block type="bwhat"></block>';
+                                blData+= "\r\n";
+                                blData+= '</value>';
+                                blData+= "\r\n";
+                                blData+= "<next>";
+                                blData+= "\r\n";
+                                count++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    blData+='<block type="show">';
+    blData+= "\r\n";
+    blData+= '<field name="artifact">"thing"</field>';
+    blData+= "\r\n";
+    blData+= '<value name="semi_or_epsilon">';
+    blData+= "\r\n";
+    blData+= '<block type="bwhat"></block>';
+    blData+= "\r\n";
+    blData+= '</value>';
+    blData+= "\r\n";
+    blData+= '</block>';
+    blData+= "\r\n";
+
+    for (var lite=0; lite<count; lite++){
+        blData+= "</next>";
+        blData+= "\r\n";
+        blData+= '</block>';
+        blData+= "\r\n";
+    }
+
+
+    blData+= "</next>";
+    blData+= "\r\n";
+    blData+= '</block>';
+    blData+= "\r\n";
+    blData+= "</next>";
+    blData+= "\r\n";
+    blData+= '</block>';
+    blData+= "\r\n";
+    blData+= '</xml>';
+    blDataPoints = [];
+    return blData;
+}
+// =======================================================================================
+function createBlLite() {
+    var blFile = loadBlLite();
+    if (blFile == 100){
+        return;
+    }
+    var a = document.createElement('a');
+    a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(blFile);
+    a.setAttribute("download", "grid.xml");
+    a.click();
 }
 // =======================================================================================
 function createBL() {
@@ -619,6 +908,9 @@ function saveCanvas() {
 
 // =======================================================================================
 function clearGrid() {
+    if(confirm("Do you want to save your progress before erasing")){
+        createPixelArtJSON();
+    }
     gridLogs = [];
     drawBoard();
 }
