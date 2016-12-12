@@ -31,6 +31,8 @@ body {
 #empty_button{
     background-color: white;
 }
+#canvas_area{
+}
 </style>
 
 <!-- ---------------------------------------------------------------------------- -->
@@ -99,10 +101,11 @@ body {
 <input type="button" value="Show Lines"  onclick="hideGridLines(lineColor);"/>
 <input type="button" value="Undo"        onclick="undo();"/>
 <input type="button" value="Redo"        onclick="redo();"/>
-
+<div id = "canvas_area">
     <canvas id="vitruvia_canvas">  
     <img src="" id="mirror" class="canvas__mirror" /> 
     </canvas>
+    </div>
 
 <br>
 <input type="button" value="Save as Image"        onclick="saveCanvas();">

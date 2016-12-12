@@ -699,6 +699,7 @@ function decrementGrid() {
 // =======================================================================================
 function pickLEGO(lego) {
     currentColor = lego;
+    document.getElementById("vitruvia_canvas").style.cursor = 'url('+currentColor.src+'), auto';
 }
 // =======================================================================================
 function updateGrid(d){
