@@ -28,6 +28,9 @@ body {
     float:left;
     border-color: red;
 }
+#empty_button{
+    background-color: white;
+}
 </style>
 
 <!-- ---------------------------------------------------------------------------- -->
@@ -84,7 +87,8 @@ body {
 <input type="image" class = "LEGO" src="bricklayercolors/white_02.png"          onclick="pickLEGO(white);">
 <input type="image" class = "LEGO" src="bricklayercolors/whiteglow_02.png"      onclick="pickLEGO(whiteglow);">
 <input type="image" class = "LEGO" src="bricklayercolors/yellow_02.png"         onclick="pickLEGO(yellow);">
-
+<br><br>
+<button id = "empty_button" onclick="pickLEGO(empty)">Empty</button>
 <br><br>
 
 <input type="button" value="+"           onclick="incrementGrid();">
