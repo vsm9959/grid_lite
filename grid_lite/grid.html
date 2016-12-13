@@ -33,6 +33,64 @@ body {
 }
 #canvas_area{
 }
+
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover  {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+    .dropdown-content #selectFiles{
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
 </style>
 
 <!-- ---------------------------------------------------------------------------- -->
@@ -45,8 +103,23 @@ body {
 <body onload="initGame()" onresize="updateGrid(0);">
 
 
+<ul>
+    <li><a href=https://bricklayerdotorg.wordpress.com/>Home</a></li>
+    <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">File</a>
+        <div class="dropdown-content">
+            <a href="javascript:createPixelArtJSON();">Save</a>
+            <a href="javascript:saveCanvas();">Save as Image</a>
+            <a href="javascript:createBL();">Save BL</a>
+            <a href="javascript:createBlLite();">Save Bl-Lite</a>
+            <input type="file" id="selectFiles" value="Import" onchange="loadGridJSON();" /><br />
+        </div>
+    </li>
+</ul>
 
 
+
+<br>
 
 <input type="image" class = "LEGO" src="bricklayercolors/aqua_02.png"           onclick="pickLEGO(aqua);">
 <input type="image" class = "LEGO" src="bricklayercolors/armygreen_02.png"      onclick="pickLEGO(armygreen);">
@@ -107,22 +180,11 @@ body {
     <option value="LEGO">LEGO</option>
 </select>
 
-
-
-
 <div id = "canvas_area">
     <canvas id="vitruvia_canvas">  
     <img src="" id="mirror" class="canvas__mirror" /> 
     </canvas>
     </div>
-
-<br>
-<input type="button" value="Save as Image"        onclick="saveCanvas();">
-<input type="button" value="Save your work"        onclick="createPixelArtJSON();">
-<input type="file" id="selectFiles" value="Import" onchange="loadGridJSON();" /><br />
-
-<button  id="download_bl"  onclick="createBL();">Download BL</button>
-<button  id="download_bl_LITE"  onclick="createBlLite();">Download Bl-Lite XML</button>
 
 </body>
 </html>
