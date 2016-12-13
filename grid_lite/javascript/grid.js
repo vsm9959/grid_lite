@@ -115,6 +115,14 @@ var lineColor = "#ccc"; // "black";
 
 var bleep = new Audio();
 bleep.src = 'javascript/click_real_short.mp3';
+
+var outputFormat = "PLAIN";
+// =============================================================================================
+function changeOutputFormat(){
+    var x = document.getElementById("output_format");
+    outputFormat = x.options[x.selectedIndex].text;
+    updateGrid(0);
+}
 // =============================================================================================
 function pickBlColorHex(pth){
     switch(pth){
@@ -773,8 +781,11 @@ function updateGrid(d){
             if (gridLogs[i].color == empty){
                 gDrawingContext.fillStyle = empty;
                 gDrawingContext.fillRect(gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
-            } else {
+            } else if (outputFormat == "LEGO"){
                 gDrawingContext.drawImage(temp, gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
+            } else {
+                gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                gDrawingContext.fillRect( gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
             }
         }
     }
@@ -786,12 +797,15 @@ function undo(){
         gridRedoLogs.push(gridLogs.pop());
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
+            temp.src = gridLogs[i].color;
             if(gridLogs[i].color == empty){
                 gDrawingContext.fillStyle = gridLogs[i].color;
                 gDrawingContext.fillRect(gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
-            } else {
-                temp.src = gridLogs[i].color;
+            } else if (outputFormat == "LEGO") {
                 gDrawingContext.drawImage(temp, gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
+            } else {
+                gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                gDrawingContext.fillRect( gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
             }
         }
     }
@@ -803,12 +817,15 @@ function redo(){
         gridLogs.push(gridRedoLogs.pop());
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
+            temp.src = gridLogs[i].color;
             if(gridLogs[i].color == empty){
                 gDrawingContext.fillStyle = gridLogs[i].color;
                 gDrawingContext.fillRect(gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
-            } else {
-                temp.src = gridLogs[i].color;
+            } else  if (outputFormat == "LEGO") {
                 gDrawingContext.drawImage(temp, gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
+            } else {
+                gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                gDrawingContext.fillRect( gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
             }
         }
     }
@@ -860,8 +877,11 @@ function vitruviaOnClick(e) {
            if(currentColor == empty){
                gDrawingContext.fillStyle = currentColor;
                gDrawingContext.fillRect(x+1, y+1, kStep-1, kStep-1);
-           } else {
+           } else if(outputFormat == "LEGO") {
                gDrawingContext.drawImage(currentColor, x + 1, y + 1, kStep - 1, kStep - 1); // box lines don't get redrawn with empty color
+           } else {
+               gDrawingContext.fillStyle = pickBlColorHex(currentColor.src);
+               gDrawingContext.fillRect(x+1,y+1,kStep-1,kStep -1);
            }
 
            if(currentColor == empty){
