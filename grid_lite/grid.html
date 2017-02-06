@@ -6,185 +6,239 @@
 <title>Bricklayer Grid</title>
 
 <!-- ---------------------------------------------------------------------------- -->
-<style type="text/css">
-
-body {
-    background-color: lightblue;
-}
-
-#vitruvia_canvas
-    {
-    display: block;
-    }
-    
-.canvas__mirror {
-  height: 100%;
-  position: absolute;
-  width: 100%;
-}
-.LEGO{
-    width: 30px;
-    height: 30px;
-    float:left;
-    border-color: red;
-}
-#empty_button{
-    background-color: white;
-}
-#canvas_area{
-}
-
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
-
-li {
-    float: left;
-}
-
-li a, .dropbtn {
-    display: inline-block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-li a:hover, .dropdown:hover .dropbtn {
-    background-color: red;
-}
-
-li.dropdown {
-    display: inline-block;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-}
-
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-}
-
-.dropdown-content a:hover  {background-color: #f1f1f1}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-    .dropdown-content #selectFiles{
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-        text-align: left;
-    }
-</style>
-
+<link rel="stylesheet" href = "css/bootstrap.min.css">
 <!-- ---------------------------------------------------------------------------- -->
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src = "javascript/bootstrap.min.js"></script>
 <script src="javascript/grid.js"></script>
-    
+    <style>
+        body{
+            background-color: aqua;
+        }
+        .LEGO{
+            width: 20px;
+            height: 20px;
+        }
+        .borderless tbody tr td, .borderless tbody tr th {
+            border: none;
+        }
+        .button_controls{
+            background-color: #a3d7a3;
+        }
+        .LEGO_BUTTONS .color-button{
+            width: 30px;
+            height: 25px;
+        }
+    </style>
 </head>
 
 
 <body onload="initGame()" onresize="updateGrid(0);">
 
-
-<ul>
-    <li><a href=https://bricklayerdotorg.wordpress.com/>Home</a></li>
-    <li class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">File</a>
-        <div class="dropdown-content">
-            <a href="javascript:createPixelArtJSON();">Save Grid</a>
-            <a href="javascript:saveCanvas();">Save Image</a>
-            <a href="javascript:createBL();">Save as Bricklayer Program</a>
-            <a href="javascript:createBlLite();">Save as Bricklayer Lite Program</a>
-            <input type="file" id="selectFiles" value="Import" onchange="loadGridJSON();" /><br />
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Grid</a>
         </div>
-    </li>
-</ul>
-
-
-
-<br>
-
-<input type="image" class = "LEGO" src="bricklayercolors/aqua_02.png"           onclick="pickLEGO(aqua);">
-<input type="image" class = "LEGO" src="bricklayercolors/armygreen_02.png"      onclick="pickLEGO(armygreen);">
-<input type="image" class = "LEGO" src="bricklayercolors/black_02.png"          onclick="pickLEGO(black);">
-<input type="image" class = "LEGO" src="bricklayercolors/blue_02.png"           onclick="pickLEGO(blue);">
-<input type="image" class = "LEGO" src="bricklayercolors/brightgreen_02.png"    onclick="pickLEGO(brightgreen);">
-<input type="image" class = "LEGO" src="bricklayercolors/brown_02.png"          onclick="pickLEGO(brown);">
-<input type="image" class = "LEGO" src="bricklayercolors/coolyellow_02.png"     onclick="pickLEGO(coolyellow);">
-<input type="image" class = "LEGO" src="bricklayercolors/darkbrown_02.png"      onclick="pickLEGO(darkbrown);">
-<input type="image" class = "LEGO" src="bricklayercolors/darkgreen_02.png"      onclick="pickLEGO(darkgreen);">
-<input type="image" class = "LEGO" src="bricklayercolors/darklavender_02.png"   onclick="pickLEGO(darklavender);">
-<input type="image" class = "LEGO" src="bricklayercolors/darkred_02.png"        onclick="pickLEGO(darkred);">
-<input type="image" class = "LEGO" src="bricklayercolors/gray_02.png"           onclick="pickLEGO(gray);">
-<input type="image" class = "LEGO" src="bricklayercolors/grayblue_02.png"       onclick="pickLEGO(grayblue);">
-<input type="image" class = "LEGO" src="bricklayercolors/green_02.png"          onclick="pickLEGO(green);">
-<input type="image" class = "LEGO" src="bricklayercolors/indigo_02.png"         onclick="pickLEGO(indigo);">
-<input type="image" class = "LEGO" src="bricklayercolors/lavender_02.png"       onclick="pickLEGO(lavender);">
-<input type="image" class = "LEGO" src="bricklayercolors/lightaqua_02.png"      onclick="pickLEGO(lightaqua);">
-<input type="image" class = "LEGO" src="bricklayercolors/lightblue_02.png"      onclick="pickLEGO(lightblue);">
-<input type="image" class = "LEGO" src="bricklayercolors/lightbrown_02.png"     onclick="pickLEGO(lightbrown);">
-<input type="image" class = "LEGO" src="bricklayercolors/lightgray_02.png"      onclick="pickLEGO(lightgray);">
-<br><br>
-<input type="image" class = "LEGO" src="bricklayercolors/lightgreen_02.png"     onclick="pickLEGO(lightgreen);">
-<input type="image" class = "LEGO" src="bricklayercolors/lightnougat_02.png"    onclick="pickLEGO(lightnougat);">
-<input type="image" class = "LEGO" src="bricklayercolors/lightpink_02.png"      onclick="pickLEGO(lightpink);">
-<input type="image" class = "LEGO" src="bricklayercolors/lightroyalblue_02.png" onclick="pickLEGO(lightroyalblue);">
-<input type="image" class = "LEGO" src="bricklayercolors/mediumnougat_02.png"   onclick="pickLEGO(mediumnougat);">
-<input type="image" class = "LEGO" src="bricklayercolors/nougat_02.png"         onclick="pickLEGO(nougat);">
-<input type="image" class = "LEGO" src="bricklayercolors/olive_02.png"          onclick="pickLEGO(olive);">
-<input type="image" class = "LEGO" src="bricklayercolors/orange_02.png"         onclick="pickLEGO(orange);">
-<input type="image" class = "LEGO" src="bricklayercolors/pink_02.png"           onclick="pickLEGO(pink);">
-<input type="image" class = "LEGO" src="bricklayercolors/red_02.png"            onclick="pickLEGO(red);">
-<input type="image" class = "LEGO" src="bricklayercolors/reddishviolet_02.png"  onclick="pickLEGO(reddishviolet);">
-<input type="image" class = "LEGO" src="bricklayercolors/silver_02.png"         onclick="pickLEGO(silver);">
-<input type="image" class = "LEGO" src="bricklayercolors/spring_02.png"         onclick="pickLEGO(spring);">
-<input type="image" class = "LEGO" src="bricklayercolors/stonegray_02.png"      onclick="pickLEGO(stonegray);">
-<input type="image" class = "LEGO" src="bricklayercolors/titanium_02.png"       onclick="pickLEGO(titanium);">
-<input type="image" class = "LEGO" src="bricklayercolors/violet_02.png"         onclick="pickLEGO(violet);">
-<input type="image" class = "LEGO" src="bricklayercolors/warmgold_02.png"       onclick="pickLEGO(warmgold);">
-<input type="image" class = "LEGO" src="bricklayercolors/white_02.png"          onclick="pickLEGO(white);">
-<input type="image" class = "LEGO" src="bricklayercolors/whiteglow_02.png"      onclick="pickLEGO(whiteglow);">
-<input type="image" class = "LEGO" src="bricklayercolors/yellow_02.png"         onclick="pickLEGO(yellow);">
-<br><br>
-<button id = "empty_button" onclick="pickLEGO(empty)">Empty</button>
-<br><br>
-
-<input type="button" value="+"           onclick="incrementGrid();">
-<var id="size">8</var>
-<input type="button" value="-"           onclick="decrementGrid();">
-<input type="button" value="Clear"       onclick="clearGrid();"/>
-<input type="button" value="Hide Lines"  onclick="hideGridLines(empty);"/>
-<input type="button" value="Show Lines"  onclick="hideGridLines(lineColor);"/>
-<input type="button" value="Undo"        onclick="undo();"/>
-<input type="button" value="Redo"        onclick="redo();"/>
-<span id ="output_type"> Output Format:</span>
-<select id ="output_format" onchange="changeOutputFormat();">
-    <option value="PLAIN">PLAIN</option>
-    <option value="LEGO">LEGO</option>
-</select>
-
-<div id = "canvas_area">
-    <canvas id="vitruvia_canvas">  
-    <img src="" id="mirror" class="canvas__mirror" /> 
-    </canvas>
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">File</a>
+                <ul class="dropdown-menu">
+                    <li><a href="javascript:createPixelArtJSON();">Save Grid</a></li>
+                    <li><a href="javascript:saveCanvas();">Save Image</a></li>
+                    <li><a href="javascript:createBL();">Save as Bricklayer Program</a></li>
+                    <li><a href="javascript:createBlLite();">Save as Bricklayer Lite Program</a></li>
+                    <li><input type = "file" id = "selectFiles" value ="Import" onchange="loadGridJSON();"/></li>
+                </ul>
+            </li>
+        </ul>
     </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <div class = "col-md-2">
+            <div class = "button_controls">
+                <table class = "table borderless">
+                    <tbody>
+                    <tr>
+                        <td><button class="btn btn-default"  onclick="incrementGrid();">+</button>
+                            <var id="size">8</var>
+                            <button class="btn btn-default"  onclick="decrementGrid();">-</button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class ="btn btn-default"   onclick="clearGrid();">Clear</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><button class ="btn btn-default" onclick="hideGridLines(empty);">Hide Lines</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class ="btn btn-default" onclick="hideGridLines(lineColor);">Show Lines</button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button  class ="btn btn-default"       onclick="undo();">Undo</button>
+                            <button   class ="btn btn-default"      onclick="redo();">Redo</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span id ="output_type"> Output Format:</span></td>
+                    </tr>
+                    <tr>
+                        <td><select id ="output_format" onchange="changeOutputFormat();">
+                            <option value="PLAIN">PLAIN</option>
+                            <option value="LEGO">LEGO</option>
+                        </select></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class = "col-md-2">
+            <div class = "LEGO_BUTTONS btn-group-vertical" role = "group">
+                <button id ='blackLEGO' style="background-color: #000000;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(black);">
+                    <!--<img class = "LEGO" src="bricklayercolors/black_02.png">-->
+                </button>
+                <button id="blueLEGO" style="background-color: #0d69ab;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(blue);">
+                    <!--<img class = "LEGO" src="bricklayercolors/blue_02.png">-->
+                </button>
+                <button id ='indigoLEGO' style="background-color: #203a56;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(indigo);">
+                    <!--<img class = "LEGO" src="bricklayercolors/indigo_02.png">-->
+                </button>
+                <button id ='darkgreenLEGO' style="background-color: #27462c;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(darkgreen);">
+                    <!--<img class = "LEGO" src="bricklayercolors/darkgreen_02.png">-->
+                </button>
+                <button id ='greenLEGO' style="background-color: #287f46;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(green);">
+                    <!--<img class = "LEGO" src="bricklayercolors/green_02.png">-->
+                </button>
+                <button id ='violetLEGO' style="background-color: #342b75;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(violet);">
+                    <!--<img class = "LEGO" src="bricklayercolors/violet_02.png">-->
+                </button>
+                <button id = "aquaLEGO" style="background-color: #36aebf;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(aqua);">
+                    <!--<img class = "LEGO" src="bricklayercolors/aqua_02.png">-->
+                </button>
+                <button id ='brightgreenLEGO' style="background-color: #4b974a;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(brightgreen);">
+                    <!--<img class = "LEGO" src="bricklayercolors/brightgreen_02.png">-->
+                </button>
+                <button id ='titaniumLEGO' style="background-color: #575857;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(titanium);">
+                    <!--<img class = "LEGO" src="bricklayercolors/titanium_02.png">-->
+                </button>
+                <button id ='grayLEGO' style="background-color: #635f61;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(gray);">
+                    <!--<img class = "LEGO" src="bricklayercolors/gray_02.png">-->
+                </button>
+                <button id ='darkbrownLEGO' style="background-color: #694027;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(darkbrown);">
+                    <!--<img class = "LEGO" src="bricklayercolors/darkbrown_02.png">-->
+                </button>
+                <button id ='oliveLEGO' style="background-color: #6b8e23;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(olive);">
+                    <!--<img class = "LEGO" src="bricklayercolors/olive_02.png">-->
+                </button>
+                <button id ='lightblueLEGO' style="background-color: #6e99c9;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(lightblue);">
+                    <!--<img class = "LEGO" src="bricklayercolors/lightblue_02.png">-->
+                </button>
+                <button id ='grayblueLEGO' style="background-color: #74869c;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(grayblue);">
+                    <!--<img class = "LEGO" src="bricklayercolors/grayblue_02.png">-->
+                </button>
+                <button id ='armygreenLEGO' style="background-color: #789081;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(armygreen);">
+                    <!--<img class = "LEGO" src="bricklayercolors/armygreen_02.png">-->
+                </button>
+                <button id ='darkredLEGO' style="background-color: #7b2e2f;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(darkred);">
+                    <!--<img class = "LEGO" src="bricklayercolors/darkred_02.png">-->
+                </button>
+                <button id ='silverLEGO' style="background-color: #898788;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(silver);">
+                    <!--<img class = "LEGO" src="bricklayercolors/silver_02.png">-->
+                </button>
+                <button id ='reddishvioletLEGO' style="background-color: #923978;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(reddishviolet);">
+                    <!--<img class = "LEGO" src="bricklayercolors/reddishviolet_02.png">-->
+                </button>
+                <button id ='lightroyalblueLEGO' style="background-color: #9fc3e9;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(lightroyalblue);">
+                    <!--<img class = "LEGO" src="bricklayercolors/lightroyalblue_02.png">-->
+                </button>
+                <button id ='brownLEGO' style="background-color: #a05f34;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(brown);">
+                    <!--<img class = "LEGO" src="bricklayercolors/brown_02.png">-->
+                </button>
+            </div>
+            <div class = " LEGO_BUTTONS btn-group-vertical" role = "group">
+                <button id ='lightgrayLEGO' style="background-color: #a3a2a4;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(lightgray);">
+                    <!--<img class = "LEGO" src="bricklayercolors/lightgray_02.png">-->
+                </button>
+                <button id ='lightgreenLEGO' style="background-color: #a4bd46;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(lightgreen);">
+                    <!--<img class = "LEGO" src="bricklayercolors/lightgreen_02.png">-->
+                </button>
+                <button id ='warmgoldLEGO' style="background-color: #aa7f2e;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(warmgold);">
+                    <!--<img class = "LEGO" src="bricklayercolors/warmgold_02.png">-->
+                </button>
+                <button id ='darklavenderLEGO' style="background-color: #ac78ba;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(darklavender);">
+                    <!--<img class = "LEGO" src="bricklayercolors/darklavender_02.png">-->
+                </button>
+                <button id ='lightaquaLEGO' style="background-color: #adc3c0;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(lightaqua);">
+                    <!--<img class = "LEGO" src="bricklayercolors/lightaqua_02.png">-->
+                </button>
+                <button id ='springLEGO' style="background-color: #c4d18b;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(spring);">
+                    <!--<img class = "LEGO" src="bricklayercolors/spring_02.png">-->
+                </button>
+                <button id ='redLEGO' style="background-color: #cc0000;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(red);">
+                    <!--<img class = "LEGO" src="bricklayercolors/red_02.png">-->
+                </button>
+                <button id ='mediumnougatLEGO' style="background-color: #cc702a;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(mediumnougat);">
+                    <!--<img class = "LEGO" src="bricklayercolors/mediumnougat_02.png">-->
+                </button>
+                <button id ='nougatLEGO' style="background-color: #cc8e68;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(nougat);">
+                    <!--<img class = "LEGO" src="bricklayercolors/nougat_02.png">-->
+                </button>
+                <button id ='pinkLEGO' style="background-color: #cd6298;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(pink);">
+                    <!--<img class = "LEGO" src="bricklayercolors/pink_02.png">-->
+                </button>
+                <button id ='lightbrownLEGO' style="background-color: #d7c599;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(lightbrown);">
+                    <!--<img class = "LEGO" src="bricklayercolors/lightbrown_02.png">-->
+                </button>
+                <button id ='whiteglowLEGO' style="background-color: #d9d9d9;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(whiteglow);">
+                    <!--<img class = "LEGO" src="bricklayercolors/whiteglow_02.png">-->
+                </button>
+                <button id ='orangeLEGO' style="background-color: #da8540;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(orange);">
+                    <!--<img class = "LEGO" src="bricklayercolors/orange_02.png">-->
+                </button>
+                <button id ='lavenderLEGO' style="background-color: #e1d5ed;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(lavender);">
+                    <!--<img class = "LEGO" src="bricklayercolors/lavender_02.png">-->
+                </button>
+                <button id ='lightpinkLEGO' style="background-color: #e4adc8;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(lightpink);">
+                    <!--<img class = "LEGO" src="bricklayercolors/lightpink_02.png">-->
+                </button>
+                <button id ='stonegrayLEGO' style="background-color: #e5e4de;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(stonegray);">
+                    <!--<img class = "LEGO" src="bricklayercolors/stonegray_02.png">-->
+                </button>
+                <button id ='yellowLEGO' style="background-color: #f5cd2f;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(yellow);">
+                    <!--<img class = "LEGO" src="bricklayercolors/yellow_02.png">-->
+                </button>
+                <button id ='lightnougatLEGO' style="background-color: #f6d7b3;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(lightnougat);">
+                    <!--<img class = "LEGO" src="bricklayercolors/lightnougat_02.png">-->
+                </button>
+                <button id ='coolyellowLEGO' style="background-color: #fdf38c;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(coolyellow);">
+                    <!--<img class = "LEGO" src="bricklayercolors/coolyellow_02.png">-->
+                </button>
+                <button id ='whiteLEGO' style="background-color: #ffffff;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(white);">
+                    <!--<img class = "LEGO" src="bricklayercolors/white_02.png">-->
+                </button>
+            </div>
+        </div>
+        <div class = "col-md-8">
+            <canvas id="vitruvia_canvas">
+                <img src="" id="mirror" class="canvas__mirror" />
+            </canvas>
+        </div>
+    </div>
+</div>
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-2"></div>
+        <div class ="col-md-2">
+            <button class ="btn btn-default" id = "empty_button" onclick="setCurrentColor(empty)">EMPTY</button>
+        </div>
+    </div>
+</div>
+
 
 </body>
 </html>

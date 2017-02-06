@@ -122,6 +122,92 @@ function changeOutputFormat(){
     var x = document.getElementById("output_format");
     outputFormat = x.options[x.selectedIndex].text;
     updateGrid(0);
+    if(outputFormat == "LEGO"){
+        document.getElementById('aquaLEGO').innerHTML           = "<img class = 'LEGO' src='bricklayercolors/aqua_02.png'>";
+        document.getElementById('armygreenLEGO').innerHTML      = "<img class = 'LEGO' src='bricklayercolors/armygreen_02.png'>";
+        document.getElementById('blackLEGO').innerHTML          = "<img class = 'LEGO' src='bricklayercolors/black_02.png'>";
+        document.getElementById('blueLEGO').innerHTML           = "<img class = 'LEGO' src='bricklayercolors/blue_02.png'>";
+        document.getElementById('brightgreenLEGO').innerHTML    = "<img class = 'LEGO' src='bricklayercolors/brightgreen_02.png'>";
+        document.getElementById('brownLEGO').innerHTML          = "<img class = 'LEGO' src='bricklayercolors/brown_02.png'>";
+        document.getElementById('coolyellowLEGO').innerHTML     = "<img class = 'LEGO' src='bricklayercolors/coolyellow_02.png'>";
+        document.getElementById('darkbrownLEGO').innerHTML      = "<img class = 'LEGO' src='bricklayercolors/darkbrown_02.png'>";
+        document.getElementById('darkgreenLEGO').innerHTML      = "<img class = 'LEGO' src='bricklayercolors/darkgreen_02.png'>";
+        document.getElementById('darklavenderLEGO').innerHTML   = "<img class = 'LEGO' src='bricklayercolors/darklavender_02.png'>";
+        document.getElementById('darkredLEGO').innerHTML        = "<img class = 'LEGO' src='bricklayercolors/darkred_02.png'>";
+        document.getElementById('grayLEGO').innerHTML           = "<img class = 'LEGO' src='bricklayercolors/gray_02.png'>";
+        document.getElementById('grayblueLEGO').innerHTML       = "<img class = 'LEGO' src='bricklayercolors/grayblue_02.png'>";
+        document.getElementById('greenLEGO').innerHTML          = "<img class = 'LEGO' src='bricklayercolors/green_02.png'>";
+        document.getElementById('indigoLEGO').innerHTML         = "<img class = 'LEGO' src='bricklayercolors/indigo_02.png'>";
+        document.getElementById('lavenderLEGO').innerHTML       = "<img class = 'LEGO' src='bricklayercolors/lavender_02.png'>";
+        document.getElementById('lightaquaLEGO').innerHTML      = "<img class = 'LEGO' src='bricklayercolors/lightaqua_02.png'>";
+        document.getElementById('lightblueLEGO').innerHTML      = "<img class = 'LEGO' src='bricklayercolors/lightblue_02.png'>";
+        document.getElementById('lightbrownLEGO').innerHTML     = "<img class = 'LEGO' src='bricklayercolors/lightbrown_02.png'>";
+        document.getElementById('lightgrayLEGO').innerHTML      = "<img class = 'LEGO' src='bricklayercolors/lightgray_02.png'>";
+        document.getElementById('lightgreenLEGO').innerHTML     = "<img class = 'LEGO' src='bricklayercolors/lightgreen_02.png'>";
+        document.getElementById('lightnougatLEGO').innerHTML    = "<img class = 'LEGO' src='bricklayercolors/lightnougat_02.png'>";
+        document.getElementById('lightpinkLEGO').innerHTML      = "<img class = 'LEGO' src='bricklayercolors/lightpink_02.png'>";
+        document.getElementById('lightroyalblueLEGO').innerHTML = "<img class = 'LEGO' src='bricklayercolors/lightroyalblue_02.png'>";
+        document.getElementById('mediumnougatLEGO').innerHTML   = "<img class = 'LEGO' src='bricklayercolors/mediumnougat_02.png'>";
+        document.getElementById('nougatLEGO').innerHTML         = "<img class = 'LEGO' src='bricklayercolors/nougat_02.png'>";
+        document.getElementById('oliveLEGO').innerHTML          = "<img class = 'LEGO' src='bricklayercolors/olive_02.png'>";
+        document.getElementById('orangeLEGO').innerHTML         = "<img class = 'LEGO' src='bricklayercolors/orange_02.png'>";
+        document.getElementById('pinkLEGO').innerHTML           = "<img class = 'LEGO' src='bricklayercolors/pink_02.png'>";
+        document.getElementById('redLEGO').innerHTML            = "<img class = 'LEGO' src='bricklayercolors/red_02.png'>";
+        document.getElementById('reddishvioletLEGO').innerHTML  = "<img class = 'LEGO' src='bricklayercolors/reddishviolet_02.png'>";
+        document.getElementById('silverLEGO').innerHTML         = "<img class = 'LEGO' src='bricklayercolors/silver_02.png'>";
+        document.getElementById('springLEGO').innerHTML         = "<img class = 'LEGO' src='bricklayercolors/spring_02.png'>";
+        document.getElementById('stonegrayLEGO').innerHTML      = "<img class = 'LEGO' src='bricklayercolors/stonegray_02.png'>";
+        document.getElementById('titaniumLEGO').innerHTML       = "<img class = 'LEGO' src='bricklayercolors/titanium_02.png'>";
+        document.getElementById('violetLEGO').innerHTML         = "<img class = 'LEGO' src='bricklayercolors/violet_02.png'>";
+        document.getElementById('warmgoldLEGO').innerHTML       = "<img class = 'LEGO' src='bricklayercolors/warmgold_02.png'>";
+        document.getElementById('whiteLEGO').innerHTML          = "<img class = 'LEGO' src='bricklayercolors/white_02.png'>";
+        document.getElementById('whiteglowLEGO').innerHTML      = "<img class = 'LEGO' src='bricklayercolors/whiteglow_02.png'>";
+        document.getElementById('yellowLEGO').innerHTML         = "<img class = 'LEGO' src='bricklayercolors/yellow_02.png'>";
+
+
+    }else{
+        document.getElementById('aquaLEGO').innerHTML           = "";
+        document.getElementById('armygreenLEGO').innerHTML      = "";
+        document.getElementById('blackLEGO').innerHTML          = "";
+        document.getElementById('blueLEGO').innerHTML           = "";
+        document.getElementById('brightgreenLEGO').innerHTML    = "";
+        document.getElementById('brownLEGO').innerHTML          = "";
+        document.getElementById('coolyellowLEGO').innerHTML     = "";
+        document.getElementById('darkbrownLEGO').innerHTML      = "";
+        document.getElementById('darkgreenLEGO').innerHTML      = "";
+        document.getElementById('darklavenderLEGO').innerHTML   = "";
+        document.getElementById('darkredLEGO').innerHTML        = "";
+        document.getElementById('grayLEGO').innerHTML           = "";
+        document.getElementById('grayblueLEGO').innerHTML       = "";
+        document.getElementById('greenLEGO').innerHTML          = "";
+        document.getElementById('indigoLEGO').innerHTML         = "";
+        document.getElementById('lavenderLEGO').innerHTML       = "";
+        document.getElementById('lightaquaLEGO').innerHTML      = "";
+        document.getElementById('lightblueLEGO').innerHTML      = "";
+        document.getElementById('lightbrownLEGO').innerHTML     = "";
+        document.getElementById('lightgrayLEGO').innerHTML      = "";
+        document.getElementById('lightgreenLEGO').innerHTML     = "";
+        document.getElementById('lightnougatLEGO').innerHTML    = "";
+        document.getElementById('lightpinkLEGO').innerHTML      = "";
+        document.getElementById('lightroyalblueLEGO').innerHTML = "";
+        document.getElementById('mediumnougatLEGO').innerHTML   = "";
+        document.getElementById('nougatLEGO').innerHTML         = "";
+        document.getElementById('oliveLEGO').innerHTML          = "";
+        document.getElementById('orangeLEGO').innerHTML         = "";
+        document.getElementById('pinkLEGO').innerHTML           = "";
+        document.getElementById('redLEGO').innerHTML            = "";
+        document.getElementById('reddishvioletLEGO').innerHTML  = "";
+        document.getElementById('silverLEGO').innerHTML         = "";
+        document.getElementById('springLEGO').innerHTML         = "";
+        document.getElementById('stonegrayLEGO').innerHTML      = "";
+        document.getElementById('titaniumLEGO').innerHTML       = "";
+        document.getElementById('violetLEGO').innerHTML         = "";
+        document.getElementById('warmgoldLEGO').innerHTML       = "";
+        document.getElementById('whiteLEGO').innerHTML          = "";
+        document.getElementById('whiteglowLEGO').innerHTML      = "";
+        document.getElementById('yellowLEGO').innerHTML         = "";
+    }
+
 }
 // =============================================================================================
 function pickBlColorHex(pth){
@@ -705,9 +791,8 @@ function decrementGrid() {
     }
 }
 // =======================================================================================
-function pickLEGO(lego) {
+function setCurrentColor(lego) {
     currentColor = lego;
-    document.getElementById("vitruvia_canvas").style.cursor = 'url('+currentColor.src+'), auto';
 }
 // =======================================================================================
 function updateGrid(d){
@@ -734,7 +819,7 @@ function updateGrid(d){
 
     //var boardSize  = 500;
     var boardSize;
-    var delta = 0.3;
+    var delta = 0.2;
 
     if (window.innerWidth < window.innerHeight)
     {
@@ -843,19 +928,11 @@ function Cell(row, column) {
 }
 // =======================================================================================
 function getCursorPalletPosition(e) {
-    /* returns Cell with .row and .column properties */
     var x;
     var y;
-    if (e.pageX != undefined && e.pageY != undefined) {
-        x = e.pageX;
-        y = e.pageY;
-    }
-    else {
-        x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-    }
-    x -= gCanvasElement.offsetLeft;
-    y -= gCanvasElement.offsetTop;
+    var rect = gCanvasElement.getBoundingClientRect();
+    x = e.clientX - rect.left;
+    y = e.clientY - rect.top;
     x = Math.min(x, kBoardWidth * kStep);
     y = Math.min(y, kBoardHeight * kStep);
     var cell = new Cell(y,x);
@@ -988,7 +1065,7 @@ function initGame() {
    
     //var boardSize  = 500;
     var boardSize;
-    var delta = 0.3;
+    var delta = 0.2;
     
     if (window.innerWidth < window.innerHeight)
     { 
