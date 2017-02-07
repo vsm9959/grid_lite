@@ -738,23 +738,59 @@ function createBL() {
 }
 // =========================================================================================
 function loadGridJSON() {
+        var pixelLogs = [];
+        gridLogs = [];
+        var newSide = 0;
         var files = document.getElementById('selectFiles').files;
         if (files.length <= 0) {
             return false;
         }
-
         var fr = new FileReader();
 
         fr.onload = function(e) {
-            gridLogs = JSON.parse(e.target.result);
+            pixelLogs = JSON.parse(e.target.result);
+            newSide = loadPixelLogs(pixelLogs);
+            side = newSide+1;
+            document.getElementById('size').innerHTML = side;
+            if(side < 8){
+                side = 8;
+            }
             updateGrid(0);
         };
 
         fr.readAsText(files.item(0));
 }
+// ==========================================================================================
+function loadPixelLogs(data){
+    var max = 0;
+    for(var i=0;i<data.length;i++){
+        if(data[i].row>max){
+            max = data[i].row;
+        }
+        if(data[i].column>max){
+            max = data[i].column;
+        }
+    }
+    kStep = Math.floor(kPixelWidth/max);
+    console.log(kStep);
+    for( i=0;i<data.length;i++){
+        gridLogs.push(new GridLog(data[i].row*kStep+1,data[i].column*kStep+1,data[i].color));
+        console.log(data[i].row*kStep);
+    }
+    return max;
+}
+// ==========================================================================================
+function createPixels(){
+    var pixelLogs = [];
+    for(var i=0 ;i<gridLogs.length; i++){
+        pixelLogs.push(new GridLog(Math.floor(gridLogs[i].row/kStep),Math.floor(gridLogs[i].column/kStep),gridLogs[i].color));
+    }
+    return pixelLogs;
+}
 // =======================================================================================
 function createPixelArtJSON() {
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(gridLogs));
+    var pixelLogs = createPixels();
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pixelLogs));
 
     var a = document.createElement('a');
     a.setAttribute("href",     dataStr     );
@@ -798,11 +834,7 @@ function setCurrentColor(lego) {
 function updateGrid(d){
     var v              = side;
     var temp = new Image();
-    //var d=1;
 
-        //d = v - side;
-
-    // squares per side
     if (v < 1) {
         alert('Smallest size is 2');
         side = 2;
@@ -814,10 +846,6 @@ function updateGrid(d){
     }
     else { side = v; }
 
-
-
-
-    //var boardSize  = 500;
     var boardSize;
     var delta = 0.2;
 
