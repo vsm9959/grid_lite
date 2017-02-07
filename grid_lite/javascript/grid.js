@@ -1059,9 +1059,6 @@ function saveCanvas() {
 
 // =======================================================================================
 function clearGrid() {
-    if(confirm("Do you want to save your progress before erasing")){
-        createPixelArtJSON();
-    }
     gridLogs = [];
     drawBoard();
 }
