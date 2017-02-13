@@ -36,6 +36,9 @@
         #output_type{
             font-size: medium;
         }
+        .controlsAndPalette{
+            width: 20%;
+        }
     </style>
 </head>
 
@@ -64,7 +67,7 @@
 
 <div class="container">
     <div class="row">
-        <div class = "col-md-3 col-sm-4">
+        <div class = "controlsAndPalette col-md-3 col-sm-6">
             <div class = "button_controls">
                 <table class = "table borderless">
                     <tbody>
@@ -233,18 +236,28 @@
                                     <!--<img class = "LEGO" src="bricklayercolors/white_02.png">-->
                                 </button>
                             </div>
+                            <button class ="btn btn-default" onclick="setCurrentColor(empty);">EMPTY</button>
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <button class ="btn btn-default" onclick="setCurrentColor(empty);">EMPTY</button>
+                        <td id = "recentColor">Recent:
+                            <div class ="LEGO_BUTTONS btn-group" role = "group">
+                                <button id ='recent1' style="background-color: #000000; width:30px; height: 25px;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(black);">
+                                </button>
+                                <button id ='recent2' style="background-color: #0d69ab; width:30px; height: 25px;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(blue);">
+                                </button>
+                                <button id ='recent3' style="background-color: #cc0000; width:30px; height: 25px;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(red);">
+                                </button>
+                                <button id ='recent4' style="background-color: #287f46; width:30px; height: 25px;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(green);">
+                                </button>
+                            </div>
                         </td>
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        <div class = "col-md-8 col-sm-8">
+        <div class = "col-md-8 col-sm-6">
             <canvas id="vitruvia_canvas">
                 <img src="" id="mirror" class="canvas__mirror" />
             </canvas>

@@ -116,6 +116,12 @@ var lineColor = "#ccc"; // "black";
 var bleep = new Audio();
 bleep.src = 'javascript/click_real_short.mp3';
 
+var recentId = 1;
+var r1 = "#000000";
+var r2 = "#0d69ab";
+var r3 = "#cc0000";
+var r4 = "#287f46";
+
 var outputFormat = "PLAIN";
 // =============================================================================================
 function changeOutputFormat(){
@@ -966,7 +972,39 @@ function getCursorPalletPosition(e) {
     var cell = new Cell(y,x);
     return cell;
 }
-
+// =======================================================================================
+function updateRecentColor() {
+    var tem;
+    var tcolor;
+    var terminate = true;
+    tcolor = currentColor;
+    if ((r1 == pickBlColorHex(currentColor.src))||(r2 == pickBlColorHex(currentColor.src))||(r3 == pickBlColorHex(currentColor.src))||r4 == pickBlColorHex(currentColor.src)){
+        terminate = false;
+    }
+    if(recentId == 4){
+        recentId = 0;
+    }
+    if((currentColor != empty)&&terminate){
+        recentId++;
+        if(recentId == 1) {
+            r1 = pickBlColorHex(currentColor.src);
+        }
+        if(recentId == 2) {
+            r2 = pickBlColorHex(currentColor.src);
+        }
+        if(recentId == 3) {
+            r3 = pickBlColorHex(currentColor.src);
+        }
+        if(recentId == 4) {
+            r4 = pickBlColorHex(currentColor.src);
+        }
+        tem = document.getElementById("recent"+recentId.toString());
+        tem.style.backgroundColor = pickBlColorHex(currentColor.src);
+        tem.onclick = function () {
+            setCurrentColor(tcolor);
+        }
+    }
+}
 // =======================================================================================
 function vitruviaOnClick(e) {
     var cell   = getCursorPalletPosition(e);
@@ -974,6 +1012,7 @@ function vitruviaOnClick(e) {
     var column = cell.column;
 
     bleep.play();
+    updateRecentColor();
 
        if ((column < xEnd - 1) && (row < yEnd - 1) ) {
            var x = Math.floor(column/kStep) * kStep;
