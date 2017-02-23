@@ -3,7 +3,7 @@ var kBoardWidth;
 var kBoardHeight;
 
 var kStep;
-var side = 8;
+var side = 4;
 
 var kPixelWidth;
 var kPixelHeight;
@@ -16,8 +16,8 @@ var gDrawingContext;
 
 var blDataPoints = [];
 
-var empty      = "#FFFFFF"; // "#F2F2F2";
-
+/*var empty      = "#FFFFFF";*/ // "#F2F2F2";
+var empty      = "#ACB3BF";
 
 var aqua = new Image();
 aqua.src = 'bricklayercolors/aqua_02.png';
