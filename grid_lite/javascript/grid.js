@@ -124,6 +124,20 @@ var r4 = "#287f46";
 
 var outputFormat = "PLAIN";
 // =============================================================================================
+function printCanvasData(){
+    var canvas = document.getElementById('vitruvia_canvas');
+    var win  = window.open();
+    var imgsrc = canvas.toDataURL('image/png');
+    var imageHtml = "<br><img src=";
+    imageHtml += "'"+imgsrc+"'";
+    imageHtml += "/>";
+    win.document.body.innerHTML=imageHtml;
+    win.document.body.onload = win.document.close();
+    setTimeout(function(){
+        win.print();},250);
+
+}
+// =============================================================================================
 function changeOutputFormat(){
     var x = document.getElementById("output_format");
     outputFormat = x.options[x.selectedIndex].text;
