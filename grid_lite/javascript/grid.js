@@ -999,15 +999,17 @@ function updateGrid(d){
     if(gridLogs.length!=0){
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
-            temp.src= gridLogs[i].color;
-            if (gridLogs[i].color == empty){
-                gDrawingContext.fillStyle = empty;
-                gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
-            } else if (outputFormat == "LEGO"){
-                gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column, kStep  - 1, kStep - 1);
-            } else {
-                gDrawingContext.fillStyle = pickBlColorHex(temp.src);
-                gDrawingContext.fillRect( gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+            if((gridLogs[i].row > 0)&&(gridLogs[i].column <(yEnd-axisDelta))) {
+                temp.src = gridLogs[i].color;
+                if (gridLogs[i].color == empty) {
+                    gDrawingContext.fillStyle = empty;
+                    gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                } else if (outputFormat == "LEGO") {
+                    gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                } else {
+                    gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                    gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                }
             }
         }
     }
