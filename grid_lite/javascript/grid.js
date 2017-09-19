@@ -15,6 +15,7 @@ var gCanvasElement;
 var gDrawingContext;
 
 var blDataPoints = [];
+var axisDelta;
 
 /*var empty      = "#FFFFFF";*/ // "#F2F2F2";
 var empty      = "#ACB3BF";
@@ -123,6 +124,7 @@ var r3 = "#cc0000";
 var r4 = "#287f46";
 
 var outputFormat = "PLAIN";
+var shiftFormat;
 // =============================================================================================
 function printCanvasData(){
     var canvas = document.getElementById('vitruvia_canvas');
@@ -136,6 +138,94 @@ function printCanvasData(){
     setTimeout(function(){
         win.print();},250);
 
+}
+// ===================================================================================================
+function shiftLeft() {
+    var temp = new Image();
+    var shiftLength;
+    if(gridLogs.length!=0){
+        drawBoard();
+        for(i=0;i<gridLogs.length;i++){
+            temp.src= gridLogs[i].color;
+            shiftLength = gridLogs[i].row + axisDelta - kStep;
+            if(shiftLength > axisDelta) {
+                if (gridLogs[i].color == empty) {
+                    gDrawingContext.fillStyle = empty;
+                    gDrawingContext.fillRect(gridLogs[i].row + axisDelta - kStep, gridLogs[i].column, kStep - 1, kStep - 1);
+                } else if (outputFormat == "LEGO") {
+                    gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta - kStep, gridLogs[i].column, kStep - 1, kStep - 1);
+                } else {
+                    gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                    gDrawingContext.fillRect(gridLogs[i].row + axisDelta - kStep, gridLogs[i].column, kStep - 1, kStep - 1);
+                }
+            }
+            gridLogs[i].row = gridLogs[i].row -kStep;
+        }
+    }
+}
+// ===================================================================================================
+function shiftRight() {
+    var temp = new Image();
+    if(gridLogs.length!=0){
+        drawBoard();
+        for(i=0;i<gridLogs.length;i++){
+            temp.src= gridLogs[i].color;
+            if (gridLogs[i].color == empty){
+                gDrawingContext.fillStyle = empty;
+                gDrawingContext.fillRect(gridLogs[i].row + axisDelta + kStep, gridLogs[i].column, kStep - 1, kStep - 1);
+            } else if (outputFormat == "LEGO"){
+                gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta + kStep, gridLogs[i].column, kStep  - 1, kStep - 1);
+            } else {
+                gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                gDrawingContext.fillRect( gridLogs[i].row + axisDelta + kStep, gridLogs[i].column, kStep - 1, kStep - 1);
+            }
+            gridLogs[i].row = gridLogs[i].row +kStep;
+        }
+    }
+}// ===================================================================================================
+function shiftTop() {
+    var temp = new Image();
+    if(gridLogs.length!=0){
+        drawBoard();
+        for(i=0;i<gridLogs.length;i++){
+            temp.src= gridLogs[i].color;
+            if (gridLogs[i].color == empty){
+                gDrawingContext.fillStyle = empty;
+                gDrawingContext.fillRect(gridLogs[i].row + axisDelta , gridLogs[i].column- kStep, kStep - 1, kStep - 1);
+            } else if (outputFormat == "LEGO"){
+                gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta , gridLogs[i].column- kStep, kStep  - 1, kStep - 1);
+            } else {
+                gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                gDrawingContext.fillRect( gridLogs[i].row + axisDelta , gridLogs[i].column- kStep, kStep - 1, kStep - 1);
+            }
+            gridLogs[i].column = gridLogs[i].column -kStep;
+        }
+    }
+}// ===================================================================================================
+function shiftBottom() {
+    var temp = new Image();
+    var shiftLength;
+
+    if(gridLogs.length!=0){
+        drawBoard();
+        for(i=0;i<gridLogs.length;i++){
+            temp.src= gridLogs[i].color;
+            shiftLength = gridLogs[i].column + kStep;
+
+            if(shiftLength < yEnd - axisDelta) {
+                if (gridLogs[i].color == empty) {
+                    gDrawingContext.fillStyle = empty;
+                    gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column + kStep, kStep - 1, kStep - 1);
+                } else if (outputFormat == "LEGO") {
+                    gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column + kStep, kStep - 1, kStep - 1);
+                } else {
+                    gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                    gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column + kStep, kStep - 1, kStep - 1);
+                }
+            }
+            gridLogs[i].column = gridLogs[i].column +kStep;
+        }
+    }
 }
 // =============================================================================================
 function changeOutputFormat(){
@@ -792,7 +882,6 @@ function loadPixelLogs(data){
         }
     }
     kStep = Math.floor(kPixelWidth/max);
-    console.log(kStep);
     for( i=0;i<data.length;i++){
         gridLogs.push(new GridLog(data[i].row*kStep+1,data[i].column*kStep+1,data[i].color));
         console.log(data[i].row*kStep);
@@ -896,8 +985,8 @@ function updateGrid(d){
 
 
     //size of canvas we want to use
-    kPixelWidth  = kStep * side + 1;
-    kPixelHeight = kStep * side + 1;
+    kPixelWidth  = kStep * side + 1 + axisDelta;
+    kPixelHeight = kStep * side + 1 + axisDelta;
 
     kBoardWidth  = kPixelWidth;
     kBoardHeight = kPixelHeight;
@@ -913,12 +1002,12 @@ function updateGrid(d){
             temp.src= gridLogs[i].color;
             if (gridLogs[i].color == empty){
                 gDrawingContext.fillStyle = empty;
-                gDrawingContext.fillRect(gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
+                gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
             } else if (outputFormat == "LEGO"){
-                gDrawingContext.drawImage(temp, gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
+                gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column, kStep  - 1, kStep - 1);
             } else {
                 gDrawingContext.fillStyle = pickBlColorHex(temp.src);
-                gDrawingContext.fillRect( gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
+                gDrawingContext.fillRect( gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
             }
         }
     }
@@ -979,7 +1068,7 @@ function getCursorPalletPosition(e) {
     var x;
     var y;
     var rect = gCanvasElement.getBoundingClientRect();
-    x = e.clientX - rect.left;
+    x = e.clientX - rect.left - axisDelta;
     y = e.clientY - rect.top;
     x = Math.min(x, kBoardWidth * kStep);
     y = Math.min(y, kBoardHeight * kStep);
@@ -1028,18 +1117,18 @@ function vitruviaOnClick(e) {
     bleep.play();
     updateRecentColor();
 
-       if ((column < xEnd - 1) && (row < yEnd - 1) ) {
+       if ((column < xEnd - 1) && (row < yEnd - axisDelta- 1) ) {
            var x = Math.floor(column/kStep) * kStep;
            var y = Math.floor(row/kStep) * kStep;
 
            if(currentColor == empty){
                gDrawingContext.fillStyle = currentColor;
-               gDrawingContext.fillRect(x+1, y+1, kStep-1, kStep-1);
+               gDrawingContext.fillRect(x+axisDelta+1, y+1, kStep-1, kStep-1);
            } else if(outputFormat == "LEGO") {
-               gDrawingContext.drawImage(currentColor, x + 1, y + 1, kStep - 1, kStep - 1); // box lines don't get redrawn with empty color
+               gDrawingContext.drawImage(currentColor, x + axisDelta + 1, y + 1, kStep - 1, kStep - 1); // box lines don't get redrawn with empty color
            } else {
                gDrawingContext.fillStyle = pickBlColorHex(currentColor.src);
-               gDrawingContext.fillRect(x+1,y+1,kStep-1,kStep -1);
+               gDrawingContext.fillRect(x+axisDelta+1,y+1,kStep-1,kStep -1);
            }
 
            if(currentColor == empty){
@@ -1060,14 +1149,14 @@ function drawLines(color) {
     gDrawingContext.beginPath();
     
     /* vertical lines */
-    for (var x = 0; x <= xEnd; x += kStep) { 
+    for (var x = axisDelta; x <= xEnd; x += kStep) {
         gDrawingContext.moveTo(0.5 + x, 0);
-        gDrawingContext.lineTo(0.5 + x, yEnd);
+        gDrawingContext.lineTo(0.5 + x, yEnd -axisDelta);
     }
     
     /* horizontal lines */
-    for (var y = 0; y <= yEnd; y += kStep) {
-        gDrawingContext.moveTo(0    , 0.5 + y);
+    for (var y = 0; y <= yEnd - axisDelta; y += kStep) {
+        gDrawingContext.moveTo(axisDelta    , 0.5 + y);
         gDrawingContext.lineTo(xEnd, 0.5 +  y);
     }
     
@@ -1077,7 +1166,11 @@ function drawLines(color) {
     
     gDrawingContext.closePath();    
 }
-
+// =======================================================================================
+function isEven(n) {
+    n = n % 2;
+    return n < 1;
+}
 // =======================================================================================
 function drawBoard() {
 
@@ -1096,6 +1189,35 @@ function drawBoard() {
     drawLines(lineColor);
 
     gDrawingContext.closePath();
+    if(side < 20) {
+        for (var x = 0; x < side; x++) {
+            gDrawingContext.font = "13px Comic Sans MS";
+            gDrawingContext.fillStyle = "black";
+            gDrawingContext.fillText(side - x - 1, axisDelta / 4, x * kStep + (kStep / 1.4));
+        }
+        for (var z = 0; z<side; z++  ){
+            gDrawingContext.font = "13px Comic Sans MS";
+            gDrawingContext.fillStyle = "black";
+            /*gDrawingContext.textAlign = "center";*/
+            gDrawingContext.fillText(z, z*kStep +(kStep/3)+ axisDelta, yEnd - (axisDelta/4) );
+        }
+    } else {
+        for (var x = 0; x < side; x += 2) {
+            gDrawingContext.font = "13px Comic Sans MS";
+            gDrawingContext.fillStyle = "black";
+            if(isEven(side))
+            gDrawingContext.fillText(side - x - 2, axisDelta / 4, x * kStep + (kStep / 1.4) + kStep);
+            else
+                gDrawingContext.fillText(side - x - 1, axisDelta / 4, x * kStep + (kStep / 1.4));
+        }
+        for (var z = 0; z<side; z += 2 ){
+            gDrawingContext.font = "13px Comic Sans MS";
+            gDrawingContext.fillStyle = "black";
+            /*gDrawingContext.textAlign = "center";*/
+            gDrawingContext.fillText(z, z*kStep +(kStep/3)+ axisDelta, yEnd - (axisDelta/4) );
+        }
+    }
+
 }
 
 // =======================================================================================
@@ -1144,6 +1266,7 @@ function initGame() {
     //var boardSize  = 500;
     var boardSize;
     var delta = 0.2;
+    axisDelta = 30;
     
     if (window.innerWidth < window.innerHeight)
     { 
@@ -1155,12 +1278,12 @@ function initGame() {
     }
 
   
-    kStep = Math.floor(boardSize / side);
+    kStep = Math.floor((boardSize -axisDelta) / side);
                
     
     //size of canvas we want to use
-    kPixelWidth  = kStep * side + 1;
-    kPixelHeight = kStep * side + 1;
+    kPixelWidth  = kStep * side + 1 + axisDelta;
+    kPixelHeight = kStep * side + 1 + axisDelta;
     
     kBoardWidth  = kPixelWidth;
     kBoardHeight = kPixelHeight;

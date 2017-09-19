@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="robots" content="noindex">
-<title>Grid 1.021</title>
+<title>Grid 1.022</title>
 
 <!-- ---------------------------------------------------------------------------- -->
 <link rel="stylesheet" href = "css/bootstrap.min.css">
@@ -34,6 +34,9 @@
             font-size: medium;
         }
         #output_type{
+            font-size: medium;
+        }
+        #shift_type{
             font-size: medium;
         }
         .controlsAndPalette{
@@ -108,6 +111,28 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <span id = "shift_type">Shift Grid:</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class ="btn-group" role = "group">
+                                <button  class ="btn btn-default"       onclick="shiftLeft();">Left</button>
+                                <button   class ="btn btn-default"      onclick="shiftRight();">Right</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class ="btn-group" role = "group">
+                                <button  class ="btn btn-default"       onclick="shiftTop();">Top</button>
+                                <button   class ="btn btn-default"      onclick="shiftBottom();">Bottom</button>
+                            </div>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td><span id ="output_type"> Output:</span>
                             <select id ="output_format" onchange="changeOutputFormat();">
