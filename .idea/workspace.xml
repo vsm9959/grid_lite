@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d43c11a0-62e7-49e2-bc20-cbd6b052632c" name="Default" comment="" />
+    <list default="true" id="d43c11a0-62e7-49e2-bc20-cbd6b052632c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/grid_lite/grid.html" afterPath="$PROJECT_DIR$/grid_lite/grid.html" />
+    </list>
     <ignored path="grid_lite.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -23,21 +25,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="grid.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="grid.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grid_lite/javascript/grid.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="199">
-              <caret line="204" column="18" lean-forward="false" selection-start-line="204" selection-start-column="9" selection-end-line="204" selection-end-column="18" />
+            <state relative-caret-position="495">
+              <caret line="1051" column="68" lean-forward="false" selection-start-line="1051" selection-start-column="68" selection-end-line="1051" selection-end-column="68" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="grid.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="grid.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grid_lite/grid.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-415">
-              <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+            <state relative-caret-position="62">
+              <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
               <folding>
                 <element signature="e#675#725#0" expanded="false" />
                 <element signature="n#nav#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -99,7 +101,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ac78b</find>
       <find>adc</find>
       <find>c4d</find>
       <find>cc00</find>
@@ -129,6 +130,7 @@
       <find>shift</find>
       <find>updateGrid</find>
       <find>shiftLeft</find>
+      <find>undo</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -137,8 +139,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/grid_lite/grid.html" />
         <option value="$PROJECT_DIR$/grid_lite/javascript/grid.js" />
+        <option value="$PROJECT_DIR$/grid_lite/grid.html" />
       </list>
     </option>
   </component>
@@ -176,7 +178,7 @@
     <property name="HbShouldOpenHtmlAsHb" value="" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -322,12 +324,13 @@
       <workItem from="1496160474946" duration="350000" />
       <workItem from="1503852588554" duration="108000" />
       <workItem from="1504527578662" duration="10088000" />
-      <workItem from="1505829553422" duration="1697000" />
+      <workItem from="1505829553422" duration="1965000" />
+      <workItem from="1506662205326" duration="1001000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="173286000" />
+    <option name="totallyTimeSpent" value="174555000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -348,7 +351,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3190184" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3190184" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1979,10 +1982,18 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/grid_lite/css/main.css" />
+    <entry file="file://$PROJECT_DIR$/grid_lite/javascript/grid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="1051" column="68" lean-forward="false" selection-start-line="1051" selection-start-column="68" selection-end-line="1051" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/grid_lite/grid.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-415">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+        <state relative-caret-position="62">
+          <caret line="5" column="17" lean-forward="false" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
           <folding>
             <element signature="e#675#725#0" expanded="false" />
             <element signature="n#nav#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -2036,14 +2047,6 @@
             <element signature="n#style#0;n#button#2;n#div#0;n#td#0;n#tr#9;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#button#3;n#div#0;n#td#0;n#tr#9;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/grid_lite/javascript/grid.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="204" column="18" lean-forward="false" selection-start-line="204" selection-start-column="9" selection-end-line="204" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>

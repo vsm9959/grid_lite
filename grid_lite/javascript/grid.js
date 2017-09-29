@@ -1024,12 +1024,12 @@ function undo(){
             temp.src = gridLogs[i].color;
             if(gridLogs[i].color == empty){
                 gDrawingContext.fillStyle = gridLogs[i].color;
-                gDrawingContext.fillRect(gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
+                gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
             } else if (outputFormat == "LEGO") {
-                gDrawingContext.drawImage(temp, gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
+                gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
             } else {
                 gDrawingContext.fillStyle = pickBlColorHex(temp.src);
-                gDrawingContext.fillRect( gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
+                gDrawingContext.fillRect( gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
             }
         }
     }
@@ -1044,12 +1044,12 @@ function redo(){
             temp.src = gridLogs[i].color;
             if(gridLogs[i].color == empty){
                 gDrawingContext.fillStyle = gridLogs[i].color;
-                gDrawingContext.fillRect(gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
+                gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
             } else  if (outputFormat == "LEGO") {
-                gDrawingContext.drawImage(temp, gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
+                gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
             } else {
                 gDrawingContext.fillStyle = pickBlColorHex(temp.src);
-                gDrawingContext.fillRect( gridLogs[i].row, gridLogs[i].column, kStep - 1, kStep - 1);
+                gDrawingContext.fillRect( gridLogs[i].row +axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
             }
         }
     }
