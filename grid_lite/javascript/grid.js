@@ -1054,6 +1054,35 @@ function redo(){
         }
     }
 }
+// ========================================================================================
+function startAnimation() {
+    console.log("started");
+    var startAnimation;
+    var i = 0;
+    var temp = new Image();
+    console.log("vars loaded");
+    drawBoard();
+    console.log("grid cleared");
+    startAnimation = setInterval(function () {
+        if (i == gridLogs.length){
+            console.log("ended")
+            clearInterval(startAnimation);
+        } else {
+            temp.src = gridLogs[i].color;
+            if(gridLogs[i].color == empty){
+                gDrawingContext.fillStyle = gridLogs[i].color;
+                gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+            } else  if (outputFormat == "LEGO") {
+                gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+            } else {
+                gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                gDrawingContext.fillRect( gridLogs[i].row +axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+            }
+            i++;
+            console.log("Executed");
+        }
+    }, 1000);
+}
 //========================================================================================
 function GridLog(row,column,color){
     this.row = row;
@@ -1115,11 +1144,10 @@ function vitruviaOnClick(e) {
     var cell   = getCursorPalletPosition(e);
     var row    = cell.row;
     var column = cell.column;
-
     bleep.play();
     updateRecentColor();
 
-       if ((column < xEnd - 1) && (row < yEnd - axisDelta- 1) ) {
+       if ((column > 0) && (row < yEnd - axisDelta- 1) ) {
            var x = Math.floor(column/kStep) * kStep;
            var y = Math.floor(row/kStep) * kStep;
 
