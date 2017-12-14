@@ -39,6 +39,12 @@
         #shift_type{
             font-size: medium;
         }
+        #animate_head{
+            font-size: medium;
+        }
+        #graph_head{
+            font-size: medium;
+        }
         .controlsAndPalette{
             width: 20%;
         }
@@ -132,11 +138,42 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <span id = "graph_head">Graph:</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class ="btn-group" role = "group">
+                                <button  class ="btn btn-default"       onclick="showGraph();">Show</button>
+                                <button   class ="btn btn-default"      onclick="hideGraph();">Hide</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span id = "animate_head">Animate:</span>
+                        </td>
+                    </tr>
 
                     <tr>
                         <td>
-                            <button class ="btn btn-default"   onclick="startAnimation();"> Animate </button>
+                            <div class ="btn-group" role = "group">
+                                <button   class ="btn btn-default"       onclick="startAnimation();">Start</button>
+                                <button id = "pauseAnimation"  class ="btn btn-default"       onclick = "pauseAnimation();">Pause</button>
+                                <button   class ="btn btn-default"       onclick="stopAnimation();">Stop</button>
+                            </div>
                         </td>
+                    </tr>
+                    <tr>
+                        <td><span id ="speed"> Speed:</span>
+                            <select id ="speed_range" onchange="changeSpeed();">
+                                <option value="1x">1X</option>
+                                <option value="2x">2X</option>
+                                <option value="4x">4X</option>
+                                <option value="8x">8X</option>
+                            </select></td>
                     </tr>
 
                     <tr>
