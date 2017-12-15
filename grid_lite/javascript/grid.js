@@ -129,6 +129,8 @@ var r4 = "#287f46";
 
 var outputFormat = "PLAIN";
 var shiftFormat;
+
+var levelStatement = document.getElementById('levelStatement');
 // =============================================================================================
 function printCanvasData(){
     var canvas = document.getElementById('vitruvia_canvas');
@@ -1285,8 +1287,12 @@ function vitruviaOnClick(e) {
 
            if(currentColor == empty){
                gridLogs.push(new GridLog(x+1,y+1,currentColor));
+               document.getElementById('levelStatement3').innerText ='Level 3: put2D (1, 1) '+ 'EMPTY' + ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
+               document.getElementById('levelStatement4').innerText ='Level 4: put (1, 1, 1) '+ 'EMPTY' + ' ('+(x/kStep)+','+' 0, '+(side - (y/kStep) - 1)+')';
            } else {
                gridLogs.push(new GridLog(x + 1, y + 1, currentColor.src));
+               document.getElementById('levelStatement3').innerText ='Level 3: put2D (1, 1) '+ pickBlColor(currentColor.src)  + ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
+               document.getElementById('levelStatement4').innerText = 'Level 4: put (1, 1, 1) '+ pickBlColor(currentColor.src)  + ' ('+(x/kStep)+','+' 0, '+(side - (y/kStep) - 1)+')';
            }
         }
 }
