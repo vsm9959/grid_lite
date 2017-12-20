@@ -27,7 +27,10 @@ var empty      = "#ACB3BF";
 var aqua = new Image();
 aqua.src = 'bricklayercolors/aqua_02.png';
 var armygreen = new Image();
-armygreen.src = 'bricklayercolors/armygreen_02.png';
+armygreen.src = 'bricklayercolors/arm' +
+    '' +
+    '' +
+    'ygreen_02.png';
 var black = new Image();
 black.src = 'bricklayercolors/black_02.png';
 var blue = new Image();
@@ -865,12 +868,14 @@ function loadGridJSON() {
 
         fr.onload = function(e) {
             pixelLogs = JSON.parse(e.target.result);
+            console.log(pixelLogs);
             newSide = loadPixelLogs(pixelLogs);
+            console.log("New Side is"+ newSide);
             side = newSide+1;
             document.getElementById('size').innerHTML = side;
-            if(side < 8){
+            /*if(side < 8){
                 side = 8;
-            }
+            }*/
             updateGrid(0);
         };
 
@@ -890,7 +895,6 @@ function loadPixelLogs(data){
     kStep = Math.floor(kPixelWidth/max);
     for( i=0;i<data.length;i++){
         gridLogs.push(new GridLog(data[i].row*kStep+1,data[i].column*kStep+1,data[i].color));
-        console.log(data[i].row*kStep);
     }
     return max;
 }
