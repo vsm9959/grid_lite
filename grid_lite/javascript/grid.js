@@ -121,6 +121,8 @@ var current_id = 1;
 var fillColor = empty;
 var lineColor = "#ccc"; // "black";
 
+var graphLineThickness = 5;
+
 var bleep = new Audio();
 bleep.src = 'javascript/click_real_short.mp3';
 
@@ -157,7 +159,7 @@ function shiftLeft() {
         for(i=0;i<gridLogs.length;i++){
             temp.src= gridLogs[i].color;
             shiftLength = gridLogs[i].row + axisDelta - kStep;
-            if(shiftLength > axisDelta) {
+            if((shiftLength > axisDelta)&&(gridLogs[i].column <(yEnd-axisDelta))) {
                 if (gridLogs[i].color == empty) {
                     gDrawingContext.fillStyle = empty;
                     gDrawingContext.fillRect(gridLogs[i].row + axisDelta - kStep, gridLogs[i].column, kStep - 1, kStep - 1);
@@ -175,18 +177,22 @@ function shiftLeft() {
 // ===================================================================================================
 function shiftRight() {
     var temp = new Image();
+    var shiftLength;
     if(gridLogs.length!=0){
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
             temp.src= gridLogs[i].color;
-            if (gridLogs[i].color == empty){
-                gDrawingContext.fillStyle = empty;
-                gDrawingContext.fillRect(gridLogs[i].row + axisDelta + kStep, gridLogs[i].column, kStep - 1, kStep - 1);
-            } else if (outputFormat == "LEGO"){
-                gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta + kStep, gridLogs[i].column, kStep  - 1, kStep - 1);
-            } else {
-                gDrawingContext.fillStyle = pickBlColorHex(temp.src);
-                gDrawingContext.fillRect( gridLogs[i].row + axisDelta + kStep, gridLogs[i].column, kStep - 1, kStep - 1);
+            shiftLength = gridLogs[i].row + axisDelta + kStep;
+            if((shiftLength > axisDelta)&&(gridLogs[i].column <(yEnd-axisDelta))) {
+                if (gridLogs[i].color == empty){
+                    gDrawingContext.fillStyle = empty;
+                    gDrawingContext.fillRect(gridLogs[i].row + axisDelta + kStep, gridLogs[i].column, kStep - 1, kStep - 1);
+                } else if (outputFormat == "LEGO"){
+                    gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta + kStep, gridLogs[i].column, kStep  - 1, kStep - 1);
+                } else {
+                    gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                    gDrawingContext.fillRect( gridLogs[i].row + axisDelta + kStep, gridLogs[i].column, kStep - 1, kStep - 1);
+                }
             }
             gridLogs[i].row = gridLogs[i].row +kStep;
         }
@@ -194,19 +200,25 @@ function shiftRight() {
 }// ===================================================================================================
 function shiftTop() {
     var temp = new Image();
+    var shiftLength;
     if(gridLogs.length!=0){
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
             temp.src= gridLogs[i].color;
-            if (gridLogs[i].color == empty){
-                gDrawingContext.fillStyle = empty;
-                gDrawingContext.fillRect(gridLogs[i].row + axisDelta , gridLogs[i].column- kStep, kStep - 1, kStep - 1);
-            } else if (outputFormat == "LEGO"){
-                gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta , gridLogs[i].column- kStep, kStep  - 1, kStep - 1);
-            } else {
-                gDrawingContext.fillStyle = pickBlColorHex(temp.src);
-                gDrawingContext.fillRect( gridLogs[i].row + axisDelta , gridLogs[i].column- kStep, kStep - 1, kStep - 1);
+            shiftLength = gridLogs[i].column - kStep;
+
+            if((shiftLength < (yEnd - axisDelta))&&((gridLogs[i].row+axisDelta) > axisDelta)) {
+                if (gridLogs[i].color == empty){
+                    gDrawingContext.fillStyle = empty;
+                    gDrawingContext.fillRect(gridLogs[i].row + axisDelta , gridLogs[i].column- kStep, kStep - 1, kStep - 1);
+                } else if (outputFormat == "LEGO"){
+                    gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta , gridLogs[i].column- kStep, kStep  - 1, kStep - 1);
+                } else {
+                    gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                    gDrawingContext.fillRect( gridLogs[i].row + axisDelta , gridLogs[i].column- kStep, kStep - 1, kStep - 1);
+                }
             }
+
             gridLogs[i].column = gridLogs[i].column -kStep;
         }
     }
@@ -221,7 +233,7 @@ function shiftBottom() {
             temp.src= gridLogs[i].color;
             shiftLength = gridLogs[i].column + kStep;
 
-            if(shiftLength < yEnd - axisDelta) {
+            if((shiftLength < (yEnd - axisDelta))&&((gridLogs[i].row+axisDelta) > axisDelta)) {
                 if (gridLogs[i].color == empty) {
                     gDrawingContext.fillStyle = empty;
                     gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column + kStep, kStep - 1, kStep - 1);
@@ -951,8 +963,10 @@ function setCurrentColor(lego) {
 }
 // =======================================================================================
 function updateGrid(d){
-    var v              = side;
+    var v    = side;
     var temp = new Image();
+    var leftShiftedBrickCheck = false;
+    var rightShiftedBrickCheck= false;
 
     if (v < 1) {
         alert('Smallest size is 2');
@@ -1009,7 +1023,7 @@ function updateGrid(d){
     if(gridLogs.length!=0){
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
-            if((gridLogs[i].row > 0)&&(gridLogs[i].column <(yEnd-axisDelta))) {
+            if(((gridLogs[i].row + axisDelta)> axisDelta)&&(gridLogs[i].column <(yEnd-axisDelta))) {
                 temp.src = gridLogs[i].color;
                 if (gridLogs[i].color == empty) {
                     gDrawingContext.fillStyle = empty;
@@ -1164,7 +1178,33 @@ function startAnimation() {
     }, counter);
 }
 // =======================================================================================
+function incrementGraphLineThickness() {
+    graphLineThickness++;
 
+    if (graphLineThickness < 1) {
+        graphLineThickness = 1;
+    }else if (graphLineThickness > 10) {
+        //alert('Largest size is 64');
+        graphLineThickness = 10;
+    }else {
+        document.getElementById("graphLineThickness").innerHTML = graphLineThickness;
+        //updateGrid(1);
+    }
+}
+// =======================================================================================
+function decrementGraphLineThickness() {
+    graphLineThickness--;
+    if (graphLineThickness < 1) {
+        //alert('Smallest size is 2');
+        graphLineThickness = 1;
+    }else if (graphLineThickness >10) {
+        //alert('Largest size is 64');
+        graphLineThickness = 10;
+    }else {
+        document.getElementById("graphLineThickness").innerHTML = graphLineThickness;
+        //updateGrid(-1);
+    }
+}
 //========================================================================================
 function showGraph() {
     drawBoard();
@@ -1184,7 +1224,7 @@ function showGraph() {
     }
 
     gDrawingContext.strokeStyle = "#ffffff";
-    gDrawingContext.lineWidth = 5;
+    gDrawingContext.lineWidth = graphLineThickness;
     gDrawingContext.stroke();
 
     gDrawingContext.closePath();
@@ -1194,7 +1234,7 @@ function showGraph() {
 }
 //========================================================================================
 function hideGraph() {
-    var temp = new Image();
+    /*var temp = new Image();
     drawBoard();
     if(gridLogs.length != 0){
         for(i=0;i<gridLogs.length;i++){
@@ -1209,7 +1249,9 @@ function hideGraph() {
                 gDrawingContext.fillRect( gridLogs[i].row +axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
             }
         }
-    }
+    }*/
+    drawBoard();
+    updateGrid(0);
 }
 //========================================================================================
 function GridLog(row,column,color){
