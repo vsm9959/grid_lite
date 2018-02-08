@@ -20,6 +20,7 @@ var axisDelta;
 var animationIndex;
 var counter = 1000;
 var startAnimationLoop;
+var numberOfLegosOnGrid = 0;
 
 /*var empty      = "#FFFFFF";*/ // "#F2F2F2";
 var empty      = "#ACB3BF";
@@ -110,6 +111,11 @@ yellow.src = 'bricklayercolors/yellow_02.png';
 
 
 
+var frameBlock = [];
+var frameBlockCreation = false;
+var frameMode = false;
+
+
 
 var gridLogs = [];
 
@@ -137,6 +143,74 @@ var shiftFormat;
 
 var levelStatement = document.getElementById('levelStatement');
 // =============================================================================================
+function toggleGridControls() {
+    var x = document.getElementById('gridControl3').style.display;
+    if(x != 'none'){
+        document.getElementById('gridControl1').style.display = 'none';
+        document.getElementById('gridControl2').style.display = 'none';
+        document.getElementById('gridControl3').style.display = 'none';
+        document.getElementById('gridControl4').style.display = 'none';
+        document.getElementById('gridControl5').style.display = 'none';
+        document.getElementById('gridControl6').style.display = 'none';
+        document.getElementById('gridControl7').style.display = 'none';
+        document.getElementById('gridControl8').style.display = 'none';
+        document.getElementById('gridControl9').style.display = 'none';
+    } else {
+        document.getElementById('gridControl1').style.display = 'block';
+        document.getElementById('gridControl2').style.display = 'block';
+        document.getElementById('gridControl3').style.display = 'block';
+        document.getElementById('gridControl4').style.display = 'block';
+        document.getElementById('gridControl5').style.display = 'block';
+        document.getElementById('gridControl6').style.display = 'block';
+        document.getElementById('gridControl7').style.display = 'block';
+        document.getElementById('gridControl8').style.display = 'block';
+        document.getElementById('gridControl9').style.display = 'block';
+    }
+}
+// =============================================================================================
+function toggleFrameControls() {
+    var x = document.getElementById('frameControl1').style.display;
+    if(x != 'none'){
+        document.getElementById('frameControl1').style.display = 'none';
+    } else {
+        document.getElementById('frameControl1').style.display = 'block';
+    }
+}
+// =============================================================================================
+function toggleGraphControls() {
+    var x = document.getElementById('graphControl1').style.display;
+    if(x != 'none'){
+        document.getElementById('graphControl1').style.display = 'none';
+        document.getElementById('graphControl2').style.display = 'none';
+    } else {
+        document.getElementById('graphControl1').style.display = 'block';
+        document.getElementById('graphControl2').style.display = 'block';
+    }
+}
+// =============================================================================================
+function toggleAnimationControls() {
+    var x = document.getElementById('animationControl1').style.display;
+    if(x != 'none'){
+        document.getElementById('animationControl1').style.display = 'none';
+        document.getElementById('animationControl2').style.display = 'none';
+    } else {
+        document.getElementById('animationControl1').style.display = 'block';
+        document.getElementById('animationControl2').style.display = 'block';
+    }
+}
+// =============================================================================================
+function changeBackgroundColor(jscolor) {
+    empty = '#'+ jscolor;
+    drawBoard();
+    updateGrid(0);
+}
+// =============================================================================================
+function changeLineColor(jscolor) {
+    lineColor = '#'+ jscolor;
+    drawBoard();
+    updateGrid(0);
+}
+// =============================================================================================
 function printCanvasData(){
     var canvas = document.getElementById('vitruvia_canvas');
     var win  = window.open();
@@ -149,6 +223,37 @@ function printCanvasData(){
     setTimeout(function(){
         win.print();},250);
 
+}
+// ===================================================================================================
+function FrameBlock(row,column,color){
+    this.row    = row;
+    this.column = column;
+    this.color  = color;
+}
+// ===================================================================================================
+function createFrame() {
+    var temp = [];
+    frameBlock = [];
+    if(document.getElementById('individualFrameManagement').innerText!= 'STOP'){
+        //frameBlockCreation = true;
+        //document.getElementById('individualFrameManagement').innerText = 'STOP'
+        for(var i =0 ;i< gridLogs.length;i++){
+            frameBlock.push(new FrameBlock(gridLogs[i].row,gridLogs[i].column,gridLogs[i].color));
+        }
+    } else {
+        //frameBlockCreation = false;
+        //document.getElementById('individualFrameManagement').innerText = 'Create Frame';
+    }
+}
+// ===================================================================================================
+function frameModeManagement(){
+    if(document.getElementById('frameModeManagement').innerText!= 'ON'){
+        frameMode = true;
+        document.getElementById('frameModeManagement').innerText = 'ON';
+    } else {
+        frameMode = false;
+        document.getElementById('frameModeManagement').innerText = 'OFF';
+    }
 }
 // ===================================================================================================
 function shiftLeft() {
@@ -992,18 +1097,33 @@ function updateGrid(d){
     }
 
     if(gridLogs.length!=0) {
-        for (i = 0; i < gridLogs.length; i++) {
+        for (var i = 0; i < gridLogs.length; i++) {
             gridLogs[i].row = Math.floor((gridLogs[i].row-1)/kStep) ;
             gridLogs[i].column = Math.floor((gridLogs[i].column-1)/kStep) + d;
+        }
+    }
+
+
+    if(frameBlock.length!=0) {
+        for (var i = 0; i < frameBlock.length; i++) {
+            frameBlock[i].row = Math.floor((frameBlock[i].row-1)/kStep) ;
+            frameBlock[i].column = Math.floor((frameBlock[i].column-1)/kStep) + d;
         }
     }
 
     kStep = Math.floor(boardSize / side);
 
     if(gridLogs.length!=0) {
-        for (i = 0; i < gridLogs.length; i++) {
+        for (var i = 0; i < gridLogs.length; i++) {
             gridLogs[i].row = Math.floor(gridLogs[i].row*kStep) + 1;
             gridLogs[i].column = Math.floor(gridLogs[i].column*kStep) + 1;
+        }
+    }
+
+    if(frameBlock.length!=0) {
+        for (var i = 0; i < frameBlock.length; i++) {
+            frameBlock[i].row = Math.floor(frameBlock[i].row*kStep) + 1;
+            frameBlock[i].column = Math.floor(frameBlock[i].column*kStep) + 1;
         }
     }
 
@@ -1022,7 +1142,7 @@ function updateGrid(d){
 
     if(gridLogs.length!=0){
         drawBoard();
-        for(i=0;i<gridLogs.length;i++){
+        for(var i=0;i<gridLogs.length;i++){
             if(((gridLogs[i].row + axisDelta)> axisDelta)&&(gridLogs[i].column <(yEnd-axisDelta))) {
                 temp.src = gridLogs[i].color;
                 if (gridLogs[i].color == empty) {
@@ -1158,23 +1278,46 @@ function stopAnimation() {
 function startAnimation() {
     animationIndex = 0;
     var temp = new Image();
+    var frameLength = frameBlock.length;
     drawBoard();
     startAnimationLoop = setInterval(function () {
-        if (animationIndex == gridLogs.length){
-            clearInterval(startAnimationLoop);
-        } else {
-            temp.src = gridLogs[animationIndex].color;
-            if(gridLogs[animationIndex].color == empty){
-                gDrawingContext.fillStyle = gridLogs[animationIndex].color;
-                gDrawingContext.fillRect(gridLogs[animationIndex].row + axisDelta, gridLogs[animationIndex].column, kStep - 1, kStep - 1);
-            } else  if (outputFormat == "LEGO") {
-                gDrawingContext.drawImage(temp, gridLogs[animationIndex].row + axisDelta, gridLogs[animationIndex].column, kStep - 1, kStep - 1);
-            } else {
-                gDrawingContext.fillStyle = pickBlColorHex(temp.src);
-                gDrawingContext.fillRect( gridLogs[animationIndex].row +axisDelta, gridLogs[animationIndex].column, kStep - 1, kStep - 1);
+
+        if(frameMode){
+            for(var k = 0; k<frameBlock.length;k++){
+                if (animationIndex == gridLogs.length){
+                    clearInterval(startAnimationLoop);
+                } else {
+                    temp.src = gridLogs[animationIndex].color;
+                    if(gridLogs[animationIndex].color == empty){
+                        gDrawingContext.fillStyle = gridLogs[animationIndex].color;
+                        gDrawingContext.fillRect(gridLogs[animationIndex].row + axisDelta, gridLogs[animationIndex].column, kStep - 1, kStep - 1);
+                    } else  if (outputFormat == "LEGO") {
+                        gDrawingContext.drawImage(temp, gridLogs[animationIndex].row + axisDelta, gridLogs[animationIndex].column, kStep - 1, kStep - 1);
+                    } else {
+                        gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                        gDrawingContext.fillRect( gridLogs[animationIndex].row +axisDelta, gridLogs[animationIndex].column, kStep - 1, kStep - 1);
+                    }
+                    animationIndex++;
+                }
             }
-            animationIndex++;
+        } else {
+            if (animationIndex == gridLogs.length){
+                clearInterval(startAnimationLoop);
+            } else {
+                temp.src = gridLogs[animationIndex].color;
+                if(gridLogs[animationIndex].color == empty){
+                    gDrawingContext.fillStyle = gridLogs[animationIndex].color;
+                    gDrawingContext.fillRect(gridLogs[animationIndex].row + axisDelta, gridLogs[animationIndex].column, kStep - 1, kStep - 1);
+                } else  if (outputFormat == "LEGO") {
+                    gDrawingContext.drawImage(temp, gridLogs[animationIndex].row + axisDelta, gridLogs[animationIndex].column, kStep - 1, kStep - 1);
+                } else {
+                    gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                    gDrawingContext.fillRect( gridLogs[animationIndex].row +axisDelta, gridLogs[animationIndex].column, kStep - 1, kStep - 1);
+                }
+                animationIndex++;
+            }
         }
+
     }, counter);
 }
 // =======================================================================================
@@ -1314,35 +1457,109 @@ function vitruviaOnClick(e) {
     var cell   = getCursorPalletPosition(e);
     var row    = cell.row;
     var column = cell.column;
+    var frameRowDifference = 0;
+    var frameColumnDifference = 0;
+    var temp = new Image();
     bleep.play();
     updateRecentColor();
 
-       if ((column > 0) && (row < yEnd - axisDelta- 1) ) {
-           var x = Math.floor(column/kStep) * kStep;
-           var y = Math.floor(row/kStep) * kStep;
 
-           if(currentColor == empty){
-               gDrawingContext.fillStyle = currentColor;
-               gDrawingContext.fillRect(x+axisDelta+1, y+1, kStep-1, kStep-1);
-           } else if(outputFormat == "LEGO") {
-               gDrawingContext.drawImage(currentColor, x + axisDelta + 1, y + 1, kStep - 1, kStep - 1); // box lines don't get redrawn with empty color
-           } else {
-               gDrawingContext.fillStyle = pickBlColorHex(currentColor.src);
-               gDrawingContext.fillRect(x+axisDelta+1,y+1,kStep-1,kStep -1);
-           }
+    if ((column > 0) && (row < yEnd - axisDelta- 1) ) {
+        var x = Math.floor(column/kStep) * kStep;
+        var y = Math.floor(row/kStep) * kStep;
 
-           if(currentColor == empty){
-               gridLogs.push(new GridLog(x+1,y+1,currentColor));
-               document.getElementById('levelStatement3').innerText ='Level 3: put2D (1, 1) '+ 'EMPTY' + ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
-               document.getElementById('levelStatement4').innerText ='Level 4: put (1, 1, 1) '+ 'EMPTY' + ' ('+(x/kStep)+','+' 0, '+(side - (y/kStep) - 1)+')';
-           } else {
-               gridLogs.push(new GridLog(x + 1, y + 1, currentColor.src));
-               document.getElementById('levelStatement3').innerText ='Level 3: put2D (1, 1) '+ pickBlColor(currentColor.src)  + ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
-               document.getElementById('levelStatement4').innerText = 'Level 4: put (1, 1, 1) '+ pickBlColor(currentColor.src)  + ' ('+(x/kStep)+','+' 0, '+(side - (y/kStep) - 1)+')';
-           }
+        if(isGridPlaceOccupied(x+1,y+1)){
+            numberOfLegosOnGrid++;
+            document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
         }
-}
 
+        if(currentColor == empty){
+            gDrawingContext.fillStyle = currentColor;
+            gDrawingContext.fillRect(x+axisDelta+1, y+1, kStep-1, kStep-1);
+        } else if(outputFormat == "LEGO") {
+            gDrawingContext.drawImage(currentColor, x + axisDelta + 1, y + 1, kStep - 1, kStep - 1); // box lines don't get redrawn with empty color
+        } else {
+            gDrawingContext.fillStyle = pickBlColorHex(currentColor.src);
+            gDrawingContext.fillRect(x+axisDelta+1,y+1,kStep-1,kStep -1);
+        }
+
+        if(frameMode){
+            if(frameBlock.length > 1){
+                for(var k = 1; k < frameBlock.length; k++ ){
+                    frameRowDifference = frameBlock[k].row - frameBlock[0].row;
+                    frameColumnDifference = frameBlock[k].column - frameBlock[0].column;
+                    temp.src = frameBlock[k].color;
+                    if(isGridPlaceOccupied(x+1+frameRowDifference,y+1+frameColumnDifference)){
+                        numberOfLegosOnGrid++;
+                        document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
+                    }
+                    if (frameBlock[k].color == empty) {
+                        gDrawingContext.fillStyle = empty;
+                        gDrawingContext.fillRect(x+1+frameRowDifference + axisDelta, y+1+frameColumnDifference, kStep - 1, kStep - 1);
+                    } else if (outputFormat == "LEGO") {
+                        gDrawingContext.drawImage(temp, x+1+frameRowDifference + axisDelta, y+1+frameColumnDifference, kStep - 1, kStep - 1);
+                    } else {
+                        gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                        gDrawingContext.fillRect(x+1+frameRowDifference + axisDelta, y+1+frameColumnDifference, kStep - 1, kStep - 1);
+                    }
+                    gridLogs.push(new GridLog(x+1+frameRowDifference,y+1+frameColumnDifference,frameBlock[k].color))
+                }
+            }
+        }
+
+
+        if(currentColor == empty){
+            gridLogs.push(new GridLog(x+1,y+1,currentColor));
+            document.getElementById('levelStatement3').innerText ='Level 3: put2D (1, 1) '+ 'EMPTY' + ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
+            document.getElementById('levelStatement4').innerText ='Level 4: put (1, 1, 1) '+ 'EMPTY' + ' ('+(x/kStep)+','+' 0, '+(side - (y/kStep) - 1)+')';
+        } else {
+            gridLogs.push(new GridLog(x + 1, y + 1, currentColor.src));
+            switch(pickBlColor(currentColor.src)){
+                case 'BLACK':
+                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_BLACK'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                    break;
+                case 'BLUE':
+                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_BLUE'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                    break;
+                case 'RED':
+                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_RED'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                    break;
+                case 'WHITE':
+                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_WHITE'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                    break;
+                case 'YELLOW':
+                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_YELLOW'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                    break;
+                case 'GREEN':
+                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_GREEN'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                    break;
+                case 'GRAY':
+                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_GRAY'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                    break;
+                case 'EMPTY':
+                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_EMPTY'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                    break;
+                default:
+                    document.getElementById('levelStatement1').innerText = 'Level 1: N/A';
+            }
+            document.getElementById('levelStatement3').innerText ='Level 3: put2D (1, 1) '+ pickBlColor(currentColor.src)  + ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
+            document.getElementById('levelStatement4').innerText = 'Level 4: put (1, 1, 1) '+ pickBlColor(currentColor.src)  + ' ('+(x/kStep)+','+' 0, '+(side - (y/kStep) - 1)+')';
+        }
+    }
+}
+// =======================================================================================
+function isGridPlaceOccupied(xb,yb){
+    if(gridLogs.length!=0) {
+        for (var k = 0; k < gridLogs.length; k++) {
+            if (xb == gridLogs[k].row) {
+                if (yb == gridLogs[k].column) {
+                    return false;
+                }
+            }
+        }
+    }
+    return true;
+}
 // =======================================================================================
 function drawLines(color) {
     xEnd = kPixelWidth;
@@ -1387,6 +1604,7 @@ function drawBoard() {
     gDrawingContext.beginPath();
 
     // Canvas base color
+
     gDrawingContext.fillStyle = empty;
     gDrawingContext.rect(0, 0, xEnd, yEnd);
     gDrawingContext.fill();

@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="robots" content="noindex">
-<title>Grid 1.025</title>
+<title>Grid 1.1</title>
 
 <!-- ---------------------------------------------------------------------------- -->
 <link rel="stylesheet" href = "css/bootstrap.min.css">
 <!-- ---------------------------------------------------------------------------- -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src = "javascript/bootstrap.min.js"></script>
-<script src="javascript/grid.js"></script>
+    <link   rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src = "javascript/bootstrap.min.js"></script>
+    <script src = "javascript/jscolor.js"></script>
+    <script src = "javascript/grid.js"></script>
     <style>
         body{
             background-color: #CEDEFF;
@@ -45,8 +46,23 @@
         #graph_head{
             font-size: medium;
         }
+        #frame_head{
+            font-size: medium;
+        }
+        #grid_head{
+            font-size: medium;
+        }
+        #background_head{
+            font-size: medium;
+        }
+        #line_head{
+            font-size: medium;
+        }
         .controlsAndPalette{
             width: 20%;
+        }
+        #statementInfo{
+            background-color: #ACB3BF;
         }
     </style>
 </head>
@@ -92,16 +108,34 @@
                 <table class = "table borderless">
                     <tbody>
                     <tr>
+                        <td>
+                            <span id = "grid_head" >Grid:</span>
+                            <button class="btn btn-default btn-xs"  onclick="toggleGridControls();">
+                                <span class="glyphicon glyphicon-eject"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr id ="gridControl1">
                         <td><button class="btn btn-default"  onclick="incrementGrid();">+</button>
                             <var id="size">4</var>
                             <button class="btn btn-default"  onclick="decrementGrid();">-</button></td>
                     </tr>
-                    <tr>
+                    <tr id ="gridControl2">
+                        <td>
+                            <span id = "background_head">Background:</span><input class="jscolor" onchange="changeBackgroundColor(this.jscolor)" value="#ACB3BF" size = "6">
+                        </td>
+                    </tr>
+                    <tr id ="gridControl3">
+                        <td>
+                            <span id = "line_head">Line Color:</span><input class="jscolor" onchange="changeLineColor(this.jscolor)" value="#ccc" size = "6">
+                        </td>
+                    </tr>
+                    <tr id ="gridControl4">
                         <td>
                             <button class ="btn btn-default"   onclick="clearGrid();">Clear</button>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id ="gridControl5">
                         <td>
                             <div class = "btn-group-vertical" role = "group">
                                 <button class ="btn btn-default" onclick="hideGridLines(empty);">Hide Lines</button>
@@ -109,7 +143,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id ="gridControl6">
                         <td>
                             <div class ="btn-group" role = "group">
                                 <button  class ="btn btn-default"       onclick="undo();">Undo</button>
@@ -117,12 +151,12 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id ="gridControl7">
                         <td>
                             <span id = "shift_type">Shift Grid:</span>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id ="gridControl8">
                         <td>
                             <div class ="btn-group" role = "group">
                                 <button  class ="btn btn-default"       onclick="shiftLeft();">Left</button>
@@ -130,7 +164,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id ="gridControl9">
                         <td>
                             <div class ="btn-group" role = "group">
                                 <button  class ="btn btn-default"       onclick="shiftTop();">Up</button>
@@ -141,14 +175,17 @@
                     <tr>
                         <td>
                             <span id = "graph_head">Graph:</span>
+                            <button class="btn btn-default btn-xs"  onclick="toggleGraphControls();">
+                                <span class="glyphicon glyphicon-eject"></span>
+                            </button>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id ="graphControl1">
                         <td><button class="btn btn-default"  onclick="incrementGraphLineThickness();">+</button>
                             <var id="graphLineThickness">5</var>
                             <button class="btn btn-default"  onclick="decrementGraphLineThickness();">-</button></td>
                     </tr>
-                    <tr>
+                    <tr id ="graphControl2">
                         <td>
                             <div class ="btn-group" role = "group">
                                 <button  class ="btn btn-default"       onclick="showGraph();">Show</button>
@@ -158,11 +195,28 @@
                     </tr>
                     <tr>
                         <td>
+                            <span id = "frame_head">Frame Mode:</span>
+                            <button id = "frameModeManagement"   class ="btn btn-default"       onclick="frameModeManagement();">OFF</button>
+                            <button class="btn btn-default btn-xs"  onclick="toggleFrameControls();">
+                                <span class="glyphicon glyphicon-eject"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr id ='frameControl1'>
+                        <td>
+                            <button id = "individualFrameManagement"   class ="btn btn-default"       onclick="createFrame();">Create Frame</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                             <span id = "animate_head">Animate:</span>
+                            <button class="btn btn-default btn-xs"  onclick="toggleAnimationControls();">
+                                <span class="glyphicon glyphicon-eject"></span>
+                            </button>
                         </td>
                     </tr>
 
-                    <tr>
+                    <tr id ='animationControl1'>
                         <td>
                             <div class ="btn-group" role = "group">
                                 <button   class ="btn btn-default"       onclick="startAnimation();">Start</button>
@@ -171,7 +225,7 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr id ='animationControl2'>
                         <td><span id ="speed"> Speed:</span>
                             <select id ="speed_range" onchange="changeSpeed();">
                                 <option value="1x">1X</option>
@@ -345,8 +399,13 @@
             <canvas id="vitruvia_canvas">
                 <img src="" id="mirror" class="canvas__mirror" />
             </canvas>
-            <h2 id="levelStatement3"></h2>
-            <h2 id="levelStatement4"></h2>
+            <div id = "statementInfo">
+                <h2 id = "numberOfLegosPlaced">Number of LEGO placed: 0</h2>
+                <h3>Bricklayer Statements:</h3>
+                <h2 id = "levelStatement1"></h2>
+                <h2 id = "levelStatement3"></h2>
+                <h2 id = "levelStatement4"></h2>
+            </div>
         </div>
     </div>
 </div>
