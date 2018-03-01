@@ -152,9 +152,6 @@ function toggleGridControls() {
         document.getElementById('gridControl4').style.display = 'none';
         document.getElementById('gridControl5').style.display = 'none';
         document.getElementById('gridControl6').style.display = 'none';
-        document.getElementById('gridControl7').style.display = 'none';
-        document.getElementById('gridControl8').style.display = 'none';
-        document.getElementById('gridControl9').style.display = 'none';
     } else {
         document.getElementById('gridControl1').style.display = 'block';
         document.getElementById('gridControl2').style.display = 'block';
@@ -162,9 +159,6 @@ function toggleGridControls() {
         document.getElementById('gridControl4').style.display = 'block';
         document.getElementById('gridControl5').style.display = 'block';
         document.getElementById('gridControl6').style.display = 'block';
-        document.getElementById('gridControl7').style.display = 'block';
-        document.getElementById('gridControl8').style.display = 'block';
-        document.getElementById('gridControl9').style.display = 'block';
     }
 }
 // =============================================================================================
@@ -1473,7 +1467,7 @@ function vitruviaOnClick(e) {
             document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
         }
 
-        if(currentColor == empty){
+        /*if(currentColor == empty){
             gDrawingContext.fillStyle = currentColor;
             gDrawingContext.fillRect(x+axisDelta+1, y+1, kStep-1, kStep-1);
         } else if(outputFormat == "LEGO") {
@@ -1481,30 +1475,51 @@ function vitruviaOnClick(e) {
         } else {
             gDrawingContext.fillStyle = pickBlColorHex(currentColor.src);
             gDrawingContext.fillRect(x+axisDelta+1,y+1,kStep-1,kStep -1);
-        }
+        }*/
 
         if(frameMode){
             if(frameBlock.length > 1){
+                if(frameBlock[0].color == empty){
+                    gDrawingContext.fillStyle = empty;
+                    gDrawingContext.fillRect(x+axisDelta+1, y+1, kStep-1, kStep-1);
+                } else if(outputFormat == "LEGO") {
+                    temp.src = frameBlock[0].color;
+                    gDrawingContext.drawImage(temp, x + axisDelta + 1, y + 1, kStep - 1, kStep - 1); // box lines don't get redrawn with empty color
+                } else {
+                    gDrawingContext.fillStyle = pickBlColorHex(frameBlock[0].color);
+                    gDrawingContext.fillRect(x+axisDelta+1,y+1,kStep-1,kStep -1);
+                }
                 for(var k = 1; k < frameBlock.length; k++ ){
                     frameRowDifference = frameBlock[k].row - frameBlock[0].row;
                     frameColumnDifference = frameBlock[k].column - frameBlock[0].column;
                     temp.src = frameBlock[k].color;
-                    if(isGridPlaceOccupied(x+1+frameRowDifference,y+1+frameColumnDifference)){
-                        numberOfLegosOnGrid++;
-                        document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
+                    if (((x+1+frameRowDifference + axisDelta) > 0) && ((y+1+frameColumnDifference) < yEnd - axisDelta- 1) ){
+                        if(isGridPlaceOccupied(x+1+frameRowDifference,y+1+frameColumnDifference)){
+                            numberOfLegosOnGrid++;
+                            document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
+                        }
+                        if (frameBlock[k].color == empty) {
+                            gDrawingContext.fillStyle = empty;
+                            gDrawingContext.fillRect(x+1+frameRowDifference + axisDelta, y+1+frameColumnDifference, kStep - 1, kStep - 1);
+                        } else if (outputFormat == "LEGO") {
+                            gDrawingContext.drawImage(temp, x+1+frameRowDifference + axisDelta, y+1+frameColumnDifference, kStep - 1, kStep - 1);
+                        } else {
+                            gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                            gDrawingContext.fillRect(x+1+frameRowDifference + axisDelta, y+1+frameColumnDifference, kStep - 1, kStep - 1);
+                        }
+                        gridLogs.push(new GridLog(x+1+frameRowDifference,y+1+frameColumnDifference,frameBlock[k].color))
                     }
-                    if (frameBlock[k].color == empty) {
-                        gDrawingContext.fillStyle = empty;
-                        gDrawingContext.fillRect(x+1+frameRowDifference + axisDelta, y+1+frameColumnDifference, kStep - 1, kStep - 1);
-                    } else if (outputFormat == "LEGO") {
-                        gDrawingContext.drawImage(temp, x+1+frameRowDifference + axisDelta, y+1+frameColumnDifference, kStep - 1, kStep - 1);
-                    } else {
-                        gDrawingContext.fillStyle = pickBlColorHex(temp.src);
-                        gDrawingContext.fillRect(x+1+frameRowDifference + axisDelta, y+1+frameColumnDifference, kStep - 1, kStep - 1);
-                    }
-                    gridLogs.push(new GridLog(x+1+frameRowDifference,y+1+frameColumnDifference,frameBlock[k].color))
+
                 }
             }
+        } else if(currentColor == empty){
+            gDrawingContext.fillStyle = currentColor;
+            gDrawingContext.fillRect(x+axisDelta+1, y+1, kStep-1, kStep-1);
+        } else if(outputFormat == "LEGO") {
+            gDrawingContext.drawImage(currentColor, x + axisDelta + 1, y + 1, kStep - 1, kStep - 1); // box lines don't get redrawn with empty color
+        } else {
+            gDrawingContext.fillStyle = pickBlColorHex(currentColor.src);
+            gDrawingContext.fillRect(x+axisDelta+1,y+1,kStep-1,kStep -1);
         }
 
 
@@ -1647,9 +1662,31 @@ function drawBoard() {
 function saveCanvas() {
 
     var canvas = document.getElementById('vitruvia_canvas');
+
+    var hidden_canv = document.createElement('canvas');
+    hidden_canv.style.display = 'none';
+    document.body.appendChild(hidden_canv);
+    hidden_canv.width = xEnd;
+    hidden_canv.height = yEnd;
+
+    var hidden_ctx = hidden_canv.getContext('2d');
+    hidden_ctx.drawImage(
+        canvas,
+        0,//Start Clipping
+        0,//Start Clipping
+        xEnd,//Clipping Width
+        yEnd,//Clipping Height
+        0,//Place X
+        0,//Place Y
+        xEnd,//Place Width
+        yEnd//Place Height
+    );
+
+    var hidden_data = hidden_canv.toDataURL("image/png").replace("image/png", "image/octet-stream");
+
     var a = document.createElement('a');
     // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
-    a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+    a.href = hidden_canv.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
     a.download = 'pixelArt.jpg';
     a.click();
 }

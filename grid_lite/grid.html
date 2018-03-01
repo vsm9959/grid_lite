@@ -11,6 +11,7 @@
     <link   rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src = "javascript/bootstrap.min.js"></script>
+    <script src = "javascript/jquery-3.3.1.min.js"></script>
     <script src = "javascript/jscolor.js"></script>
     <script src = "javascript/grid.js"></script>
     <style>
@@ -122,24 +123,27 @@
                     </tr>
                     <tr id ="gridControl2">
                         <td>
-                            <span id = "background_head">Background:</span><input class="jscolor" onchange="changeBackgroundColor(this.jscolor)" value="#ACB3BF" size = "6">
+                            <button class ="btn btn-default"   onclick="clearGrid();">Clear</button>
                         </td>
                     </tr>
                     <tr id ="gridControl3">
                         <td>
-                            <span id = "line_head">Line Color:</span><input class="jscolor" onchange="changeLineColor(this.jscolor)" value="#ccc" size = "6">
+                            <span id = "shift_type">Shift Grid:</span>
                         </td>
                     </tr>
                     <tr id ="gridControl4">
                         <td>
-                            <button class ="btn btn-default"   onclick="clearGrid();">Clear</button>
+                            <div class ="btn-group" role = "group">
+                                <button  class ="btn btn-default"       onclick="shiftLeft();">Left</button>
+                                <button   class ="btn btn-default"      onclick="shiftRight();">Right</button>
+                            </div>
                         </td>
                     </tr>
                     <tr id ="gridControl5">
                         <td>
-                            <div class = "btn-group-vertical" role = "group">
-                                <button class ="btn btn-default" onclick="hideGridLines(empty);">Hide Lines</button>
-                                <button class ="btn btn-default" onclick="hideGridLines(lineColor);">Show Lines</button>
+                            <div class ="btn-group" role = "group">
+                                <button  class ="btn btn-default"       onclick="shiftTop();">Up</button>
+                                <button   class ="btn btn-default"      onclick="shiftBottom();">Down</button>
                             </div>
                         </td>
                     </tr>
@@ -150,97 +154,6 @@
                                 <button   class ="btn btn-default"      onclick="redo();">Redo</button>
                             </div>
                         </td>
-                    </tr>
-                    <tr id ="gridControl7">
-                        <td>
-                            <span id = "shift_type">Shift Grid:</span>
-                        </td>
-                    </tr>
-                    <tr id ="gridControl8">
-                        <td>
-                            <div class ="btn-group" role = "group">
-                                <button  class ="btn btn-default"       onclick="shiftLeft();">Left</button>
-                                <button   class ="btn btn-default"      onclick="shiftRight();">Right</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id ="gridControl9">
-                        <td>
-                            <div class ="btn-group" role = "group">
-                                <button  class ="btn btn-default"       onclick="shiftTop();">Up</button>
-                                <button   class ="btn btn-default"      onclick="shiftBottom();">Down</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id = "graph_head">Graph:</span>
-                            <button class="btn btn-default btn-xs"  onclick="toggleGraphControls();">
-                                <span class="glyphicon glyphicon-eject"></span>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr id ="graphControl1">
-                        <td><button class="btn btn-default"  onclick="incrementGraphLineThickness();">+</button>
-                            <var id="graphLineThickness">5</var>
-                            <button class="btn btn-default"  onclick="decrementGraphLineThickness();">-</button></td>
-                    </tr>
-                    <tr id ="graphControl2">
-                        <td>
-                            <div class ="btn-group" role = "group">
-                                <button  class ="btn btn-default"       onclick="showGraph();">Show</button>
-                                <button   class ="btn btn-default"      onclick="hideGraph();">Hide</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id = "frame_head">Frame Mode:</span>
-                            <button id = "frameModeManagement"   class ="btn btn-default"       onclick="frameModeManagement();">OFF</button>
-                            <button class="btn btn-default btn-xs"  onclick="toggleFrameControls();">
-                                <span class="glyphicon glyphicon-eject"></span>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr id ='frameControl1'>
-                        <td>
-                            <button id = "individualFrameManagement"   class ="btn btn-default"       onclick="createFrame();">Create Frame</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span id = "animate_head">Animate:</span>
-                            <button class="btn btn-default btn-xs"  onclick="toggleAnimationControls();">
-                                <span class="glyphicon glyphicon-eject"></span>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <tr id ='animationControl1'>
-                        <td>
-                            <div class ="btn-group" role = "group">
-                                <button   class ="btn btn-default"       onclick="startAnimation();">Start</button>
-                                <button id = "pauseAnimation"  class ="btn btn-default"       onclick = "pauseAnimation();">Pause</button>
-                                <button   class ="btn btn-default"       onclick="stopAnimation();">Stop</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr id ='animationControl2'>
-                        <td><span id ="speed"> Speed:</span>
-                            <select id ="speed_range" onchange="changeSpeed();">
-                                <option value="1x">1X</option>
-                                <option value="2x">2X</option>
-                                <option value="4x">4X</option>
-                                <option value="8x">8X</option>
-                            </select></td>
-                    </tr>
-
-                    <tr>
-                        <td><span id ="output_type"> Output:</span>
-                            <select id ="output_format" onchange="changeOutputFormat();">
-                            <option value="PLAIN">PLAIN</option>
-                            <option value="LEGO">LEGO</option>
-                        </select></td>
                     </tr>
                     <tr>
                         <td>
@@ -391,6 +304,95 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>
+                            <span id = "graph_head">Graph:</span>
+                            <button class="btn btn-default btn-xs"  onclick="toggleGraphControls();">
+                                <span class="glyphicon glyphicon-eject"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr id ="graphControl1">
+                        <td><button class="btn btn-default"  onclick="incrementGraphLineThickness();">+</button>
+                            <var id="graphLineThickness">5</var>
+                            <button class="btn btn-default"  onclick="decrementGraphLineThickness();">-</button></td>
+                    </tr>
+                    <tr id ="graphControl2">
+                        <td>
+                            <div class ="btn-group" role = "group">
+                                <button  class ="btn btn-default"       onclick="showGraph();">Show</button>
+                                <button   class ="btn btn-default"      onclick="hideGraph();">Hide</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span id = "frame_head">Frame Mode:</span>
+                            <button id = "frameModeManagement"   class ="btn btn-default"       onclick="frameModeManagement();">OFF</button>
+                            <button class="btn btn-default btn-xs"  onclick="toggleFrameControls();">
+                                <span class="glyphicon glyphicon-eject"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr id ='frameControl1'>
+                        <td>
+                            <button id = "individualFrameManagement"   class ="btn btn-default"       onclick="createFrame();">Create Frame</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span id = "animate_head">Animate:</span>
+                            <button class="btn btn-default btn-xs"  onclick="toggleAnimationControls();">
+                                <span class="glyphicon glyphicon-eject"></span>
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr id ='animationControl1'>
+                        <td>
+                            <div class ="btn-group" role = "group">
+                                <button   class ="btn btn-default"       onclick="startAnimation();">Start</button>
+                                <button id = "pauseAnimation"  class ="btn btn-default"       onclick = "pauseAnimation();">Pause</button>
+                                <button   class ="btn btn-default"       onclick="stopAnimation();">Stop</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr id ='animationControl2'>
+                        <td><span id ="speed"> Speed:</span>
+                            <select id ="speed_range" onchange="changeSpeed();">
+                                <option value="1x">1X</option>
+                                <option value="2x">2X</option>
+                                <option value="4x">4X</option>
+                                <option value="8x">8X</option>
+                            </select></td>
+                    </tr>
+
+                    <tr>
+                        <td><span id ="output_type"> Output:</span>
+                            <select id ="output_format" onchange="changeOutputFormat();">
+                            <option value="PLAIN">PLAIN</option>
+                            <option value="LEGO">LEGO</option>
+                        </select></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class = "btn-group-vertical" role = "group">
+                                <button class ="btn btn-default" onclick="hideGridLines(empty);">Hide Lines</button>
+                                <button class ="btn btn-default" onclick="hideGridLines(lineColor);">Show Lines</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span id = "background_head">Background:</span><input class="jscolor" onchange="changeBackgroundColor(this.jscolor)" value="#ACB3BF" size = "6">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span id = "line_head">Line Color:</span><input class="jscolor" onchange="changeLineColor(this.jscolor)" value="#ccc" size = "6">
+                        </td>
+                    </tr>
+
                     </tbody>
                 </table>
             </div>
