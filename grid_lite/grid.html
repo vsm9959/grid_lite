@@ -65,6 +65,11 @@
         #statementInfo{
             background-color: #ACB3BF;
         }
+        .whiteSpace{
+            width:35px;
+            height:auto;
+            display:inline-block;
+        }
     </style>
 </head>
 
@@ -131,19 +136,24 @@
                             <span id = "shift_type">Shift Grid:</span>
                         </td>
                     </tr>
-                    <tr id ="gridControl4">
+                    <tr id ="gridControl7" style ="text-align: center">
                         <td>
                             <div class ="btn-group" role = "group">
-                                <button  class ="btn btn-default"       onclick="shiftLeft();">Left</button>
-                                <button   class ="btn btn-default"      onclick="shiftRight();">Right</button>
+                                <button  class ="btn btn-default"       onclick="shiftTop();"><span class="glyphicon glyphicon-arrow-up"></span></button>
                             </div>
                         </td>
                     </tr>
-                    <tr id ="gridControl5">
+                    <tr id ="gridControl4" style ="text-align: center">
+                        <td>
+                                <button  class ="btn btn-default"       onclick="shiftLeft();"><span class="glyphicon glyphicon-arrow-left"></span></button>
+                                <div class="whiteSpace"></div>
+                                <button   class ="btn btn-default"      onclick="shiftRight();"><span class="glyphicon glyphicon-arrow-right"></span></button>
+                        </td>
+                    </tr>
+                    <tr id ="gridControl5" style ="text-align: center">
                         <td>
                             <div class ="btn-group" role = "group">
-                                <button  class ="btn btn-default"       onclick="shiftTop();">Up</button>
-                                <button   class ="btn btn-default"      onclick="shiftBottom();">Down</button>
+                                <button   class ="btn btn-default"      onclick="shiftBottom();"><span class="glyphicon glyphicon-arrow-down"></span></button>
                             </div>
                         </td>
                     </tr>
@@ -158,7 +168,7 @@
                     <tr>
                         <td>
                             <div class = "LEGO_BUTTONS btn-group-vertical" role = "group">
-                                <button id ='blackLEGO' style="background-color: #000000;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(black);">
+                                <button id ='blackLEGO' style="background-color: #000000;" class = "btn btn-default btn-xs color-button"  onclick="setCurrentColor(black);">
                                     <!--<img class = "LEGO" src="bricklayercolors/black_02.png">-->
                                 </button>
                                 <button id="blueLEGO" style="background-color: #0d69ab;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(blue);">

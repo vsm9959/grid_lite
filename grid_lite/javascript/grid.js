@@ -254,6 +254,12 @@ function shiftLeft() {
     var temp = new Image();
     var shiftLength;
     if(gridLogs.length!=0){
+        for(i=0;i<gridLogs.length;i++){
+            shiftLength = gridLogs[i].row + axisDelta - kStep;
+            if((shiftLength < axisDelta)&&(gridLogs[i].column <(yEnd-axisDelta))) {
+                return;
+            }
+        }
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
             temp.src= gridLogs[i].color;
@@ -327,6 +333,13 @@ function shiftBottom() {
     var shiftLength;
 
     if(gridLogs.length!=0){
+        for(i=0;i<gridLogs.length;i++){
+            shiftLength = gridLogs[i].column + kStep;
+
+            if(shiftLength > (yEnd - axisDelta -1)) {
+                return;
+            }
+        }
         drawBoard();
         for(i=0;i<gridLogs.length;i++){
             temp.src= gridLogs[i].color;
@@ -979,6 +992,7 @@ function loadGridJSON() {
 
         fr.onload = function(e) {
             pixelLogs = JSON.parse(e.target.result);
+            pixelLogs.pop();
             console.log(pixelLogs);
             newSide = loadPixelLogs(pixelLogs);
             console.log("New Side is"+ newSide);
@@ -1019,10 +1033,14 @@ function createPixels(){
 }
 // =======================================================================================
 function createPixelArtJSON() {
+    var d = new Date();
     var pixelLogs = createPixels();
-    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pixelLogs));
 
+    pixelLogs.push(d.getHours()+":"+d.getMinutes()+":"+d.getSeconds()+":"+d.getMilliseconds());
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(pixelLogs));
     var a = document.createElement('a');
+
+
     a.setAttribute("href",     dataStr     );
     a.setAttribute("download", "grid.json");
     a.click();
