@@ -131,6 +131,8 @@ var graphLineThickness = 5;
 
 var bleep = new Audio();
 bleep.src = 'javascript/click_real_short.mp3';
+var captureFrameSound = new Audio();
+captureFrameSound.src = 'javascript/camera-shutter-click-08.mp3';
 
 var recentId = 1;
 var r1 = "#000000";
@@ -234,6 +236,7 @@ function createFrame() {
         for(var i =0 ;i< gridLogs.length;i++){
             frameBlock.push(new FrameBlock(gridLogs[i].row,gridLogs[i].column,gridLogs[i].color));
         }
+        captureFrameSound.play();
     } else {
         //frameBlockCreation = false;
         //document.getElementById('individualFrameManagement').innerText = 'Create Frame';
@@ -1174,18 +1177,39 @@ function updateGrid(d){
 function undo(){
     var temp = new Image();
     if(gridLogs.length!=0){
-        gridRedoLogs.push(gridLogs.pop());
-        drawBoard();
-        for(i=0;i<gridLogs.length;i++){
-            temp.src = gridLogs[i].color;
-            if(gridLogs[i].color == empty){
-                gDrawingContext.fillStyle = gridLogs[i].color;
-                gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
-            } else if (outputFormat == "LEGO") {
-                gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
-            } else {
-                gDrawingContext.fillStyle = pickBlColorHex(temp.src);
-                gDrawingContext.fillRect( gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+        if(frameMode){
+            if(frameBlock.length > 0) {
+                for (var i = 0; i < frameBlock.length; i++) {
+                    gridRedoLogs.push(gridLogs.pop());
+                }
+                drawBoard();
+                for(var i=0;i<gridLogs.length;i++) {
+                    temp.src = gridLogs[i].color;
+                    if (gridLogs[i].color == empty) {
+                        gDrawingContext.fillStyle = gridLogs[i].color;
+                        gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                    } else if (outputFormat == "LEGO") {
+                        gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                    } else {
+                        gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                        gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                    }
+                }
+            }
+        } else {
+            gridRedoLogs.push(gridLogs.pop());
+            drawBoard();
+            for(var i=0;i<gridLogs.length;i++) {
+                temp.src = gridLogs[i].color;
+                if (gridLogs[i].color == empty) {
+                    gDrawingContext.fillStyle = gridLogs[i].color;
+                    gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                } else if (outputFormat == "LEGO") {
+                    gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                } else {
+                    gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                    gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                }
             }
         }
     }
@@ -1194,18 +1218,39 @@ function undo(){
 function redo(){
     var temp = new Image();
     if (gridRedoLogs.length!=0){
-        gridLogs.push(gridRedoLogs.pop());
-        drawBoard();
-        for(i=0;i<gridLogs.length;i++){
-            temp.src = gridLogs[i].color;
-            if(gridLogs[i].color == empty){
-                gDrawingContext.fillStyle = gridLogs[i].color;
-                gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
-            } else  if (outputFormat == "LEGO") {
-                gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
-            } else {
-                gDrawingContext.fillStyle = pickBlColorHex(temp.src);
-                gDrawingContext.fillRect( gridLogs[i].row +axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+        if(frameMode){
+            if(frameBlock.length > 0) {
+                for (var i = 0; i < frameBlock.length; i++) {
+                    gridLogs.push(gridRedoLogs.pop());
+                }
+                drawBoard();
+                for(var i=0;i<gridLogs.length;i++) {
+                    temp.src = gridLogs[i].color;
+                    if (gridLogs[i].color == empty) {
+                        gDrawingContext.fillStyle = gridLogs[i].color;
+                        gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                    } else if (outputFormat == "LEGO") {
+                        gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                    } else {
+                        gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                        gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                    }
+                }
+            }
+        } else {
+            gridLogs.push(gridRedoLogs.pop());
+            drawBoard();
+            for (i = 0; i < gridLogs.length; i++) {
+                temp.src = gridLogs[i].color;
+                if (gridLogs[i].color == empty) {
+                    gDrawingContext.fillStyle = gridLogs[i].color;
+                    gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                } else if (outputFormat == "LEGO") {
+                    gDrawingContext.drawImage(temp, gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                } else {
+                    gDrawingContext.fillStyle = pickBlColorHex(temp.src);
+                    gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
+                }
             }
         }
     }
@@ -1495,7 +1540,7 @@ function vitruviaOnClick(e) {
             gDrawingContext.fillRect(x+axisDelta+1,y+1,kStep-1,kStep -1);
         }*/
 
-        if(frameMode){
+        if(frameMode &&(frameBlock.length!=0)){
             if(frameBlock.length > 1){
                 if(frameBlock[0].color == empty){
                     gDrawingContext.fillStyle = empty;
@@ -1713,6 +1758,9 @@ function saveCanvas() {
 // =======================================================================================
 function clearGrid() {
     gridLogs = [];
+    frameBlock = [];
+    frameMode = false;
+    document.getElementById('frameModeManagement').innerText = 'OFF';
     drawBoard();
 }
 
