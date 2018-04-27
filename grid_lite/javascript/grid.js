@@ -1163,6 +1163,17 @@ function updateGrid(d){
             frameBlock[i].column = Math.floor((frameBlock[i].column-1)/kStep) + d;
         }
     }
+    if(frameBlockLogs.length!=0) {
+        for (var i = 0; i < frameBlockLogs.length; i++) {
+            frameBlockLogs[i].row = Math.floor((frameBlockLogs[i].row-1)/kStep) ;
+            frameBlockLogs[i].column = Math.floor((frameBlockLogs[i].column-1)/kStep) + d;
+        }
+    }
+    if(frameBlock.length!=0){
+        frameReferencePoint[0] = Math.floor((frameReferencePoint[0]-1)/kStep);
+        frameReferencePoint[1] = Math.floor((frameReferencePoint[1]-1)/kStep) +d;
+
+    }
 
     kStep = Math.floor(boardSize / side);
 
@@ -1178,6 +1189,18 @@ function updateGrid(d){
             frameBlock[i].row = Math.floor(frameBlock[i].row*kStep) + 1;
             frameBlock[i].column = Math.floor(frameBlock[i].column*kStep) + 1;
         }
+    }
+
+    if(frameBlockLogs.length!=0) {
+        for (var i = 0; i < frameBlockLogs.length; i++) {
+            frameBlockLogs[i].row = Math.floor(frameBlockLogs[i].row*kStep) + 1;
+            frameBlockLogs[i].column = Math.floor(frameBlockLogs[i].column*kStep) + 1;
+        }
+    }
+    if(frameBlock.length!=0){
+        frameReferencePoint[0] = Math.floor((frameReferencePoint[0])*kStep)+1;
+        frameReferencePoint[1] = Math.floor((frameReferencePoint[1])*kStep)+1;
+
     }
 
 
@@ -1848,6 +1871,7 @@ function clearGrid() {
     frameBlock = [];
     frameBlockLogs = [];
     frameMode = false;
+    frameId = 0;
     document.getElementById('frameModeManagement').innerText = 'OFF';
     document.getElementById('frame1Holder').style.display = 'none';
     document.getElementById('frame2Holder').style.display = 'none';
