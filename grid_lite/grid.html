@@ -62,13 +62,16 @@
         .controlsAndPalette{
             width: 20%;
         }
-        #statementInfo{
+        #statementInfo, #frameSelections{
             background-color: #ACB3BF;
         }
         .whiteSpace{
             width:35px;
             height:auto;
             display:inline-block;
+        }
+        #frame1Holder,#frame2Holder,#frame3Holder,#frame4Holder,#frame5Holder,#frame6Holder{
+            display: none;
         }
     </style>
 </head>
@@ -166,7 +169,27 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
+                        <td id = "level1Color">Pallete:
+                            <div class ="LEGO_BUTTONS btn-group" role = "group">
+                                <button id ='blue1LEGO' style="background-color: #0d69ab; width:30px; height: 25px;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(blue);">
+                                </button>
+                                <button id ='gray1LEGO' style="background-color: #635f61; width:30px; height: 25px;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(gray);">
+                                </button>
+                                <button id ='black1LEGO' style="background-color: #000000; width:30px; height: 25px;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(black);">
+                                </button>
+                                <button id ='green1LEGO' style="background-color: #287f46; width:30px; height: 25px;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(green);">
+                                </button>
+                                <button id ='red1LEGO' style="background-color: #cc0000; width:30px; height: 25px;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(red);">
+                                </button>
+                                <button id ='white1LEGO' style="background-color: #ffffff; width:30px; height: 25px;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(white);">
+                                </button>
+                                <button id ='yellow1LEGO' style="background-color: #f5cd2f; width:30px; height: 25px;" class = "btn btn-default btn-xs color-button" onclick="setCurrentColor(yellow);">
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Extended Pallete: <br>
                             <div class = "LEGO_BUTTONS btn-group-vertical" role = "group">
                                 <button id ='blackLEGO' style="background-color: #000000;" class = "btn btn-default btn-xs color-button"  onclick="setCurrentColor(black);">
                                     <!--<img class = "LEGO" src="bricklayercolors/black_02.png">-->
@@ -411,6 +434,29 @@
             <canvas id="vitruvia_canvas">
                 <img src="" id="mirror" class="canvas__mirror" />
             </canvas>
+            <div id = "frameSelections" style= "display: none">
+                <label class="checkbox-inline">
+                    <input type="checkbox" id = "frameAll" name="frameAll" onclick="showGraph();" checked>All
+                </label>
+                <label class="checkbox-inline" id="frame1Holder">
+                    <input type="checkbox" id = "frame1" name="frame1"   onclick="showGraph();" checked>Frame 1
+                </label>
+                <label class="checkbox-inline" id="frame2Holder">
+                    <input type="checkbox" id = "frame2" name="frame2"   onclick="showGraph();" checked>Frame 2
+                </label>
+                <label class="checkbox-inline" id="frame3Holder">
+                    <input type="checkbox" id = "frame3" name="frame3"   onclick="showGraph();" checked>Frame 3
+                </label>
+                <label class="checkbox-inline" id="frame4Holder">
+                    <input type="checkbox" id = "frame4" name="frame4"   onclick="showGraph();" checked>Frame 4
+                </label>
+                <label class="checkbox-inline" id="frame5Holder">
+                    <input type="checkbox" id = "frame5" name="frame5"   onclick="showGraph();" checked>Frame 5
+                </label>
+                <label class="checkbox-inline" id="frame6Holder">
+                    <input type="checkbox" id = "frame6" name="frame6"   onclick="showGraph();" checked>Frame 6
+                </label>
+            </div>
             <div id = "statementInfo">
                 <h2 id = "numberOfLegosPlaced">Number of LEGO placed: 0</h2>
                 <h3>Bricklayer Statements:</h3>

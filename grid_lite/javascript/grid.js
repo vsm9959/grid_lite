@@ -113,8 +113,10 @@ yellow.src = 'bricklayercolors/yellow_02.png';
 
 var frameBlock = [];
 var frameBlockCreation = false;
+var frameReferencePoint = [];
 var frameMode = false;
-
+var frameBlockLogs = [];
+var frameId = 0;
 
 
 var gridLogs = [];
@@ -227,6 +229,19 @@ function FrameBlock(row,column,color){
     this.color  = color;
 }
 // ===================================================================================================
+function findFrameReferencePoint(){
+    var minRow= xEnd,
+        minColumn = 0;
+    for(var i =0 ;i< gridLogs.length;i++){
+        if(minRow > gridLogs[i].row )
+            minRow = gridLogs[i].row;
+        if(minColumn < gridLogs[i].column){
+            minColumn = gridLogs[i].column;
+        }
+    }
+    return [minRow,minColumn];
+}
+// ===================================================================================================
 function createFrame() {
     var temp = [];
     frameBlock = [];
@@ -236,7 +251,30 @@ function createFrame() {
         for(var i =0 ;i< gridLogs.length;i++){
             frameBlock.push(new FrameBlock(gridLogs[i].row,gridLogs[i].column,gridLogs[i].color));
         }
+        frameReferencePoint = findFrameReferencePoint();
+        frameId++;
+        frameBlockLogs.push(new FrameBlockLog(frameId,frameReferencePoint[0],frameReferencePoint[1],gridLogs[0].color));
         captureFrameSound.play();
+        switch (frameId){
+            case 1:
+                document.getElementById('frame1Holder').style.display = 'block';
+                break;
+            case 2:
+                document.getElementById('frame2Holder').style.display = 'block';
+                break;
+            case 3:
+                document.getElementById('frame3Holder').style.display = 'block';
+                break;
+            case 4:
+                document.getElementById('frame4Holder').style.display = 'block';
+                break;
+            case 5:
+                document.getElementById('frame5Holder').style.display = 'block';
+                break;
+            case 6:
+                document.getElementById('frame6Holder').style.display = 'block';
+                break;
+        }
     } else {
         //frameBlockCreation = false;
         //document.getElementById('individualFrameManagement').innerText = 'Create Frame';
@@ -1406,31 +1444,74 @@ function decrementGraphLineThickness() {
     }
 }
 //========================================================================================
-function showGraph() {
-    drawBoard();
-
+function drawFrameGraph(id,color){
     gDrawingContext.beginPath();
     gDrawingContext.lineJoin = "round";
-
-    gDrawingContext.moveTo(gridLogs[0].row+axisDelta +(kStep/2),gridLogs[0].column + (kStep/2));
-    gDrawingContext.arc(gridLogs[0].row+axisDelta+(kStep/2),gridLogs[0].column + (kStep/2),2,0,2*Math.PI);
-
-    if(gridLogs.length != 0){
-        for(i=1;i<(gridLogs.length);i++){/*
-            gDrawingContext.moveTo(gridLogs[i].row+axisDelta,gridLogs[i].column + kStep);*/
-            gDrawingContext.lineTo(gridLogs[i].row + axisDelta+(kStep/2),gridLogs[i].column +(kStep/2));
-           gDrawingContext.arc(gridLogs[i].row+axisDelta+(kStep/2),gridLogs[i].column + (kStep/2),2,0,2*Math.PI);
+    if(frameBlockLogs.length != 0){
+        for(i=0;i<(frameBlockLogs.length);i++){/*
+         gDrawingContext.moveTo(gridLogs[i].row+axisDelta,gridLogs[i].column + kStep);*/
+            if(frameBlockLogs[i].id == id){
+                gDrawingContext.moveTo(frameBlockLogs[i].row+axisDelta +(kStep/2),frameBlockLogs[i].column + (kStep/2));
+                gDrawingContext.arc(frameBlockLogs[i].row+axisDelta+(kStep/2),frameBlockLogs[i].column + (kStep/2),2,0,2*Math.PI);
+                break;
+            }
         }
     }
 
-    gDrawingContext.strokeStyle = "#ffffff";
+    if(frameBlockLogs.length != 0){
+        for(i=1;i<(frameBlockLogs.length);i++){/*
+         gDrawingContext.moveTo(gridLogs[i].row+axisDelta,gridLogs[i].column + kStep);*/
+            if(frameBlockLogs[i].id == id){
+                gDrawingContext.lineTo(frameBlockLogs[i].row + axisDelta+(kStep/2),frameBlockLogs[i].column +(kStep/2));
+                gDrawingContext.arc(frameBlockLogs[i].row+axisDelta+(kStep/2),frameBlockLogs[i].column + (kStep/2),2,0,2*Math.PI);
+            }
+        }
+    }
+
+    gDrawingContext.strokeStyle = color;
     gDrawingContext.lineWidth = graphLineThickness;
     gDrawingContext.stroke();
 
     gDrawingContext.closePath();
 
+}
+//========================================================================================
+function showGraph() {
+    drawBoard();
+    document.getElementById('frameSelections').style.display = 'block';
+    if(document.getElementById("frameAll").checked){
+        gDrawingContext.beginPath();
+        gDrawingContext.lineJoin = "round";
 
+        gDrawingContext.moveTo(gridLogs[0].row+axisDelta +(kStep/2),gridLogs[0].column + (kStep/2));
+        gDrawingContext.arc(gridLogs[0].row+axisDelta+(kStep/2),gridLogs[0].column + (kStep/2),2,0,2*Math.PI);
 
+        if(gridLogs.length != 0){
+            for(i=1;i<(gridLogs.length);i++){/*
+             gDrawingContext.moveTo(gridLogs[i].row+axisDelta,gridLogs[i].column + kStep);*/
+                gDrawingContext.lineTo(gridLogs[i].row + axisDelta+(kStep/2),gridLogs[i].column +(kStep/2));
+                gDrawingContext.arc(gridLogs[i].row+axisDelta+(kStep/2),gridLogs[i].column + (kStep/2),2,0,2*Math.PI);
+            }
+        }
+
+        gDrawingContext.strokeStyle = "#ffffff";
+        gDrawingContext.lineWidth = graphLineThickness;
+        gDrawingContext.stroke();
+
+        gDrawingContext.closePath();
+    }
+    if(document.getElementById("frame1").checked)
+        drawFrameGraph(1,"#00ffcc");
+    if(document.getElementById("frame2").checked)
+        drawFrameGraph(2,"#ff0000");
+    if(document.getElementById("frame3").checked)
+        drawFrameGraph(3,"#ffff00");
+    if(document.getElementById("frame4").checked)
+        drawFrameGraph(4,"#00ff00");
+    if(document.getElementById("frame5").checked)
+        drawFrameGraph(5,"#000080");
+    if(document.getElementById("frame6").checked)
+        drawFrameGraph(6,"#800000");
 }
 //========================================================================================
 function hideGraph() {
@@ -1450,11 +1531,19 @@ function hideGraph() {
             }
         }
     }*/
+
+    document.getElementById('frameSelections').style.display = 'none';
     drawBoard();
     updateGrid(0);
 }
 //========================================================================================
 function GridLog(row,column,color){
+    this.row = row;
+    this.column = column;
+    this.color=color;
+}//========================================================================================
+function FrameBlockLog(id,row,column,color){
+    this.id = id;
     this.row = row;
     this.column = column;
     this.color=color;
@@ -1542,19 +1631,9 @@ function vitruviaOnClick(e) {
 
         if(frameMode &&(frameBlock.length!=0)){
             if(frameBlock.length > 1){
-                if(frameBlock[0].color == empty){
-                    gDrawingContext.fillStyle = empty;
-                    gDrawingContext.fillRect(x+axisDelta+1, y+1, kStep-1, kStep-1);
-                } else if(outputFormat == "LEGO") {
-                    temp.src = frameBlock[0].color;
-                    gDrawingContext.drawImage(temp, x + axisDelta + 1, y + 1, kStep - 1, kStep - 1); // box lines don't get redrawn with empty color
-                } else {
-                    gDrawingContext.fillStyle = pickBlColorHex(frameBlock[0].color);
-                    gDrawingContext.fillRect(x+axisDelta+1,y+1,kStep-1,kStep -1);
-                }
-                for(var k = 1; k < frameBlock.length; k++ ){
-                    frameRowDifference = frameBlock[k].row - frameBlock[0].row;
-                    frameColumnDifference = frameBlock[k].column - frameBlock[0].column;
+                for(var k = 0; k < frameBlock.length; k++ ){
+                    frameRowDifference = frameBlock[k].row - frameReferencePoint[0];
+                    frameColumnDifference = frameBlock[k].column - frameReferencePoint[1];
                     temp.src = frameBlock[k].color;
                     if (((x+1+frameRowDifference + axisDelta) > 0) && ((y+1+frameColumnDifference) < yEnd - axisDelta- 1) ){
                         if(isGridPlaceOccupied(x+1+frameRowDifference,y+1+frameColumnDifference)){
@@ -1587,11 +1666,19 @@ function vitruviaOnClick(e) {
 
 
         if(currentColor == empty){
-            gridLogs.push(new GridLog(x+1,y+1,currentColor));
+            if(!frameMode) {
+                gridLogs.push(new GridLog(x + 1, y + 1, currentColor));
+            } else {
+                frameBlockLogs.push(new FrameBlockLog(frameId,x + 1, y + 1, currentColor))
+            }
             document.getElementById('levelStatement3').innerText ='Level 3: put2D (1, 1) '+ 'EMPTY' + ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
             document.getElementById('levelStatement4').innerText ='Level 4: put (1, 1, 1) '+ 'EMPTY' + ' ('+(x/kStep)+','+' 0, '+(side - (y/kStep) - 1)+')';
         } else {
-            gridLogs.push(new GridLog(x + 1, y + 1, currentColor.src));
+            if(!frameMode) {
+                gridLogs.push(new GridLog(x + 1, y + 1, currentColor.src));
+            }else {
+                frameBlockLogs.push(new FrameBlockLog(frameId,x + 1, y + 1, currentColor))
+            }
             switch(pickBlColor(currentColor.src)){
                 case 'BLACK':
                     document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_BLACK'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
@@ -1759,8 +1846,15 @@ function saveCanvas() {
 function clearGrid() {
     gridLogs = [];
     frameBlock = [];
+    frameBlockLogs = [];
     frameMode = false;
     document.getElementById('frameModeManagement').innerText = 'OFF';
+    document.getElementById('frame1Holder').style.display = 'none';
+    document.getElementById('frame2Holder').style.display = 'none';
+    document.getElementById('frame3Holder').style.display = 'none';
+    document.getElementById('frame4Holder').style.display = 'none';
+    document.getElementById('frame5Holder').style.display = 'none';
+    document.getElementById('frame6Holder').style.display = 'none';
     drawBoard();
 }
 
