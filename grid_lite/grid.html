@@ -70,7 +70,7 @@
             height:auto;
             display:inline-block;
         }
-        #frame1Holder,#frame2Holder,#frame3Holder,#frame4Holder,#frame5Holder,#frame6Holder{
+        #frame1Holder,#frame2Holder,#frame3Holder,#frame4Holder,#frame5Holder,#frame6Holder,#frameInformation{
             display: none;
         }
     </style>
@@ -439,30 +439,38 @@
                     <input type="checkbox" id = "frameAll" name="frameAll" onclick="showGraph();" checked>All
                 </label>
                 <label class="checkbox-inline" id="frame1Holder">
-                    <input type="checkbox" id = "frame1" name="frame1"   onclick="showGraph();" checked>Frame 1
+                    <input type="checkbox" id = "frame1" name="frame1"   onclick="showGraph();" checked>Frame 0
                 </label>
                 <label class="checkbox-inline" id="frame2Holder">
-                    <input type="checkbox" id = "frame2" name="frame2"   onclick="showGraph();" checked>Frame 2
+                    <input type="checkbox" id = "frame2" name="frame2"   onclick="showGraph();" checked>Frame 1
                 </label>
                 <label class="checkbox-inline" id="frame3Holder">
-                    <input type="checkbox" id = "frame3" name="frame3"   onclick="showGraph();" checked>Frame 3
+                    <input type="checkbox" id = "frame3" name="frame3"   onclick="showGraph();" checked>Frame 2
                 </label>
                 <label class="checkbox-inline" id="frame4Holder">
-                    <input type="checkbox" id = "frame4" name="frame4"   onclick="showGraph();" checked>Frame 4
+                    <input type="checkbox" id = "frame4" name="frame4"   onclick="showGraph();" checked>Frame 3
                 </label>
                 <label class="checkbox-inline" id="frame5Holder">
-                    <input type="checkbox" id = "frame5" name="frame5"   onclick="showGraph();" checked>Frame 5
+                    <input type="checkbox" id = "frame5" name="frame5"   onclick="showGraph();" checked>Frame 4
                 </label>
                 <label class="checkbox-inline" id="frame6Holder">
-                    <input type="checkbox" id = "frame6" name="frame6"   onclick="showGraph();" checked>Frame 6
+                    <input type="checkbox" id = "frame6" name="frame6"   onclick="showGraph();" checked>Frame 5
                 </label>
             </div>
             <div id = "statementInfo">
+                <div id = "graphInformation">
+                </div>
                 <h2 id = "numberOfLegosPlaced">Number of LEGO placed: 0</h2>
-                <h3>Bricklayer Statements:</h3>
-                <h2 id = "levelStatement1"></h2>
-                <h2 id = "levelStatement3"></h2>
-                <h2 id = "levelStatement4"></h2>
+                <div id = "legoInformation">
+                    <h3>Bricklayer Statements:</h3>
+                    <h2 id = "levelStatement1"></h2>
+                    <h2 id = "levelStatement3"></h2>
+                    <h2 id = "levelStatement4"></h2>
+                </div>
+                <div id = "frameInformation">
+                    <h3>Frame Reference Point:</h3>
+                    <h2 id = "currentReferencePoint"></h2>
+                </div>
             </div>
         </div>
     </div>

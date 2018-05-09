@@ -1256,6 +1256,8 @@ function undo(){
                         gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
                     }
                 }
+                numberOfLegosOnGrid == numberOfLegosOnGrid - frameBlock.length;
+                document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
             }
         } else {
             gridRedoLogs.push(gridLogs.pop());
@@ -1272,6 +1274,8 @@ function undo(){
                     gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
                 }
             }
+            numberOfLegosOnGrid--;
+            document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
         }
     }
 }
@@ -1297,6 +1301,8 @@ function redo(){
                         gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
                     }
                 }
+                numberOfLegosOnGrid == numberOfLegosOnGrid + frameBlock.length;
+                document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
             }
         } else {
             gridLogs.push(gridRedoLogs.pop());
@@ -1313,6 +1319,8 @@ function redo(){
                     gDrawingContext.fillRect(gridLogs[i].row + axisDelta, gridLogs[i].column, kStep - 1, kStep - 1);
                 }
             }
+            numberOfLegosOnGrid ++;
+            document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
         }
     }
 }
@@ -1468,14 +1476,21 @@ function decrementGraphLineThickness() {
 }
 //========================================================================================
 function drawFrameGraph(id,color){
+    var firstIteration = true;
     gDrawingContext.beginPath();
     gDrawingContext.lineJoin = "round";
     if(frameBlockLogs.length != 0){
         for(i=0;i<(frameBlockLogs.length);i++){/*
          gDrawingContext.moveTo(gridLogs[i].row+axisDelta,gridLogs[i].column + kStep);*/
             if(frameBlockLogs[i].id == id){
+                document.getElementById('graphInformation').innerHTML += '<h2>Frame '+(id-1)+': ';
                 gDrawingContext.moveTo(frameBlockLogs[i].row+axisDelta +(kStep/2),frameBlockLogs[i].column + (kStep/2));
                 gDrawingContext.arc(frameBlockLogs[i].row+axisDelta+(kStep/2),frameBlockLogs[i].column + (kStep/2),2,0,2*Math.PI);
+                if(id == 1){
+                    document.getElementById('graphInformation').innerHTML += '('+Math.floor((frameBlockLogs[i].row + 1) / kStep) +', ' +
+                        Math.floor(side - ((frameBlockLogs[i].column  + 1) / kStep)) +')';
+                    firstIteration = false;
+                }
                 break;
             }
         }
@@ -1487,6 +1502,14 @@ function drawFrameGraph(id,color){
             if(frameBlockLogs[i].id == id){
                 gDrawingContext.lineTo(frameBlockLogs[i].row + axisDelta+(kStep/2),frameBlockLogs[i].column +(kStep/2));
                 gDrawingContext.arc(frameBlockLogs[i].row+axisDelta+(kStep/2),frameBlockLogs[i].column + (kStep/2),2,0,2*Math.PI);
+                if(firstIteration){
+                    document.getElementById('graphInformation').innerHTML += '('+Math.floor((frameBlockLogs[i].row + 1) / kStep) +', ' +
+                        Math.floor(side - ((frameBlockLogs[i].column  + 1) / kStep)) +')';
+                } else {
+                    document.getElementById('graphInformation').innerHTML += ', ('+Math.floor((frameBlockLogs[i].row + 1) / kStep) +', ' +
+                        Math.floor(side - ((frameBlockLogs[i].column + 1) / kStep)) +')';
+                }
+                firstIteration = false;
             }
         }
     }
@@ -1502,6 +1525,9 @@ function drawFrameGraph(id,color){
 function showGraph() {
     drawBoard();
     document.getElementById('frameSelections').style.display = 'block';
+    document.getElementById('graphInformation').style.display = 'block';
+    document.getElementById('graphInformation').innerHTML = '';
+    document.getElementById('graphInformation').innerHTML = '<h2>All: ';
     if(document.getElementById("frameAll").checked){
         gDrawingContext.beginPath();
         gDrawingContext.lineJoin = "round";
@@ -1509,14 +1535,19 @@ function showGraph() {
         gDrawingContext.moveTo(gridLogs[0].row+axisDelta +(kStep/2),gridLogs[0].column + (kStep/2));
         gDrawingContext.arc(gridLogs[0].row+axisDelta+(kStep/2),gridLogs[0].column + (kStep/2),2,0,2*Math.PI);
 
+        document.getElementById('graphInformation').innerHTML += '('+Math.floor((gridLogs[0].row + 1) / kStep) +', ' +
+            Math.floor(side - ((gridLogs[0].column + 1) / kStep)) +')';
+
         if(gridLogs.length != 0){
             for(i=1;i<(gridLogs.length);i++){/*
              gDrawingContext.moveTo(gridLogs[i].row+axisDelta,gridLogs[i].column + kStep);*/
                 gDrawingContext.lineTo(gridLogs[i].row + axisDelta+(kStep/2),gridLogs[i].column +(kStep/2));
                 gDrawingContext.arc(gridLogs[i].row+axisDelta+(kStep/2),gridLogs[i].column + (kStep/2),2,0,2*Math.PI);
+                document.getElementById('graphInformation').innerHTML += ', ('+Math.floor((gridLogs[i].row + 1) / kStep) +', ' +
+                    Math.floor(side - ((gridLogs[i].column + 1) / kStep)) +')';
             }
         }
-
+        document.getElementById('graphInformation').innerHTML += '</h2>';
         gDrawingContext.strokeStyle = "#ffffff";
         gDrawingContext.lineWidth = graphLineThickness;
         gDrawingContext.stroke();
@@ -1556,6 +1587,8 @@ function hideGraph() {
     }*/
 
     document.getElementById('frameSelections').style.display = 'none';
+    document.getElementById('graphInformation').style.display = 'none';
+    document.getElementById('graphInformation').innerHTML = '';
     drawBoard();
     updateGrid(0);
 }
@@ -1691,47 +1724,57 @@ function vitruviaOnClick(e) {
         if(currentColor == empty){
             if(!frameMode) {
                 gridLogs.push(new GridLog(x + 1, y + 1, currentColor));
+                document.getElementById('frameInformation').style.display = 'none';
+                document.getElementById('legoInformation').style.display = 'block';
+                document.getElementById('levelStatement3').innerText ='Level 3: put2D (1, 1) '+ 'EMPTY' + ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
+                document.getElementById('levelStatement4').innerText ='Level 4: put (1, 1, 1) '+ 'EMPTY' + ' ('+(x/kStep)+','+' 0, '+(side - (y/kStep) - 1)+')';
             } else {
-                frameBlockLogs.push(new FrameBlockLog(frameId,x + 1, y + 1, currentColor))
+                frameBlockLogs.push(new FrameBlockLog(frameId,x + 1, y + 1, currentColor));
+                document.getElementById('frameInformation').style.display = 'block';
+                document.getElementById('legoInformation').style.display = 'none';
+                document.getElementById('currentReferencePoint').innerText = ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
             }
-            document.getElementById('levelStatement3').innerText ='Level 3: put2D (1, 1) '+ 'EMPTY' + ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
-            document.getElementById('levelStatement4').innerText ='Level 4: put (1, 1, 1) '+ 'EMPTY' + ' ('+(x/kStep)+','+' 0, '+(side - (y/kStep) - 1)+')';
         } else {
             if(!frameMode) {
                 gridLogs.push(new GridLog(x + 1, y + 1, currentColor.src));
+                document.getElementById('frameInformation').style.display = 'none';
+                document.getElementById('legoInformation').style.display = 'block';
+                switch(pickBlColor(currentColor.src)){
+                    case 'BLACK':
+                        document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_BLACK'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                        break;
+                    case 'BLUE':
+                        document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_BLUE'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                        break;
+                    case 'RED':
+                        document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_RED'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                        break;
+                    case 'WHITE':
+                        document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_WHITE'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                        break;
+                    case 'YELLOW':
+                        document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_YELLOW'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                        break;
+                    case 'GREEN':
+                        document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_GREEN'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                        break;
+                    case 'GRAY':
+                        document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_GRAY'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                        break;
+                    case 'EMPTY':
+                        document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_EMPTY'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
+                        break;
+                    default:
+                        document.getElementById('levelStatement1').innerText = 'Level 1: N/A';
+                }
+                document.getElementById('levelStatement3').innerText ='Level 3: put2D (1, 1) '+ pickBlColor(currentColor.src)  + ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
+                document.getElementById('levelStatement4').innerText = 'Level 4: put (1, 1, 1) '+ pickBlColor(currentColor.src)  + ' ('+(x/kStep)+','+' 0, '+(side - (y/kStep) - 1)+')';
             }else {
-                frameBlockLogs.push(new FrameBlockLog(frameId,x + 1, y + 1, currentColor))
+                frameBlockLogs.push(new FrameBlockLog(frameId,x + 1, y + 1, currentColor));
+                document.getElementById('frameInformation').style.display = 'block';
+                document.getElementById('legoInformation').style.display = 'none';
+                document.getElementById('currentReferencePoint').innerText = ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
             }
-            switch(pickBlColor(currentColor.src)){
-                case 'BLACK':
-                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_BLACK'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
-                    break;
-                case 'BLUE':
-                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_BLUE'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
-                    break;
-                case 'RED':
-                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_RED'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
-                    break;
-                case 'WHITE':
-                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_WHITE'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
-                    break;
-                case 'YELLOW':
-                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_YELLOW'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
-                    break;
-                case 'GREEN':
-                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_GREEN'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
-                    break;
-                case 'GRAY':
-                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_GRAY'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
-                    break;
-                case 'EMPTY':
-                    document.getElementById('levelStatement1').innerText = 'Level 1: put2D_1x1_EMPTY'+ ' ('+(x/kStep)+','+(side - (y/kStep) - 1)+')';
-                    break;
-                default:
-                    document.getElementById('levelStatement1').innerText = 'Level 1: N/A';
-            }
-            document.getElementById('levelStatement3').innerText ='Level 3: put2D (1, 1) '+ pickBlColor(currentColor.src)  + ' ('+(x/kStep)+', '+(side - (y/kStep) - 1)+')';
-            document.getElementById('levelStatement4').innerText = 'Level 4: put (1, 1, 1) '+ pickBlColor(currentColor.src)  + ' ('+(x/kStep)+','+' 0, '+(side - (y/kStep) - 1)+')';
         }
     }
 }
@@ -1879,6 +1922,10 @@ function clearGrid() {
     document.getElementById('frame4Holder').style.display = 'none';
     document.getElementById('frame5Holder').style.display = 'none';
     document.getElementById('frame6Holder').style.display = 'none';
+
+    numberOfLegosOnGrid++;
+    document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
+
     drawBoard();
 }
 
