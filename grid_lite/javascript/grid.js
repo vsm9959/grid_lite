@@ -250,6 +250,8 @@ function createFrame() {
         //document.getElementById('individualFrameManagement').innerText = 'STOP'
         for(var i =0 ;i< gridLogs.length;i++){
             frameBlock.push(new FrameBlock(gridLogs[i].row,gridLogs[i].column,gridLogs[i].color));
+            if(frameId == 0)
+            frameBlockLogs.push(new FrameBlockLog(frameId,gridLogs[i].row,gridLogs[i].column,gridLogs[i].color));
         }
         frameReferencePoint = findFrameReferencePoint();
         frameId++;
@@ -1483,10 +1485,10 @@ function drawFrameGraph(id,color){
         for(i=0;i<(frameBlockLogs.length);i++){/*
          gDrawingContext.moveTo(gridLogs[i].row+axisDelta,gridLogs[i].column + kStep);*/
             if(frameBlockLogs[i].id == id){
-                document.getElementById('graphInformation').innerHTML += '<h2>Frame '+(id-1)+': ';
+                document.getElementById('graphInformation').innerHTML += '<h2>Frame '+(id)+': ';
                 gDrawingContext.moveTo(frameBlockLogs[i].row+axisDelta +(kStep/2),frameBlockLogs[i].column + (kStep/2));
                 gDrawingContext.arc(frameBlockLogs[i].row+axisDelta+(kStep/2),frameBlockLogs[i].column + (kStep/2),2,0,2*Math.PI);
-                if(id == 1){
+                if(id == 0){
                     document.getElementById('graphInformation').innerHTML += '('+Math.floor((frameBlockLogs[i].row + 1) / kStep) +', ' +
                         Math.floor(side - ((frameBlockLogs[i].column  + 1) / kStep)) +')';
                     firstIteration = false;
@@ -1555,17 +1557,17 @@ function showGraph() {
         gDrawingContext.closePath();
     }
     if(document.getElementById("frame1").checked)
-        drawFrameGraph(1,"#00ffcc");
+        drawFrameGraph(0,"#00ffcc");
     if(document.getElementById("frame2").checked)
-        drawFrameGraph(2,"#ff0000");
+        drawFrameGraph(1,"#ff0000");
     if(document.getElementById("frame3").checked)
-        drawFrameGraph(3,"#ffff00");
+        drawFrameGraph(2,"#ffff00");
     if(document.getElementById("frame4").checked)
-        drawFrameGraph(4,"#00ff00");
+        drawFrameGraph(3,"#00ff00");
     if(document.getElementById("frame5").checked)
-        drawFrameGraph(5,"#000080");
+        drawFrameGraph(4,"#000080");
     if(document.getElementById("frame6").checked)
-        drawFrameGraph(6,"#800000");
+        drawFrameGraph(5,"#800000");
 }
 //========================================================================================
 function hideGraph() {
@@ -1923,6 +1925,11 @@ function clearGrid() {
     document.getElementById('frame5Holder').style.display = 'none';
     document.getElementById('frame6Holder').style.display = 'none';
 
+
+
+    document.getElementById('graphInformation').style.display = 'none';
+    document.getElementById('legoInformation').style.display = 'none';
+    document.getElementById('frameInformation').style.display = 'none';
     numberOfLegosOnGrid++;
     document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
 
