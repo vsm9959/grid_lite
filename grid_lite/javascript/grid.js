@@ -253,27 +253,27 @@ function createFrame() {
             if(frameId == 0)
             frameBlockLogs.push(new FrameBlockLog(frameId,gridLogs[i].row,gridLogs[i].column,gridLogs[i].color));
         }
+        if(frameId == 0){
+            document.getElementById('frame1Holder').style.display = 'block';
+        }
         frameReferencePoint = findFrameReferencePoint();
         frameId++;
         frameBlockLogs.push(new FrameBlockLog(frameId,frameReferencePoint[0],frameReferencePoint[1],gridLogs[0].color));
         captureFrameSound.play();
         switch (frameId){
             case 1:
-                document.getElementById('frame1Holder').style.display = 'block';
-                break;
-            case 2:
                 document.getElementById('frame2Holder').style.display = 'block';
                 break;
-            case 3:
+            case 2:
                 document.getElementById('frame3Holder').style.display = 'block';
                 break;
-            case 4:
+            case 3:
                 document.getElementById('frame4Holder').style.display = 'block';
                 break;
-            case 5:
+            case 4:
                 document.getElementById('frame5Holder').style.display = 'block';
                 break;
-            case 6:
+            case 5:
                 document.getElementById('frame6Holder').style.display = 'block';
                 break;
         }
