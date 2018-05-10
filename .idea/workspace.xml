@@ -26,8 +26,8 @@
       <file leaf-file-name="grid.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grid_lite/javascript/grid.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="256" column="76" lean-forward="false" selection-start-line="256" selection-start-column="76" selection-end-line="256" selection-end-column="76" />
+            <state relative-caret-position="160">
+              <caret line="1679" column="0" lean-forward="true" selection-start-line="1679" selection-start-column="0" selection-end-line="1679" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -109,8 +109,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>shiftleft</find>
-      <find>vitruviaonclick</find>
       <find>framemode</find>
       <find>cleargr</find>
       <find>undo</find>
@@ -139,6 +137,8 @@
       <find>cleargrid</find>
       <find>showgraph</find>
       <find>createframe</find>
+      <find>vitruvia</find>
+      <find>numberoflegosongrid++</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -401,12 +401,12 @@
       <workItem from="1523373785305" duration="2640000" />
       <workItem from="1524575914056" duration="4671000" />
       <workItem from="1524779933936" duration="19637000" />
-      <workItem from="1525871233376" duration="2212000" />
+      <workItem from="1525871233376" duration="3940000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="279105000" />
+    <option name="totallyTimeSpent" value="280833000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2234,8 +2234,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grid_lite/javascript/grid.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="256" column="76" lean-forward="false" selection-start-line="256" selection-start-column="76" selection-end-line="256" selection-end-column="76" />
+        <state relative-caret-position="160">
+          <caret line="1679" column="0" lean-forward="true" selection-start-line="1679" selection-start-column="0" selection-end-line="1679" selection-end-column="0" />
           <folding />
         </state>
       </provider>

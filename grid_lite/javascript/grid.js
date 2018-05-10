@@ -1671,10 +1671,11 @@ function vitruviaOnClick(e) {
     if ((column > 0) && (row < yEnd - axisDelta- 1) ) {
         var x = Math.floor(column/kStep) * kStep;
         var y = Math.floor(row/kStep) * kStep;
-
-        if(isGridPlaceOccupied(x+1,y+1)){
-            numberOfLegosOnGrid++;
-            document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
+        if(!frameMode){
+            if(isGridPlaceOccupied(x+1,y+1)){
+                numberOfLegosOnGrid++;
+                document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
+            }
         }
 
         /*if(currentColor == empty){
@@ -1930,7 +1931,7 @@ function clearGrid() {
     document.getElementById('graphInformation').style.display = 'none';
     document.getElementById('legoInformation').style.display = 'none';
     document.getElementById('frameInformation').style.display = 'none';
-    numberOfLegosOnGrid++;
+    numberOfLegosOnGrid = 0;
     document.getElementById("numberOfLegosPlaced").innerText ="Number of LEGO placed: " + numberOfLegosOnGrid;
 
     drawBoard();
