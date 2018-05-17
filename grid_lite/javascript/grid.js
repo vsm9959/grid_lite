@@ -1761,7 +1761,7 @@ function vitruviaOnClick(e) {
         }*/
 
         if(frameMode &&(frameBlock.length!=0)){
-            if(frameBlock.length > 1){
+            if(frameBlock.length > 0){
                 for(var k = 0; k < frameBlock.length; k++ ){
                     frameRowDifference = frameBlock[k].row - frameReferencePoint[0];
                     frameColumnDifference = frameBlock[k].column - frameReferencePoint[1];

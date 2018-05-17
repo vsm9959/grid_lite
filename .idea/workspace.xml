@@ -26,8 +26,8 @@
       <file leaf-file-name="grid.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grid_lite/javascript/grid.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="1559" column="17" lean-forward="false" selection-start-line="1559" selection-start-column="17" selection-end-line="1559" selection-end-column="17" />
+            <state relative-caret-position="240">
+              <caret line="1768" column="47" lean-forward="false" selection-start-line="1768" selection-start-column="47" selection-end-line="1768" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -36,7 +36,7 @@
       <file leaf-file-name="grid.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grid_lite/grid.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
+            <state relative-caret-position="-4383">
               <caret line="29" column="9" lean-forward="true" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
               <folding>
                 <element signature="e#800#850#0" expanded="false" />
@@ -109,7 +109,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>framemode</find>
       <find>cleargr</find>
       <find>undo</find>
       <find>loadgrid</find>
@@ -139,6 +138,7 @@
       <find>vitruvia</find>
       <find>numberoflegosongrid++</find>
       <find>showgraph</find>
+      <find>function edge</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -401,12 +401,12 @@
       <workItem from="1523373785305" duration="2640000" />
       <workItem from="1524575914056" duration="4671000" />
       <workItem from="1524779933936" duration="19637000" />
-      <workItem from="1525871233376" duration="10355000" />
+      <workItem from="1525871233376" duration="11228000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="287248000" />
+    <option name="totallyTimeSpent" value="288121000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2234,7 +2234,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grid_lite/grid.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
+        <state relative-caret-position="-4383">
           <caret line="29" column="9" lean-forward="true" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
           <folding>
             <element signature="e#800#850#0" expanded="false" />
@@ -2304,8 +2304,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/grid_lite/javascript/grid.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="1559" column="17" lean-forward="false" selection-start-line="1559" selection-start-column="17" selection-end-line="1559" selection-end-column="17" />
+        <state relative-caret-position="240">
+          <caret line="1768" column="47" lean-forward="false" selection-start-line="1768" selection-start-column="47" selection-end-line="1768" selection-end-column="47" />
           <folding />
         </state>
       </provider>
