@@ -23,21 +23,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="grid.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="grid.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/grid_lite/javascript/grid.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="160">
-              <caret line="1679" column="0" lean-forward="true" selection-start-line="1679" selection-start-column="0" selection-end-line="1679" selection-end-column="0" />
+            <state relative-caret-position="726">
+              <caret line="1559" column="17" lean-forward="false" selection-start-line="1559" selection-start-column="17" selection-end-line="1559" selection-end-column="17" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="grid.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="grid.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/grid_lite/grid.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3310">
-              <caret line="472" column="22" lean-forward="true" selection-start-line="472" selection-start-column="22" selection-end-line="472" selection-end-column="22" />
+            <state relative-caret-position="405">
+              <caret line="29" column="9" lean-forward="true" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
               <folding>
                 <element signature="e#800#850#0" expanded="false" />
                 <element signature="n#nav#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -135,10 +135,10 @@
       <find>function showgraph</find>
       <find>function show</find>
       <find>cleargrid</find>
-      <find>showgraph</find>
       <find>createframe</find>
       <find>vitruvia</find>
       <find>numberoflegosongrid++</find>
+      <find>showgraph</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -401,12 +401,12 @@
       <workItem from="1523373785305" duration="2640000" />
       <workItem from="1524575914056" duration="4671000" />
       <workItem from="1524779933936" duration="19637000" />
-      <workItem from="1525871233376" duration="3940000" />
+      <workItem from="1525871233376" duration="10355000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="280833000" />
+    <option name="totallyTimeSpent" value="287248000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -2232,18 +2232,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/grid_lite/javascript/grid.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="1679" column="0" lean-forward="true" selection-start-line="1679" selection-start-column="0" selection-end-line="1679" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/grid_lite/grid.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3310">
-          <caret line="472" column="22" lean-forward="true" selection-start-line="472" selection-start-column="22" selection-end-line="472" selection-end-column="22" />
+        <state relative-caret-position="405">
+          <caret line="29" column="9" lean-forward="true" selection-start-line="29" selection-start-column="9" selection-end-line="29" selection-end-column="9" />
           <folding>
             <element signature="e#800#850#0" expanded="false" />
             <element signature="n#nav#0;n#body#0;n#html#0;n#!!top" expanded="false" />
@@ -2307,6 +2299,14 @@
             <element signature="n#style#0;n#button#3;n#div#0;n#td#0;n#tr#10;n#tbody#0;n#table#0;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/grid_lite/javascript/grid.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="726">
+          <caret line="1559" column="17" lean-forward="false" selection-start-line="1559" selection-start-column="17" selection-end-line="1559" selection-end-column="17" />
+          <folding />
         </state>
       </provider>
     </entry>

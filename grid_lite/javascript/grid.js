@@ -1479,6 +1479,8 @@ function decrementGraphLineThickness() {
 //========================================================================================
 function drawFrameGraph(id,color){
     var firstIteration = true;
+    var tempX = [];
+    var tempY = [];
     gDrawingContext.beginPath();
     gDrawingContext.lineJoin = "round";
     if(frameBlockLogs.length != 0){
@@ -1487,6 +1489,8 @@ function drawFrameGraph(id,color){
             if(frameBlockLogs[i].id == id){
                 document.getElementById('graphInformation').innerHTML += '<h2>Frame '+(id)+': ';
                 gDrawingContext.moveTo(frameBlockLogs[i].row+axisDelta +(kStep/2),frameBlockLogs[i].column + (kStep/2));
+                tempX.push(frameBlockLogs[i].row+axisDelta +(kStep/2));
+                tempY.push(frameBlockLogs[i].column + (kStep/2));
                 gDrawingContext.arc(frameBlockLogs[i].row+axisDelta+(kStep/2),frameBlockLogs[i].column + (kStep/2),2,0,2*Math.PI);
                 if(id == 0){
                     document.getElementById('graphInformation').innerHTML += '('+Math.floor((frameBlockLogs[i].row + 1) / kStep) +', ' +
@@ -1503,6 +1507,8 @@ function drawFrameGraph(id,color){
          gDrawingContext.moveTo(gridLogs[i].row+axisDelta,gridLogs[i].column + kStep);*/
             if(frameBlockLogs[i].id == id){
                 gDrawingContext.lineTo(frameBlockLogs[i].row + axisDelta+(kStep/2),frameBlockLogs[i].column +(kStep/2));
+                tempX.push(frameBlockLogs[i].row+axisDelta +(kStep/2));
+                tempY.push(frameBlockLogs[i].column + (kStep/2));
                 gDrawingContext.arc(frameBlockLogs[i].row+axisDelta+(kStep/2),frameBlockLogs[i].column + (kStep/2),2,0,2*Math.PI);
                 if(firstIteration){
                     document.getElementById('graphInformation').innerHTML += '('+Math.floor((frameBlockLogs[i].row + 1) / kStep) +', ' +
@@ -1521,6 +1527,53 @@ function drawFrameGraph(id,color){
     gDrawingContext.stroke();
 
     gDrawingContext.closePath();
+    if(tempX.length!=0){
+        if(id == 0){
+            for(i=1;i<(tempX.length);i++){
+                edge([tempX[i-1],tempY[i-1]],[tempX[i],tempY[i]],color);
+            }
+        } else{
+            for(i=2;i<(tempX.length);i++){
+                edge([tempX[i-1],tempY[i-1]],[tempX[i],tempY[i]],color);
+            }
+        }
+
+    }
+
+}
+//==========================================================================================
+function edge(p1,p2,color) {
+    gDrawingContext.save();
+    var dist = Math.sqrt((p2[0] - p1[0]) * (p2[0] - p1[0]) + (p2[1] - p1[1]) * (p2[1] - p1[1]));
+
+    /*gDrawingContext.beginPath();
+    gDrawingContext.lineWidth = 2;
+    gDrawingContext.strokeStyle = '#0000ff';
+    gDrawingContext.moveTo(p1[0], p1[1]);
+    gDrawingContext.lineTo(p2[0], p2[1]);
+    gDrawingContext.stroke();*/
+
+    var angle = Math.acos((p2[1] - p1[1]) / dist);
+
+    if (p2[0] < p1[0]) angle = 2 * Math.PI - angle;
+
+    var size = 10;
+
+    gDrawingContext.beginPath();
+    gDrawingContext.translate(p2[0], p2[1]);
+    gDrawingContext.rotate(-angle);
+    gDrawingContext.fillStyle = color;
+    gDrawingContext.lineWidth = 2;
+    gDrawingContext.strokeStyle = color;
+    gDrawingContext.moveTo(0, -size);
+    gDrawingContext.lineTo(-size, -size);
+    gDrawingContext.lineTo(0, 0);
+    gDrawingContext.lineTo(size, -size);
+    gDrawingContext.lineTo(0, -size);
+    gDrawingContext.closePath();
+    gDrawingContext.fill();
+    gDrawingContext.stroke();
+    gDrawingContext.restore();
 
 }
 //========================================================================================
@@ -1531,6 +1584,7 @@ function showGraph() {
     document.getElementById('graphInformation').innerHTML = '';
     document.getElementById('graphInformation').innerHTML = '<h2>All: ';
     if(document.getElementById("frameAll").checked){
+        //initial graph lines
         gDrawingContext.beginPath();
         gDrawingContext.lineJoin = "round";
 
@@ -1555,6 +1609,24 @@ function showGraph() {
         gDrawingContext.stroke();
 
         gDrawingContext.closePath();
+        // arrows
+        gDrawingContext.beginPath();
+        gDrawingContext.lineJoin = "round";
+        if(gridLogs.length != 0){
+            for(i=1;i<(gridLogs.length);i++){
+                /*gDrawingContext.moveTo(gridLogs[i].row + axisDelta+(kStep/2) ,gridLogs[i].column +(kStep/2));
+                gDrawingContext.lineTo(gridLogs[i].row + axisDelta+(kStep/2) - 50,gridLogs[i].column +(kStep/2) - 50);
+                gDrawingContext.moveTo(gridLogs[i].row + axisDelta+(kStep/2),gridLogs[i].column +(kStep/2));
+                gDrawingContext.lineTo(gridLogs[i].row + axisDelta+(kStep/2) - 50,gridLogs[i].column +(kStep/2) + 50);*/
+                edge([gridLogs[i-1].row + axisDelta+(kStep/2),gridLogs[i-1].column +(kStep/2)],[gridLogs[i].row + axisDelta+(kStep/2),gridLogs[i].column +(kStep/2)],"#ffffff");
+            }
+        }
+        gDrawingContext.strokeStyle = "#ffffff";
+        gDrawingContext.lineWidth = graphLineThickness;
+        gDrawingContext.stroke();
+
+        gDrawingContext.closePath();
+
     }
     if(document.getElementById("frame1").checked)
         drawFrameGraph(0,"#00ffcc");
