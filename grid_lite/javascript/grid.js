@@ -146,6 +146,8 @@ var outputFormat = "PLAIN";
 var shiftFormat;
 
 var levelStatement = document.getElementById('levelStatement');
+
+var arrowHead = true;
 // =============================================================================================
 function toggleGridControls() {
     var x = document.getElementById('gridControl3').style.display;
@@ -290,6 +292,16 @@ function frameModeManagement(){
     } else {
         frameMode = false;
         document.getElementById('frameModeManagement').innerText = 'OFF';
+    }
+}
+// ===================================================================================================
+function edgeManagement(){
+    if(document.getElementById('edgeManagement').innerText!= 'ON'){
+        arrowHead = true;
+        document.getElementById('edgeManagement').innerText = 'ON';
+    } else {
+        arrowHead = false;
+        document.getElementById('edgeManagement').innerText = 'OFF';
     }
 }
 // ===================================================================================================
@@ -1527,17 +1539,19 @@ function drawFrameGraph(id,color){
     gDrawingContext.stroke();
 
     gDrawingContext.closePath();
-    if(tempX.length!=0){
-        if(id == 0){
-            for(i=1;i<(tempX.length);i++){
-                edge([tempX[i-1],tempY[i-1]],[tempX[i],tempY[i]],color);
+    if(arrowHead) {
+        if (tempX.length != 0) {
+            if (id == 0) {
+                for (i = 1; i < (tempX.length); i++) {
+                    edge([tempX[i - 1], tempY[i - 1]], [tempX[i], tempY[i]], color);
+                }
+            } else {
+                for (i = 2; i < (tempX.length); i++) {
+                    edge([tempX[i - 1], tempY[i - 1]], [tempX[i], tempY[i]], color);
+                }
             }
-        } else{
-            for(i=2;i<(tempX.length);i++){
-                edge([tempX[i-1],tempY[i-1]],[tempX[i],tempY[i]],color);
-            }
-        }
 
+        }
     }
 
 }
@@ -1557,12 +1571,12 @@ function edge(p1,p2,color) {
 
     if (p2[0] < p1[0]) angle = 2 * Math.PI - angle;
 
-    var size = 10;
+    var size = 6;
 
     gDrawingContext.beginPath();
     gDrawingContext.translate(p2[0], p2[1]);
     gDrawingContext.rotate(-angle);
-    gDrawingContext.fillStyle = color;
+    gDrawingContext.fillStyle = '#000000';
     gDrawingContext.lineWidth = 2;
     gDrawingContext.strokeStyle = color;
     gDrawingContext.moveTo(0, -size);
@@ -1610,22 +1624,24 @@ function showGraph() {
 
         gDrawingContext.closePath();
         // arrows
-        gDrawingContext.beginPath();
-        gDrawingContext.lineJoin = "round";
-        if(gridLogs.length != 0){
-            for(i=1;i<(gridLogs.length);i++){
-                /*gDrawingContext.moveTo(gridLogs[i].row + axisDelta+(kStep/2) ,gridLogs[i].column +(kStep/2));
-                gDrawingContext.lineTo(gridLogs[i].row + axisDelta+(kStep/2) - 50,gridLogs[i].column +(kStep/2) - 50);
-                gDrawingContext.moveTo(gridLogs[i].row + axisDelta+(kStep/2),gridLogs[i].column +(kStep/2));
-                gDrawingContext.lineTo(gridLogs[i].row + axisDelta+(kStep/2) - 50,gridLogs[i].column +(kStep/2) + 50);*/
-                edge([gridLogs[i-1].row + axisDelta+(kStep/2),gridLogs[i-1].column +(kStep/2)],[gridLogs[i].row + axisDelta+(kStep/2),gridLogs[i].column +(kStep/2)],"#ffffff");
+        /*gDrawingContext.beginPath();
+        gDrawingContext.lineJoin = "round";*/
+        if(arrowHead) {
+            if (gridLogs.length != 0) {
+                for (i = 1; i < (gridLogs.length); i++) {
+                    /*gDrawingContext.moveTo(gridLogs[i].row + axisDelta+(kStep/2) ,gridLogs[i].column +(kStep/2));
+                     gDrawingContext.lineTo(gridLogs[i].row + axisDelta+(kStep/2) - 50,gridLogs[i].column +(kStep/2) - 50);
+                     gDrawingContext.moveTo(gridLogs[i].row + axisDelta+(kStep/2),gridLogs[i].column +(kStep/2));
+                     gDrawingContext.lineTo(gridLogs[i].row + axisDelta+(kStep/2) - 50,gridLogs[i].column +(kStep/2) + 50);*/
+                    edge([gridLogs[i - 1].row + axisDelta + (kStep / 2), gridLogs[i - 1].column + (kStep / 2)], [gridLogs[i].row + axisDelta + (kStep / 2), gridLogs[i].column + (kStep / 2)], "#ffffff");
+                }
             }
         }
-        gDrawingContext.strokeStyle = "#ffffff";
+        /*gDrawingContext.strokeStyle = "#ffffff";
         gDrawingContext.lineWidth = graphLineThickness;
         gDrawingContext.stroke();
 
-        gDrawingContext.closePath();
+        gDrawingContext.closePath();*/
 
     }
     if(document.getElementById("frame1").checked)
